@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Épuisement parental | Cabinet Bouche &amp; Chmura</title>
+<meta name="description" content="Objectiver et accompagner l'épuisement parental : consultation individuelle, de couple ou familiale à Colombes, par un psychothérapeute et une neuropsychologue.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F1EA;
+    --surface:#FFFFFF;
+    --surface-2:#EAE6D9;
+    --ink:#20241E;
+    --ink-soft:#63695D;
+    --line:#E0D9C9;
+    --accent:#1E3A5F;
+    --accent-ink:#F4F1EA;
+    --accent-soft:#E1E7EC;
+    --terracotta:#A0824C;
+    --urgence:#8C3B2E;
+    --urgence-soft:#F4E6E1;
+    --shadow: 0 1px 2px rgba(20,26,32,.06), 0 18px 34px -20px rgba(20,26,32,.28);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#141A1F; --surface:#1B232B; --surface-2:#212B33; --ink:#E9E7DC; --ink-soft:#A7ADA0;
+      --line:#2C3540; --accent:#3E6D9C; --accent-ink:#F4F1EA; --accent-soft:#22303B; --terracotta:#C9A46A;
+      --urgence:#D98A78; --urgence-soft:#2E211E;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 24px 44px -22px rgba(0,0,0,.65);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.65;}
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;letter-spacing:0;text-wrap:balance;color:var(--ink);}
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;}
+  @media (max-width:640px){.wrap{padding:0 20px;}}
+  [hidden]{display:none!important;}
+
+  .eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--ink-soft);display:inline-block;}
+
+  header.nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:1080px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .brand{display:flex;flex-direction:column;line-height:1.15;}
+  .brand .serif{font-size:19px;}
+  .brand .tag{font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase;margin-top:3px;}
+  nav.links{display:none;gap:4px;font-size:14px;}
+  nav.links a{padding:8px 12px;border-radius:999px;color:var(--ink-soft);text-decoration:none;transition:color .15s;}
+  nav.links a:hover{color:var(--ink);}
+  @media (min-width:980px){nav.links{display:flex;}}
+  .cta-btn{background:var(--accent);color:var(--accent-ink);padding:11px 22px;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap;transition:opacity .15s;}
+  .cta-btn:hover{opacity:.88;}
+  .cta-ghost{border:1.4px solid var(--line);color:var(--ink);padding:10px 20px;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap;transition:border-color .15s,color .15s;}
+  .cta-ghost:hover{border-color:var(--terracotta);color:var(--terracotta);}
+
+  .hero{padding:72px 0 56px;}
+  .hero .eyebrow{margin-bottom:18px;}
+  .hero h1{font-size:clamp(32px,4.6vw,50px);line-height:1.12;margin:0 0 22px;max-width:16ch;}
+  .hero h1 em{font-style:italic;color:var(--terracotta);}
+  .hero .lead{font-size:18px;color:var(--ink-soft);max-width:56ch;margin:0 0 30px;}
+  .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+
+  section{padding:56px 0;border-top:1px solid var(--line);}
+  .section-head{max-width:640px;margin-bottom:34px;}
+  .section-head h2{font-size:clamp(26px,3vw,34px);margin:12px 0 0;}
+  .section-head p{color:var(--ink-soft);font-size:15.5px;margin:14px 0 0;max-width:62ch;}
+
+  .signs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media (max-width:720px){.signs-grid{grid-template-columns:1fr;}}
+  .sign-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:22px 24px;box-shadow:var(--shadow);}
+  .sign-card h4{margin:0 0 8px;font-size:17px;font-family:'Cormorant Garamond',serif;font-weight:600;}
+  .sign-card p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.7;}
+
+  .cause-list{list-style:none;margin:0;padding:0;max-width:74ch;}
+  .cause-list li{position:relative;padding-left:24px;font-size:15.5px;color:var(--ink-soft);line-height:1.8;margin-bottom:14px;}
+  .cause-list li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--terracotta);}
+  .cause-list b{color:var(--ink);font-weight:600;}
+
+  .urgence-block{background:var(--urgence-soft);border:1px solid var(--urgence);border-radius:14px;padding:30px 32px;}
+  .urgence-block h3{margin:0 0 14px;font-size:21px;color:var(--urgence);}
+  .urgence-block p{margin:0 0 16px;font-size:15px;color:var(--ink);line-height:1.75;}
+  .urgence-nums{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+  .urgence-nums li{font-size:15px;color:var(--ink);}
+  .urgence-nums b{color:var(--urgence);font-size:17px;font-family:'Cormorant Garamond',serif;}
+  .disclaimer{margin-top:28px;font-size:13px;color:var(--ink-soft);font-style:italic;max-width:70ch;}
+
+  .bio-card{display:flex;gap:26px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:28px 30px;box-shadow:var(--shadow);margin-bottom:20px;}
+  @media (max-width:640px){.bio-card{flex-direction:column;gap:16px;padding:22px;}}
+  .bio-mono{flex:none;width:56px;height:56px;border-radius:50%;border:1.4px solid var(--accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;}
+  .bio-card h4{margin:0 0 2px;font-size:19px;font-family:'Cormorant Garamond',serif;font-weight:600;}
+  .bio-role{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--terracotta);font-weight:600;margin:0 0 12px;}
+  .bio-card p{font-size:14.5px;color:var(--ink-soft);line-height:1.75;margin:0;max-width:68ch;}
+
+  .accomp-list{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+  @media (max-width:720px){.accomp-list{grid-template-columns:1fr;}}
+  .accomp-list li{background:var(--surface-2);border-radius:10px;padding:16px 18px;font-size:14.5px;color:var(--ink);}
+
+  .faq-item{border-bottom:1px solid var(--line);padding:22px 0;}
+  .faq-item:first-child{padding-top:0;}
+  .faq-item h4{margin:0 0 8px;font-size:17px;font-family:'Cormorant Garamond',serif;font-weight:600;}
+  .faq-item p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.75;max-width:70ch;}
+
+  .cta-band{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--accent);color:var(--accent-ink);border-radius:16px;padding:36px 40px;}
+  .cta-band h3{color:var(--accent-ink);margin:0 0 6px;font-size:24px;}
+  .cta-band p{margin:0;color:var(--accent-soft);font-size:14.5px;}
+  .cta-band .cta-btn{background:var(--accent-ink);color:var(--accent);}
+
+  footer{padding:36px 0 48px;}
+  .footer-row{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--ink-soft);}
+  .legal{max-width:1080px;margin:0 auto;padding:0 32px 40px;font-size:12.5px;color:var(--ink-soft);line-height:1.8;}
+  @media (max-width:640px){.legal{padding:0 20px 32px;}}
+  .legal h3{font-size:15px;color:var(--ink);margin:26px 0 8px;font-family:'Inter';font-weight:600;}
+  .legal h3:first-child{margin-top:0;}
+
+  /* Écran d'aperçu privé */
+  #gatescreen{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;align-items:center;justify-content:center;padding:24px;}
+  #gatescreen .box{max-width:360px;width:100%;text-align:center;}
+  #gatescreen h2{font-size:22px;margin:0 0 8px;}
+  #gatescreen p{font-size:14px;color:var(--ink-soft);margin:0 0 20px;}
+  #gatescreen input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:15px;text-align:center;margin-bottom:12px;}
+  #gatescreen button{width:100%;padding:12px 14px;border-radius:10px;border:none;background:var(--accent);color:var(--accent-ink);font-size:15px;font-weight:600;cursor:pointer;}
+  #gatescreen .err{color:var(--urgence);font-size:13px;min-height:18px;margin-top:10px;}
+  body.locked > *:not(#gatescreen){display:none!important;}
+</style>
+</head>
+<body class="locked">
+
+<div id="gatescreen">
+  <div class="box">
+    <h2>Aperçu privé</h2>
+    <p>Ce site est en cours de préparation. Merci de saisir le code d'accès.</p>
+    <input id="gatecode" type="password" inputmode="numeric" placeholder="Code">
+    <button onclick="checkGate()">Continuer</button>
+    <div class="err" id="gateerr"></div>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="serif">Épuisement parental</span>
+      <span class="tag">Cabinet Bouche &amp; Chmura</span>
+    </div>
+    <nav class="links">
+      <a href="#reconnaitre">Reconnaître</a>
+      <a href="#pourquoi">Pourquoi</a>
+      <a href="#aide">Quand consulter</a>
+      <a href="#accompagnement">Accompagnement</a>
+      <a href="#faq">Questions</a>
+    </nav>
+    <a class="cta-btn" href="https://www.doctolib.fr/psychotherapeute/paris/max-bouche" target="_blank" rel="noopener">Prendre RDV</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" style="border-top:none;">
+    <div class="wrap">
+      <p class="eyebrow">Épuisement parental</p>
+      <h1>Quand être parent devient <em>trop lourd</em> à porter</h1>
+      <p class="lead">Se sentir vidé, à bout, distant de son enfant ou envahi par la culpabilité n'est ni rare ni honteux. C'est un état reconnu, qui se travaille, seul, en couple ou en famille.</p>
+      <div class="cta-row">
+        <a class="cta-btn" href="https://www.doctolib.fr/psychotherapeute/paris/max-bouche" target="_blank" rel="noopener">Prendre rendez-vous</a>
+        <a class="cta-ghost" href="#reconnaitre">Reconnaître les signes</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="reconnaitre">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Reconnaître l'épuisement</p>
+        <h2>Une fatigue qui ne ressemble à aucune autre</h2>
+        <p>L'épuisement parental ne se résume pas à être fatigué. Il touche l'énergie, la relation à l'enfant et l'image que l'on a de soi comme parent.</p>
+      </div>
+      <div class="signs-grid">
+        <div class="sign-card">
+          <h4>Épuisement physique et émotionnel</h4>
+          <p>Une fatigue qui ne passe pas avec le repos, présente dès le matin, qui s'installe dans la durée.</p>
+        </div>
+        <div class="sign-card">
+          <h4>Distance affective envers l'enfant</h4>
+          <p>Le sentiment de ne plus ressentir la même proximité, la même patience, parfois même de l'indifférence.</p>
+        </div>
+        <div class="sign-card">
+          <h4>Perte de plaisir dans le rôle parental</h4>
+          <p>Ce qui était vécu avec joie devient une charge, un enchaînement de tâches sans respiration.</p>
+        </div>
+        <div class="sign-card">
+          <h4>Contraste avec le parent qu'on voulait être</h4>
+          <p>Un écart de plus en plus net entre ses valeurs éducatives et sa manière réelle de réagir au quotidien, souvent suivi de culpabilité.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pourquoi">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Pourquoi cela arrive</p>
+        <h2>Un déséquilibre entre les charges et les ressources</h2>
+        <p>L'épuisement parental s'installe quand les exigences dépassent durablement les moyens de les tenir, sans relais suffisant pour souffler.</p>
+      </div>
+      <ul class="cause-list">
+        <li><b>Isolement et manque de relais.</b> Peu ou pas d'aide extérieure, une famille éloignée, une charge portée seul ou à deux sans répit.</li>
+        <li><b>Exigence et perfectionnisme éducatif.</b> Le sentiment de devoir toujours bien faire, alimenté par des injonctions éducatives parfois contradictoires.</li>
+        <li><b>Difficultés propres à l'enfant.</b> Un enfant à la régulation émotionnelle difficile, un trouble du développement ou de l'attention, qui demande une vigilance constante.</li>
+        <li><b>Tensions dans le couple ou la coparentalité.</b> Un déséquilibre dans la répartition des tâches, des désaccords éducatifs, une séparation difficile.</li>
+        <li><b>Événements de vie qui s'accumulent.</b> Deuil, maladie, précarité, sommeil très dégradé&nbsp;: autant de facteurs qui réduisent la marge de manœuvre.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="aide">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Quand demander de l'aide</p>
+        <h2>Ne pas attendre le point de rupture</h2>
+        <p>Consulter tôt évite que l'épuisement ne s'installe durablement. Certains signes demandent une réponse plus rapide.</p>
+      </div>
+      <div class="urgence-block">
+        <h3>En cas de détresse importante</h3>
+        <p>Si vous sentez que vous perdez le contrôle, que vous craignez de faire du mal à votre enfant ou à vous-même, ou si vous vous sentez en danger&nbsp;:</p>
+        <ul class="urgence-nums">
+          <li><b>15</b> &nbsp;Urgence médicale ou psychiatrique</li>
+          <li><b>3114</b> &nbsp;Numéro national de prévention du suicide, 24h/24 et 7j/7</li>
+          <li><b>119</b> &nbsp;Allô Enfance en Danger, si un enfant est en danger ou risque de l'être</li>
+        </ul>
+      </div>
+      <p class="disclaimer">Ce site informe et ne remplace pas une évaluation individuelle. Il ne permet pas de poser un diagnostic.</p>
+    </div>
+  </section>
+
+  <section id="accompagnement">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Notre accompagnement</p>
+        <h2>Accompagner sans juger, ni le parent ni l'enfant</h2>
+        <p>L'épuisement parental se travaille en tenant compte de la personne, du couple, de la famille et, si nécessaire, des difficultés propres de l'enfant. Jamais l'enfant n'est présenté comme la cause du problème, jamais le parent comme fautif.</p>
+      </div>
+      <ul class="accomp-list">
+        <li>Consultation individuelle, pour poser l'épuisement, ses causes et en sortir</li>
+        <li>Travail de couple, quand la coparentalité s'est fragilisée</li>
+        <li>Consultation familiale, quand la relation avec l'enfant s'est tendue</li>
+        <li>Regard sur le fonctionnement de l'enfant, quand ses difficultés propres pèsent dans l'équilibre familial</li>
+      </ul>
+
+      <div style="margin-top:44px;display:grid;gap:18px;">
+        <div class="bio-card">
+          <div class="bio-mono">MB</div>
+          <div>
+            <h4>Max Bouche</h4>
+            <p class="bio-role">Psychothérapeute, psychanalyste</p>
+            <p>Reçoit les adultes, les couples et les familles. Praticien EMDR, formé aux dynamiques familiales et à l'accompagnement des parents en difficulté.</p>
+          </div>
+        </div>
+        <div class="bio-card">
+          <div class="bio-mono">SC</div>
+          <div>
+            <h4>Sabrina Chmura</h4>
+            <p class="bio-role">Neuropsychologue</p>
+            <p>Apporte un regard sur le fonctionnement de l'enfant lorsque c'est pertinent&nbsp;: régulation émotionnelle, attention, développement, à travers un bilan adapté.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Pour les proches et les professionnels</p>
+        <h2>Repérer et orienter, sans culpabiliser</h2>
+        <p>Un proche, un enseignant, un médecin ou une puéricultrice remarque parfois l'épuisement avant le parent lui-même. En parler simplement, sans jugement, et orienter vers une consultation, est souvent le premier pas utile.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Questions fréquentes</p>
+        <h2>Ce qu'on nous demande souvent</h2>
+      </div>
+      <div class="faq-item">
+        <h4>Est-ce que je dois venir seul ou avec mon conjoint&nbsp;?</h4>
+        <p>Cela dépend de ce qui pèse le plus dans votre situation. Le premier rendez-vous permet d'en discuter et d'orienter vers la formule la plus adaptée.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Est-ce que mon enfant va être reçu&nbsp;?</h4>
+        <p>Pas systématiquement. Cela n'a de sens que si ses propres difficultés jouent un rôle dans l'épuisement, et se décide ensemble.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Proposez-vous des téléconsultations&nbsp;?</h4>
+        <p>Oui, en complément des rendez-vous au cabinet, selon les disponibilités indiquées sur Doctolib.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Comment se passe le premier rendez-vous&nbsp;?</h4>
+        <p>Il permet de poser la situation, d'évaluer ce qui pèse le plus et de convenir ensemble du cadre de suivi le plus adapté.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h3>Prendre rendez-vous</h3>
+          <p>Consultations et téléconsultations, réservation en ligne sur Doctolib.</p>
+        </div>
+        <a class="cta-btn" href="https://www.doctolib.fr/psychotherapeute/paris/max-bouche" target="_blank" rel="noopener">Doctolib ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="legal">
+  <h3>Mentions légales</h3>
+  <p>Le présent site est édité par le Cabinet Bouche &amp; Chmura, exercice libéral de psychologie et de psychothérapie.<br>
+  <b>Éditeur&nbsp;:</b> Max Bouche.<br>
+  <b>SIREN&nbsp;:</b> 429 874 461.<br>
+  <b>Assurance responsabilité civile professionnelle&nbsp;:</b> MACSF, contrat n°8179459.<br>
+  <b>Hébergement&nbsp;:</b> OVHcloud, 2 rue Kellermann, 59100 Roubaix, France.</p>
+  <h3>Confidentialité</h3>
+  <p>Ce site est un site d'information et ne collecte aucune donnée clinique. La prise de rendez-vous et les échanges liés à une prise en charge passent exclusivement par la messagerie Doctolib.</p>
+</div>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© Cabinet Bouche &amp; Chmura</span>
+    <span>5 avenue Clert et Robert, 92700 Colombes</span>
+  </div>
+</footer>
+
+<script>
+  function checkGate(){
+    var v = document.getElementById('gatecode').value.trim();
+    if(v === '1024'){
+      document.body.classList.remove('locked');
+      document.getElementById('gatescreen').remove();
+    } else {
+      document.getElementById('gateerr').textContent = 'Code incorrect.';
+    }
+  }
+  document.getElementById('gatecode').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') checkGate();
+  });
+</script>
+
+</body>
+</html>

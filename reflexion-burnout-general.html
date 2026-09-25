@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Burnout parental : le reconnaître et se faire accompagner</title>
-<meta name="description" content="Épuisement parental : ce que décrit la recherche, les signes qui alertent, et un accompagnement individuel, de couple ou familial au cabinet Bouche et Chmura.">
+<title>Le burn-out en general : réflexion clinique burn-out parental</title>
+<meta name="description" content="Réflexion clinique privée sur le burn-out parental : définition, histoire, modèles, épidémiologie">
 <meta name="robots" content="noindex,nofollow">
-<link rel="canonical" href="https://burnout-parental.fr/">
+<link rel="canonical" href="https://burnout-parental.fr/reflexion-burnout-general.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Burnout parental : le reconnaître et se faire accompagner">
-<meta property="og:description" content="Épuisement parental : ce que décrit la recherche, les signes qui alertent, et un accompagnement individuel, de couple ou familial au cabinet Bouche et Chmura.">
+<meta property="og:title" content="Le burn-out en general : réflexion clinique burn-out parental">
+<meta property="og:description" content="Réflexion clinique privée sur le burn-out parental : définition, histoire, modèles, épidémiologie">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://burnout-parental.fr/">
+<meta property="og:url" content="https://burnout-parental.fr/reflexion-burnout-general.html">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:image" content="https://burnout-parental.fr/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -348,6 +348,57 @@ html.ds[data-motion="off"]{scroll-behavior:auto;}
 html.ds[data-motion="off"] *,html.ds[data-motion="off"] *::before,html.ds[data-motion="off"] *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
 html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!important;}
 </style>
+<style>
+/* ===== Composants ajoutes (Tests / Reflexion clinique) ===== */
+.breadcrumb{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;font:600 .86rem/1 var(--font-body);color:var(--c-ink-soft);text-decoration:none!important;}
+.breadcrumb:hover{color:var(--c-accent);}
+.breadcrumb svg{width:15px;height:15px;}
+.card-link{display:block;text-decoration:none!important;color:inherit;}
+.card-link:hover{color:inherit;}
+.card-link .card-icon{transition:background-color var(--dur) var(--ease);}
+.card-link:hover .card-icon{background:var(--c-accent-soft);color:var(--c-accent);}
+.refl-block{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius-l);padding:clamp(20px,2.6vw,30px);margin-bottom:16px;}
+.refl-block h3{font-size:1.1rem;margin:0 0 12px;display:flex;align-items:center;gap:10px;}
+.refl-block h3 .tag{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:9px;background:var(--c-moss-soft);color:var(--c-moss-strong);font:700 .72rem/1 var(--font-body);letter-spacing:.02em;}
+.refl-block p{color:var(--c-ink-soft);margin:0 0 12px;font-size:.96rem;}
+.refl-block p:last-child{margin-bottom:0;}
+.refl-article h3{font-size:1.2rem;margin:28px 0 10px;color:var(--c-ink);}
+.refl-article h3:first-child{margin-top:0;}
+.refl-article p{color:var(--c-ink-soft);margin:0 0 14px;font-size:.98rem;line-height:1.7;}
+.refl-sources{margin-top:30px;padding-top:20px;border-top:1px solid var(--c-line);}
+.refl-sources h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-faint);margin:0 0 10px;font-family:var(--font-body);font-weight:700;}
+.refl-sources ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;}
+.refl-sources li{font-size:.78rem;color:var(--c-ink-faint);line-height:1.6;padding-left:14px;position:relative;}
+.refl-sources li::before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--c-line-strong);}
+.note-box{border-radius:var(--radius-l);padding:clamp(18px,2.4vw,26px);background:var(--c-accent-soft);border:1px solid color-mix(in srgb,var(--c-accent) 30%,transparent);margin-bottom:32px;}
+.note-box p{margin:0;font-size:.92rem;color:var(--c-ink-soft);}
+.note-box strong{color:var(--c-ink);}
+
+/* Accordeon des tests, petite fleche */
+.acc-list{display:grid;gap:12px;}
+.acc{border-radius:var(--radius-m);background:var(--c-surface);border:1px solid var(--c-line);transition:box-shadow var(--dur) var(--ease);overflow:hidden;}
+.acc[open]{box-shadow:var(--shadow-m);}
+.acc summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;cursor:pointer;}
+.acc summary::-webkit-details-marker{display:none;}
+.acc-title{display:flex;flex-direction:column;gap:3px;}
+.acc-name{font:600 1.06rem/1.2 var(--font-display);color:var(--c-ink);}
+.acc-sub{font-size:.78rem;color:var(--c-ink-faint);}
+.acc-arrow{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--c-moss-soft);display:grid;place-items:center;transition:transform var(--dur) var(--ease-out);}
+.acc-arrow svg{width:15px;height:15px;color:var(--c-moss-strong);transition:transform var(--dur) var(--ease-out);}
+.acc[open] .acc-arrow svg{transform:rotate(180deg);}
+.acc-body{padding:0 22px 22px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));}
+.acc-field{background:var(--c-bg-alt);border-radius:var(--radius-s);padding:13px 15px;}
+.acc-field h4{margin:0 0 5px;font:700 .72rem/1.2 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--c-moss-strong);}
+.acc-field p{margin:0;font-size:.9rem;color:var(--c-ink-soft);line-height:1.55;}
+.acc-field.full{grid-column:1/-1;}
+.acc-badges{display:flex;flex-wrap:wrap;gap:6px;padding:0 22px 18px;margin-top:-6px;}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font:600 .72rem/1 var(--font-body);background:var(--c-bg-alt);color:var(--c-ink-soft);border:1px solid var(--c-line);}
+.badge.ok{background:var(--c-moss-soft);color:var(--c-moss-strong);border-color:transparent;}
+.badge.warn{background:var(--c-accent-soft);color:var(--c-accent);border-color:transparent;}
+.tests-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;}
+</style>
+
+
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalBusiness","name":"Cabinet Bouche & Chmura","url":"https://burnout-parental.fr/","email":"contact@burnout-parental.fr","areaServed":"France","availableLanguage":"fr","employee":[{"@type":"Person","name":"Max Bouche","jobTitle":"Clinicien, psychothérapeute, psychanalyste","identifier":{"@type":"PropertyValue","propertyID":"RPPS","value":"10010375631"}},{"@type":"Person","name":"Sabrina Chmura","jobTitle":"Psychologue clinicienne spécialisée en neuropsychologie","identifier":{"@type":"PropertyValue","propertyID":"RPPS","value":"10008870825"}}]}
 </script>
@@ -370,7 +421,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 
 <header class="site-header" id="siteHeader">
   <div class="wrap header-inner">
-    <a class="logo" href="#contenu">
+    <a class="logo" href="index.html">
       <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-2.5-7-6-7-10a7 7 0 0 1 14 0c0 4-3 7.5-7 10Z"/><path d="M12 12v-3"/></svg></span>
       <span class="logo-text">
         <span class="logo-name">Burnout parental</span>
@@ -379,11 +430,10 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     </a>
     <nav class="main-nav" aria-label="Navigation principale">
       <ul class="nav-list">
-        <li><a class="nav-link" href="#signes">Reconnaître</a></li>
-        <li><a class="nav-link" href="#pourquoi">Pourquoi</a></li>
-        <li><a class="nav-link" href="#aide">Quand consulter</a></li>
-        <li><a class="nav-link" href="#accompagnement">Accompagnement</a></li>
-        <li><a class="nav-link" href="#faq">Questions</a></li>
+        <li><a class="nav-link" href="index.html#signes">Reconnaître</a></li>
+        <li><a class="nav-link" href="index.html#pourquoi">Pourquoi</a></li>
+        <li><a class="nav-link" href="index.html#aide">Quand consulter</a></li>
+        <li><a class="nav-link" href="index.html#accompagnement">Accompagnement</a></li>
         <li><a class="nav-link" href="tests.html">Tests</a></li>
         <li><a class="nav-link" href="reflexion-clinique.html">?</a></li>
       </ul>
@@ -399,220 +449,60 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 
 <main id="contenu">
 
-  <section class="hero">
-    <div class="wrap">
-      <span class="eyebrow" data-reveal>Épuisement parental</span>
-      <h1 class="h-display" data-reveal style="--d:.04s">Quand être parent devient <em>trop lourd</em> à porter</h1>
-      <p class="lead" data-reveal style="--d:.08s">Se sentir vidé, à bout, distant de son enfant ou envahi par la culpabilité n'est ni rare ni honteux. C'est un état reconnu, qui se travaille, seul, en couple ou en famille.</p>
-      <div class="hero-actions" data-reveal style="--d:.14s">
-        <a class="btn btn-primary btn-lg" href="https://www.doctolib.fr/psychotherapeute/paris/max-bouche" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
-          Prendre rendez-vous
-        </a>
-        <a class="btn btn-secondary btn-lg" href="#signes">Reconnaître les signes</a>
-      </div>
-      <div class="page-tools" data-reveal style="--d:.2s">
-        <button class="tool-btn" id="btnAudio" aria-pressed="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19 8a6 6 0 0 1 0 8M15.5 10.5a2.5 2.5 0 0 1 0 3"/></svg>
-          Écouter cette page
-        </button>
-        <div class="share-wrap">
-          <button class="tool-btn" id="btnShare" aria-haspopup="true" aria-expanded="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.6 15.4 6.4M8.6 13.4l6.8 4.2"/></svg>
-            Partager
-          </button>
-          <div class="popover" id="sharePopover">
-            <button id="btnCopyLink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.5-1.5"/></svg>Copier le lien</button>
-            <button id="btnPrint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2"/><path d="M6 14h12v7H6z"/></svg>Imprimer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="signes" class="section section-alt">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Se reconnaître</span>
-        <h2 class="h-section">Ce que beaucoup de parents épuisés n'osent pas dire</h2>
-        <p class="lead">Chacun de ces signes, pris seul, peut être passager. C'est leur accumulation dans la durée qui doit alerter.</p>
-      </div>
-      <div class="grid grid-4">
-        <div class="card" data-reveal style="--d:0s">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-          <h3>Une fatigue qui ne se répare pas</h3>
-          <p>Vous vous réveillez déjà épuisé·e, quelle que soit la nuit passée.</p>
-        </div>
-        <div class="card" data-reveal style="--d:.05s">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></div>
-          <h3>Une saturation nouvelle</h3>
-          <p>Un agacement, une lassitude du rôle de parent qui n'existaient pas avant.</p>
-        </div>
-        <div class="card" data-reveal style="--d:.1s">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-2.5-7-6-7-10a7 7 0 0 1 14 0c0 4-3 7.5-7 10Z" stroke-dasharray="3 3"/></svg></div>
-          <h3>Moins de plaisir partagé</h3>
-          <p>Les moments avec vos enfants pèsent, là où ils vous portaient.</p>
-        </div>
-        <div class="card" data-reveal style="--d:.15s">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M15 6l6 6-6 6"/></svg></div>
-          <h3>Une distance qui s'installe</h3>
-          <p>Un éloignement émotionnel involontaire, suivi de culpabilité.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="comprendre" class="section">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Comprendre</span>
-        <h2 class="h-section">Un phénomène défini et étudié, pas une impression</h2>
-        <p class="lead">Les chercheuses Isabelle Roskam, Maria Elena Brianda et Moïra Mikolajczak ont décrit le burnout parental autour de quatre dimensions qui se renforcent mutuellement. Une première échelle en trois dimensions a été publiée en 2017, puis le modèle à quatre dimensions en 2018.</p>
-      </div>
-      <div class="dims" data-reveal>
-        <div class="dim"><span class="num">01</span><h3>Épuisement</h3><p>Dans le rôle de parent, distinct de la fatigue physique ordinaire.</p></div>
-        <div class="dim"><span class="num">02</span><h3>Contraste</h3><p>L'écart ressenti avec le parent qu'on était, ou qu'on pensait devenir.</p></div>
-        <div class="dim"><span class="num">03</span><h3>Perte de plaisir</h3><p>Un ras-le-bol du rôle parental qui remplace l'épanouissement.</p></div>
-        <div class="dim"><span class="num">04</span><h3>Distanciation</h3><p>Une mise à distance émotionnelle involontaire des enfants.</p></div>
-      </div>
-      <div class="stats" data-reveal>
-        <div class="stat"><span class="stat-number">2 à 12&nbsp;%</span><span class="stat-label">des parents concernés, selon la méthode de calcul retenue</span></div>
-        <div class="stat"><span class="stat-number">8,1&nbsp;%</span><span class="stat-label">des parents en Belgique, prévalence mesurée dans l'étude internationale portant sur 42 pays</span></div>
-        <div class="stat"><span class="stat-number">2018</span><span class="stat-label">publication du modèle à quatre dimensions et de l'échelle PBA</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="pourquoi" class="section section-alt">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Pourquoi cela arrive</span>
-        <h2 class="h-section">Un déséquilibre entre les charges et les ressources</h2>
-        <p class="lead">L'épuisement s'installe quand les exigences dépassent durablement les moyens de les tenir, sans relais suffisant pour souffler. Il n'y a jamais une cause unique.</p>
-      </div>
-      <ul class="check-list" data-reveal>
-        <li>Isolement et manque de relais : peu ou pas d'aide extérieure, une famille éloignée, une charge portée seul·e ou à deux sans répit.</li>
-        <li>Exigence et perfectionnisme éducatif : le sentiment de devoir toujours bien faire, alimenté par des injonctions parfois contradictoires.</li>
-        <li>Difficultés propres à l'enfant : une régulation émotionnelle difficile, un trouble du développement ou de l'attention, qui demande une vigilance constante.</li>
-        <li>Tensions dans le couple ou la coparentalité : déséquilibre dans la répartition des tâches, désaccords éducatifs, séparation difficile.</li>
-        <li>Événements de vie qui s'accumulent : deuil, maladie, précarité, sommeil très dégradé.</li>
-      </ul>
-    </div>
-  </section>
-
   <section class="section">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Un instant pour vous</span>
-        <h2 class="h-section">Est-ce que ça vous parle ?</h2>
-        <p class="lead">Ceci n'est pas un test diagnostique, seule une évaluation clinique peut poser un diagnostic. Ce sont des questions pour vous aider à y voir plus clair, à tête reposée.</p>
-      </div>
-      <div class="reflet" data-reveal>
-        <ul>
-          <li>Vous arrive-t-il de vous demander comment vous en êtes arrivé·e là, vous qui vouliez être un parent différent ?</li>
-          <li>Ressentez-vous une fatigue qui persiste même après du repos ou des vacances ?</li>
-          <li>Avez-vous l'impression de ne plus ressentir grand-chose face à vos enfants, là où vous ressentiez de la joie avant ?</li>
-          <li>Vous surprenez-vous à réagir avec plus de dureté que vous ne le voudriez, suivi de culpabilité ?</li>
-        </ul>
-        <p class="note">Ces questions ne donnent aucun score et ne permettent aucun diagnostic. Si elles vous parlent et que cela dure depuis plusieurs semaines, en parler avec un professionnel formé à ce sujet est un réflexe utile, pas un aveu d'échec.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="aide" class="section section-alt">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Quand demander de l'aide</span>
-        <h2 class="h-section">Ne pas attendre le point de rupture</h2>
-        <p class="lead">Consulter tôt laisse plus de marge pour travailler la situation. Certains signes demandent une réponse sans attendre.</p>
-      </div>
-      <div class="urgent" data-reveal>
-        <p style="margin:0;font-weight:600;">Si vous sentez que vous perdez le contrôle, que vous craignez de faire du mal à votre enfant ou à vous-même, ou si vous vous sentez en danger :</p>
-        <div class="urgent-grid">
-          <div class="urgent-item"><span class="urgent-num">15</span><span><strong>Urgence</strong><span>Médicale ou psychiatrique</span></span></div>
-          <div class="urgent-item"><span class="urgent-num">3114</span><span><strong>Prévention suicide</strong><span>Numéro national, 24 h/24, 7 j/7</span></span></div>
-          <div class="urgent-item"><span class="urgent-num">119</span><span><strong>Allô Enfance en Danger</strong><span>Si un enfant est en danger</span></span></div>
-        </div>
-        <p class="small" style="margin:16px 0 0;font-size:.84rem;color:var(--c-ink-faint);">Ce site informe et ne remplace pas une évaluation individuelle. Il ne permet pas de poser un diagnostic.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="accompagnement" class="section">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Accompagnement</span>
-        <h2 class="h-section">Accompagner sans juger, ni le parent ni l'enfant</h2>
-        <p class="lead">Équipe clinicienne expérimentée, formée au secteur hospitalier, à la recherche et aux travaux doctoraux.</p>
-        <p class="lead">Le burnout parental se travaille en tenant compte de la personne, du couple, de la famille et, si nécessaire, des difficultés propres de l'enfant. Jamais l'enfant n'est présenté comme la cause du problème, jamais le parent comme fautif.</p>
-      </div>
-      <div class="grid grid-2" data-reveal>
-        <div class="card">
-          <div class="person">
-            <div class="avatar">MB</div>
-            <div>
-              <h3>Max Bouche</h3>
-              <p class="role">Clinicien, psychothérapeute, psychanalyste</p>
-              <p>Reçoit les adultes, les couples et les familles. Accréditation EMDR Europe, formé aux dynamiques familiales et à l'accompagnement des parents en difficulté.</p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="person">
-            <div class="avatar alt">SC</div>
-            <div>
-              <h3>Sabrina Chmura</h3>
-              <p class="role">Psychologue clinicienne spécialisée en neuropsychologie</p>
-              <p>Apporte un regard sur le fonctionnement de l'enfant lorsque c'est pertinent : régulation émotionnelle, attention, développement, à travers un bilan adapté.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid grid-4" style="margin-top:14px;" data-reveal>
-        <div class="card"><h3 style="font-size:.98rem;">Consultation individuelle</h3><p>Pour poser l'épuisement et ce qui l'entretient, à son rythme.</p></div>
-        <div class="card"><h3 style="font-size:.98rem;">Travail de couple</h3><p>Quand la coparentalité s'est fragilisée.</p></div>
-        <div class="card"><h3 style="font-size:.98rem;">Consultation familiale</h3><p>Quand la relation avec l'enfant s'est tendue.</p></div>
-        <div class="card"><h3 style="font-size:.98rem;">Regard sur l'enfant</h3><p>Quand ses difficultés propres pèsent dans l'équilibre familial.</p></div>
+    <div class="wrap-narrow">
+      <a class="breadcrumb" href="reflexion-clinique.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Réflexion clinique</a>
+      <span class="eyebrow" data-reveal>Réflexion clinique privée · Fond clinique</span>
+      <h1 class="h-display" style="font-size:clamp(1.9rem,1.3rem + 2.6vw,2.9rem);" data-reveal>Le burn-out en general</h1>
+      <p class="lead" data-reveal>Une synthèse de fond sur le burn-out en général, pour poser le cadre avant de se concentrer sur sa forme parentale.</p>
+      <div class="note-box" data-reveal>
+        <p><strong>Note de travail.</strong> Synthèse de littérature à visée de culture clinique générale, sourcée quand c'est possible.</p>
       </div>
     </div>
   </section>
 
   <section class="section section-alt">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Pour les proches et les professionnels</span>
-        <h2 class="h-section">Repérer et orienter, sans culpabiliser</h2>
-        <p class="lead">Un proche, un enseignant, un médecin ou une puéricultrice remarque parfois l'épuisement avant le parent lui-même. En parler simplement, sans jugement, et orienter vers une consultation, est souvent le premier pas utile.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq" class="section">
     <div class="wrap-narrow">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Questions fréquentes</span>
-        <h2 class="h-section">Ce qu'on nous demande souvent</h2>
+      <div class="refl-article" data-reveal>
+        <h3>Définition et repères conceptuels</h3>
+<p>Le terme burn-out désigne un syndrome d'épuisement lié à une exposition prolongée à des situations de travail exigeantes sur le plan émotionnel. Dans sa définition de référence, l'Organisation mondiale de la santé le décrit comme « un syndrome conceptualisé comme résultant d'un stress chronique au travail qui n'a pas été géré avec succès », caractérisé par trois dimensions : un sentiment d'épuisement ou de fatigue intense, une distance mentale croissante à l'égard de son travail, ou des sentiments de négativisme ou de cynisme liés au travail, et enfin une efficacité professionnelle réduite. Un point mérite d'être souligné avec précision, car il structure toute la réflexion clinique ultérieure : l'OMS a choisi de classer le burn-out, dans la onzième révision de la Classification internationale des maladies, comme un « phénomène lié au travail », et non comme une maladie ou un trouble mental à part entière. L'organisation précise elle-même que le terme « renvoie spécifiquement à des phénomènes du contexte professionnel et ne devrait pas être utilisé pour décrire des expériences dans d'autres domaines de la vie ». Cette précision aura une importance directe lorsqu'il s'agira, dans un second temps, de réfléchir à l'extension du concept vers la sphère parentale, qui n'est pas un contexte professionnel au sens strict.</p>
+<p>En France, la Haute Autorité de Santé retient une définition clinique proche, décrivant le burnout comme un « épuisement physique, émotionnel et mental qui résulte d'un investissement prolongé dans des situations de travail exigeantes sur le plan émotionnel », et reprend elle aussi une lecture en trois dimensions : épuisement émotionnel, cynisme ou dépersonnalisation à l'égard du travail, et sentiment de non-accomplissement personnel. Il ne s'agit donc pas d'un diagnostic médical unique et isolé, mais d'un syndrome, c'est-à-dire d'un ensemble de manifestations convergentes dont l'intensité et la combinaison varient d'une personne à l'autre, et qui peut coexister avec d'autres tableaux cliniques, notamment dépressifs, sans s'y réduire.</p>
+<h3>Historique du concept</h3>
+<p>L'entrée du burn-out dans le champ clinique et scientifique est généralement rattachée aux travaux du psychanalyste américain Herbert Freudenberger, qui publie en 1974 dans le Journal of Social Issues un article fondateur, « Staff Burn-Out », à partir de son observation clinique du personnel et des bénévoles d'une structure de soin pour toxicomanes à New York. Freudenberger y décrit un état d'épuisement progressif chez des professionnels très investis, confrontés à une demande excessive au regard de leurs ressources en énergie et en moyens. Le terme burn-out, emprunté au langage courant où il désigne littéralement le fait de « se consumer », prend alors un sens clinique précis.</p>
+<p>C'est cependant la psychologue sociale Christina Maslach qui donnera au concept son assise empirique et sa méthodologie de recherche. À partir du milieu des années 1970, elle étudie l'épuisement chez des professionnels dont le travail suppose un contact permanent avec autrui, notamment dans les métiers de la relation d'aide et du soin. Avec Susan E. Jackson, elle publie en 1981 dans le Journal of Organizational Behavior l'article fondateur qui présente le Maslach Burnout Inventory, ou MBI, premier outil standardisé de mesure du burn-out. Cet outil structure le syndrome autour de trois dimensions, qui restent aujourd'hui encore la référence la plus citée dans la littérature : l'épuisement émotionnel, correspondant au sentiment d'être vidé de ses ressources affectives, la dépersonnalisation ou le cynisme, qui se traduit par une attitude distante, détachée, parfois négative envers les personnes avec lesquelles on travaille, et la réduction du sentiment d'accomplissement personnel, c'est-à-dire une perte de confiance dans sa propre compétence et dans la valeur de son travail. Ce modèle tridimensionnel a profondément marqué la manière dont le burn-out est pensé et évalué, y compris en dehors du champ strictement professionnel.</p>
+<h3>Les principaux modèles théoriques</h3>
+<p>Le modèle tridimensionnel de Maslach reste le socle théorique le plus largement repris, mais il a été prolongé et discuté par plusieurs modèles complémentaires, qui éclairent chacun une facette différente du processus.</p>
+<p>Le modèle demande-contrôle, proposé par le sociologue Robert Karasek à la fin des années 1970, met l'accent sur l'articulation entre les exigences psychologiques d'un poste et la latitude décisionnelle dont dispose la personne pour y faire face. Selon ce modèle, c'est la combinaison d'une forte demande et d'une faible marge de contrôle qui constitue la situation la plus délétère, plutôt que la charge de travail prise isolément. Ce modèle a ensuite été enrichi par la prise en compte du soutien social au travail, qui module lui aussi le risque.</p>
+<p>Le modèle du déséquilibre efforts-récompenses, développé par le sociologue Johannes Siegrist dans les années 1990, propose un éclairage complémentaire : le risque d'épuisement serait particulièrement élevé lorsque les efforts fournis, qu'ils soient physiques, cognitifs ou émotionnels, ne trouvent pas de contrepartie perçue comme équitable, cette récompense pouvant prendre la forme d'une reconnaissance, d'une sécurité de la situation ou d'une valorisation symbolique, sans que cela se limite à une question de rémunération.</p>
+<p>Le modèle des exigences et des ressources professionnelles, dit modèle JD-R, formalisé notamment par Evangelia Demerouti, Arnold Bakker et leurs collègues au tournant des années 2000, propose une lecture plus dynamique : tout poste comporte à la fois des exigences, qui coûtent en énergie, et des ressources, qui soutiennent l'engagement et peuvent contrebalancer ces exigences. Le burn-out surviendrait lorsque les exigences excèdent durablement les ressources disponibles, qu'elles soient matérielles, organisationnelles, relationnelles ou personnelles. Ce modèle a l'intérêt de ne pas décrire uniquement un processus d'épuisement, mais aussi, en miroir, un processus d'engagement au travail lorsque les ressources sont suffisantes.</p>
+<p>Enfin, Christina Maslach et Michael Leiter ont proposé, à la fin des années 1990, un modèle organisationnel plus large, celui des six domaines de la vie professionnelle, qui identifie six zones de correspondance ou de décalage entre la personne et son environnement de travail : la charge de travail, le contrôle sur son activité, la reconnaissance, le sentiment de communauté et de soutien collégial, la perception d'équité, et enfin la correspondance entre les valeurs personnelles et celles de l'organisation. Selon ce modèle, plus les décalages s'accumulent sur ces six axes, plus le risque de burn-out augmente, ce qui déplace l'attention du seul individu vers l'interaction entre la personne et son cadre de travail.</p>
+<p>On observe collectivement, à travers ces modèles, un déplacement progressif d'une lecture centrée sur l'épuisement individuel vers une lecture qui articule vulnérabilités personnelles et conditions structurelles. Cette évolution mérite d'être gardée à l'esprit dans toute réflexion clinique ultérieure, y compris lorsqu'il s'agira d'envisager, avec toute la prudence nécessaire, ce que ces cadres théoriques élaborés en contexte professionnel peuvent, ou non, éclairer d'une situation parentale.</p>
+<h3>Épidémiologie générale</h3>
+<p>L'estimation de la prévalence du burn-out se heurte à une difficulté méthodologique réelle : l'absence d'un seuil diagnostique unique et consensuel, et l'usage d'outils de mesure et de critères de seuil variables selon les études, rend les comparaisons délicates et explique la dispersion importante des chiffres publiés selon les populations et les méthodologies retenues. À titre d'illustration, certains travaux français menés auprès de médecins généralistes auraient rapporté un niveau élevé d'épuisement émotionnel chez une proportion importante des praticiens interrogés, de l'ordre d'un généraliste sur quatre selon les échantillons retenus, tandis qu'une forme complète du syndrome, associant un score élevé sur les trois dimensions du MBI, y resterait nettement plus rare. D'autres études françaises menées sur la même profession, avec des critères proches, auraient rapporté des taux sensiblement différents, ce qui illustre la variabilité évoquée plus haut et invite à la prudence quant à toute généralisation d'un chiffre unique, ces données restant à considérer comme des ordres de grandeur indicatifs plutôt que comme des chiffres de référence stabilisés.</p>
+<p>Au-delà du burn-out au sens strict du MBI, Santé publique France suit également, dans le cadre de son programme de surveillance de la santé mentale au travail, plusieurs indicateurs connexes de souffrance psychique en lien avec l'activité professionnelle, comme la prévalence de la détresse psychologique en lien avec le travail ou des épisodes dépressifs caractérisés dans l'année chez les actifs occupés, indicateurs qui ont été suivis à la hausse sur certaines périodes selon les enquêtes menées. Ces données, bien que distinctes du burn-out au sens des trois dimensions de Maslach, rappellent que ce syndrome s'inscrit dans un ensemble plus large de la santé mentale au travail, avec lequel il partage des facteurs de risque communs, sans s'y confondre.</p>
+<h3>Symptômes et tableau clinique</h3>
+<p>Le tableau clinique du burn-out, tel que le décrit la Haute Autorité de Santé, se déploie sur plusieurs registres qui, en pratique, s'installent souvent de façon progressive et peuvent longtemps passer inaperçus, y compris par la personne elle-même. Sur le plan émotionnel, on retrouve fréquemment une anxiété, une tension interne, un abaissement de l'humeur, une irritabilité et, parfois, un émoussement affectif qui peut aller jusqu'à une forme d'indifférence inhabituelle. Sur le plan cognitif apparaissent des difficultés de mémoire, d'attention et de concentration, qui peuvent être vécues avec une inquiétude importante lorsqu'elles touchent des personnes habituées à un fonctionnement intellectuel performant. Sur le plan comportemental, un retrait social, une agressivité inhabituelle, une baisse de l'empathie ou, dans certains cas, le recours à des conduites addictives peuvent se manifester. Sur le plan motivationnel, un désengagement progressif, une perte de sens et une remise en question douloureuse de sa propre compétence sont couramment rapportés. Enfin, sur le plan physique, une fatigue non réparatrice, des troubles du sommeil, des douleurs musculo-squelettiques, des céphalées ou des troubles digestifs complètent fréquemment le tableau.</p>
+<p>Il importe de garder en tête, dans une perspective clinique, que ce tableau n'est ni linéaire ni univoque : certaines personnes présentent d'emblée une composante somatique au premier plan, d'autres une composante plus cognitive ou plus dépressive, ce qui peut compliquer le repérage et rendre nécessaire une évaluation attentive, en tenant compte du contexte de vie et de travail de la personne, plutôt qu'une simple lecture par grille de symptômes.</p>
+<h3>Facteurs de risque et facteurs protecteurs</h3>
+<p>Les facteurs de risque identifiés dans la littérature se répartissent classiquement entre facteurs liés à l'organisation et au contenu du travail, et facteurs davantage individuels, étant entendu que ces deux catégories interagissent constamment et ne doivent pas être opposées de façon binaire. Parmi les facteurs liés au travail figurent une charge de travail élevée et prolongée, une forte exigence mentale ou émotionnelle de l'activité, un manque de ressources ou de soutien social pour y faire face, un conflit ou une ambiguïté dans la définition du rôle, ainsi qu'une forte composante de travail émotionnel, c'est-à-dire la nécessité de réguler en permanence ses propres émotions au service d'autrui, ce qui est particulièrement documenté dans les métiers de la relation d'aide et du soin.</p>
+<p>Du côté des facteurs davantage individuels, la littérature évoque, sans que cela constitue un déterminisme, des antécédents personnels ou familiaux de dépression, certains traits de personnalité comme un profil de type A marqué par l'urgence et la compétitivité, ou encore un niveau élevé de neuroticisme, cette dernière notion désignant une tendance générale à ressentir des affects négatifs de façon plus intense et plus fréquente. Ces éléments doivent être compris comme des facteurs de vulnérabilité et non comme des causes suffisantes, le contexte organisationnel restant, dans la plupart des cadres théoriques évoqués plus haut, le déterminant le plus directement actionnable.</p>
+<p>À l'inverse, plusieurs éléments sont régulièrement rapportés comme protecteurs : une marge d'autonomie réelle dans l'organisation de son activité, un sentiment de contrôle sur les décisions qui concernent son travail, un soutien social perçu comme disponible, une reconnaissance effective du travail fourni, et une cohérence entre les valeurs personnelles et celles du cadre dans lequel l'activité s'exerce, ce qui rejoint directement le modèle des six domaines de la vie professionnelle évoqué plus haut. Le sentiment de sens et de fierté associé à son activité, lorsqu'il peut se maintenir malgré les difficultés, jouerait également un rôle protecteur, bien que ce point reste, comme souvent en la matière, plus difficile à mesurer et à isoler des autres facteurs que les éléments organisationnels plus objectivables.</p>
+<h3>Ouverture vers la question du burn-out parental</h3>
+<p>Ce socle conceptuel, construit et validé en contexte professionnel, ne peut être transposé tel quel à la parentalité. L'OMS elle-même, on l'a vu, restreint explicitement la portée du terme au champ du travail. Le concept de burn-out parental, développé notamment par Isabelle Roskam et Moïra Mikolajczak à partir des années 2010, s'en inspire largement, en particulier dans sa structure tridimensionnelle proche de celle de Maslach, mais il s'agit d'un objet de recherche distinct, avec ses propres outils de mesure et sa propre littérature, qui mériterait un développement séparé plutôt qu'une simple analogie. Ce qui, en revanche, pourrait raisonnablement éclairer une réflexion clinique sur l'épuisement parental, ce sont certains principes généraux dégagés ici : l'attention portée au déséquilibre entre exigences et ressources plutôt qu'à la seule charge perçue, l'importance du soutien social et de la reconnaissance, et la nécessité de ne pas réduire un syndrome d'épuisement à un trait de caractère ou à un manque de volonté individuelle. Ce sont des pistes de réflexion à approfondir, non des transpositions établies, et un développement spécifique consacré au burn-out parental proprement dit reste nécessaire pour aller au-delà de ces quelques points d'appui généraux.</p>
+<p>Texte rédigé à des fins de réflexion clinique par un clinicien, psychothérapeute, psychanalyste, diplômé de l'université Paris 8.</p>
       </div>
-      <div class="faq" data-reveal>
-        <details><summary>Est-ce que je dois venir seul·e ou avec mon conjoint ?<span class="pm"></span></summary><div class="answer">Cela dépend de ce qui pèse le plus dans votre situation. Le premier rendez-vous permet d'en discuter et d'orienter vers la formule la plus adaptée.</div></details>
-        <details><summary>Est-ce que mon enfant va être reçu ?<span class="pm"></span></summary><div class="answer">Pas systématiquement. Cela n'a de sens que si ses propres difficultés jouent un rôle dans l'épuisement, et se décide ensemble.</div></details>
-        <details><summary>Proposez-vous des téléconsultations ?<span class="pm"></span></summary><div class="answer">Oui, en complément des rendez-vous au cabinet, selon les disponibilités indiquées sur Doctolib.</div></details>
-        <details><summary>Comment se passe le premier rendez-vous ?<span class="pm"></span></summary><div class="answer">Il permet de poser la situation, d'évaluer ce qui pèse le plus, et de convenir ensemble du cadre de suivi le plus adapté.</div></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="cta-band" data-reveal>
-        <span class="eyebrow">Vous n'avez pas à porter ça seul·e</span>
-        <h2 class="h-section">Un premier échange pour poser les choses clairement</h2>
-        <p>Il permet de voir si cet accompagnement vous correspond, sans engagement.</p>
-        <div class="actions" id="contact">
-          <a class="btn btn-primary btn-lg" href="https://www.doctolib.fr/psychotherapeute/paris/max-bouche" target="_blank" rel="noopener">Prendre rendez-vous</a>
-          <a class="btn btn-secondary btn-lg" href="mailto:contact@burnout-parental.fr">contact@burnout-parental.fr</a>
-        </div>
-      </div>
+      <div class="refl-sources">
+  <h4>Sources</h4>
+  <ul><li>Organisation mondiale de la santé, « Burn-out an "occupational phenomenon": International Classification of Diseases », 28 mai 2019, https://www.who.int/news/item/28-05-2019-burn-out-an-occupational-phenomenon-international-classification-of-diseases</li>
+<li>Haute Autorité de Santé, « Repérage et prise en charge cliniques du syndrome d'épuisement professionnel ou burnout », 2017 (recommandations, mises à jour depuis), https://www.has-sante.fr/jcms/c_2769318/fr/reperage-et-prise-en-charge-cliniques-du-syndrome-d-epuisement-professionnel-ou-burnout</li>
+<li>Freudenberger H.J. (1974). Staff Burn-Out. Journal of Social Issues, 30(1), 159-165, https://spssi.onlinelibrary.wiley.com/doi/abs/10.1111/j.1540-4560.1974.tb00706.x</li>
+<li>Maslach C., Jackson S.E. (1981). The Measurement of Experienced Burnout. Journal of Organizational Behavior, 2, 99-113, https://onlinelibrary.wiley.com/doi/10.1002/job.4030020205</li>
+<li>Demerouti E., Bakker A.B., Nachreiner F., Schaufeli W.B. (2001). The job demands-resources model of burnout. Journal of Applied Psychology, https://pubmed.ncbi.nlm.nih.gov/11419809/</li>
+<li>Leiter M.P., Maslach C. (1999). Six areas of worklife: a model of the organizational context of burnout. Journal of Health and Human Services Administration, 21, 472-489, https://www.semanticscholar.org/paper/Six-areas-of-worklife:-a-model-of-the-context-of-Leiter-Maslach/c7ef91e437baaa455216ab234efe60849c7a669f</li>
+<li>Santé &amp; Travail, « Les modèles de Karasek et Siegrist » (présentation des modèles demande-contrôle de Karasek et déséquilibre efforts-récompenses de Siegrist), https://www.sante-et-travail.fr/modeles-karasek-et-siegrist</li>
+<li>INSERM, expertise collective, chapitre « Épuisement professionnel » (histoire du concept, données de prévalence en France, facteurs de risque), https://ipubli.inserm.fr/bitstream/handle/10608/217/?sequence=13</li>
+<li>Santé publique France, « Souffrance psychique et épuisement professionnel, Data » (indicateurs de santé mentale au travail en France), https://www.santepubliquefrance.fr/en/souffrance-psychique-et-epuisement-professionnel/data</li></ul>
+</div>
     </div>
   </section>
 
@@ -876,6 +766,5 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
   });
 })();
 </script>
-
 </body>
 </html>

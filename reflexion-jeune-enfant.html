@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Burnout parental : le reconnaître et se faire accompagner</title>
-<meta name="description" content="Épuisement parental : ce que décrit la recherche, les signes qui alertent, et un accompagnement individuel, de couple ou familial au cabinet Bouche et Chmura.">
+<title>Tout-petit et jeune enfant (0-6 ans) : réflexion clinique burn-out parental</title>
+<meta name="description" content="Réflexion clinique privée sur le burn-out parental : enfant de 0 à 6 ans">
 <meta name="robots" content="noindex,nofollow">
-<link rel="canonical" href="https://burnout-parental.fr/">
+<link rel="canonical" href="https://burnout-parental.fr/reflexion-jeune-enfant.html">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Burnout parental : le reconnaître et se faire accompagner">
-<meta property="og:description" content="Épuisement parental : ce que décrit la recherche, les signes qui alertent, et un accompagnement individuel, de couple ou familial au cabinet Bouche et Chmura.">
+<meta property="og:title" content="Tout-petit et jeune enfant (0-6 ans) : réflexion clinique burn-out parental">
+<meta property="og:description" content="Réflexion clinique privée sur le burn-out parental : enfant de 0 à 6 ans">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://burnout-parental.fr/">
+<meta property="og:url" content="https://burnout-parental.fr/reflexion-jeune-enfant.html">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:image" content="https://burnout-parental.fr/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -348,6 +348,57 @@ html.ds[data-motion="off"]{scroll-behavior:auto;}
 html.ds[data-motion="off"] *,html.ds[data-motion="off"] *::before,html.ds[data-motion="off"] *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;}
 html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!important;}
 </style>
+<style>
+/* ===== Composants ajoutes (Tests / Reflexion clinique) ===== */
+.breadcrumb{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;font:600 .86rem/1 var(--font-body);color:var(--c-ink-soft);text-decoration:none!important;}
+.breadcrumb:hover{color:var(--c-accent);}
+.breadcrumb svg{width:15px;height:15px;}
+.card-link{display:block;text-decoration:none!important;color:inherit;}
+.card-link:hover{color:inherit;}
+.card-link .card-icon{transition:background-color var(--dur) var(--ease);}
+.card-link:hover .card-icon{background:var(--c-accent-soft);color:var(--c-accent);}
+.refl-block{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius-l);padding:clamp(20px,2.6vw,30px);margin-bottom:16px;}
+.refl-block h3{font-size:1.1rem;margin:0 0 12px;display:flex;align-items:center;gap:10px;}
+.refl-block h3 .tag{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:28px;padding:0 8px;border-radius:9px;background:var(--c-moss-soft);color:var(--c-moss-strong);font:700 .72rem/1 var(--font-body);letter-spacing:.02em;}
+.refl-block p{color:var(--c-ink-soft);margin:0 0 12px;font-size:.96rem;}
+.refl-block p:last-child{margin-bottom:0;}
+.refl-article h3{font-size:1.2rem;margin:28px 0 10px;color:var(--c-ink);}
+.refl-article h3:first-child{margin-top:0;}
+.refl-article p{color:var(--c-ink-soft);margin:0 0 14px;font-size:.98rem;line-height:1.7;}
+.refl-sources{margin-top:30px;padding-top:20px;border-top:1px solid var(--c-line);}
+.refl-sources h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--c-ink-faint);margin:0 0 10px;font-family:var(--font-body);font-weight:700;}
+.refl-sources ul{margin:0;padding:0;list-style:none;display:grid;gap:6px;}
+.refl-sources li{font-size:.78rem;color:var(--c-ink-faint);line-height:1.6;padding-left:14px;position:relative;}
+.refl-sources li::before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--c-line-strong);}
+.note-box{border-radius:var(--radius-l);padding:clamp(18px,2.4vw,26px);background:var(--c-accent-soft);border:1px solid color-mix(in srgb,var(--c-accent) 30%,transparent);margin-bottom:32px;}
+.note-box p{margin:0;font-size:.92rem;color:var(--c-ink-soft);}
+.note-box strong{color:var(--c-ink);}
+
+/* Accordeon des tests, petite fleche */
+.acc-list{display:grid;gap:12px;}
+.acc{border-radius:var(--radius-m);background:var(--c-surface);border:1px solid var(--c-line);transition:box-shadow var(--dur) var(--ease);overflow:hidden;}
+.acc[open]{box-shadow:var(--shadow-m);}
+.acc summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;cursor:pointer;}
+.acc summary::-webkit-details-marker{display:none;}
+.acc-title{display:flex;flex-direction:column;gap:3px;}
+.acc-name{font:600 1.06rem/1.2 var(--font-display);color:var(--c-ink);}
+.acc-sub{font-size:.78rem;color:var(--c-ink-faint);}
+.acc-arrow{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--c-moss-soft);display:grid;place-items:center;transition:transform var(--dur) var(--ease-out);}
+.acc-arrow svg{width:15px;height:15px;color:var(--c-moss-strong);transition:transform var(--dur) var(--ease-out);}
+.acc[open] .acc-arrow svg{transform:rotate(180deg);}
+.acc-body{padding:0 22px 22px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));}
+.acc-field{background:var(--c-bg-alt);border-radius:var(--radius-s);padding:13px 15px;}
+.acc-field h4{margin:0 0 5px;font:700 .72rem/1.2 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--c-moss-strong);}
+.acc-field p{margin:0;font-size:.9rem;color:var(--c-ink-soft);line-height:1.55;}
+.acc-field.full{grid-column:1/-1;}
+.acc-badges{display:flex;flex-wrap:wrap;gap:6px;padding:0 22px 18px;margin-top:-6px;}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font:600 .72rem/1 var(--font-body);background:var(--c-bg-alt);color:var(--c-ink-soft);border:1px solid var(--c-line);}
+.badge.ok{background:var(--c-moss-soft);color:var(--c-moss-strong);border-color:transparent;}
+.badge.warn{background:var(--c-accent-soft);color:var(--c-accent);border-color:transparent;}
+.tests-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;}
+</style>
+
+
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"MedicalBusiness","name":"Cabinet Bouche & Chmura","url":"https://burnout-parental.fr/","email":"contact@burnout-parental.fr","areaServed":"France","availableLanguage":"fr","employee":[{"@type":"Person","name":"Max Bouche","jobTitle":"Clinicien, psychothérapeute, psychanalyste","identifier":{"@type":"PropertyValue","propertyID":"RPPS","value":"10010375631"}},{"@type":"Person","name":"Sabrina Chmura","jobTitle":"Psychologue clinicienne spécialisée en neuropsychologie","identifier":{"@type":"PropertyValue","propertyID":"RPPS","value":"10008870825"}}]}
 </script>
@@ -370,7 +421,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 
 <header class="site-header" id="siteHeader">
   <div class="wrap header-inner">
-    <a class="logo" href="#contenu">
+    <a class="logo" href="index.html">
       <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-2.5-7-6-7-10a7 7 0 0 1 14 0c0 4-3 7.5-7 10Z"/><path d="M12 12v-3"/></svg></span>
       <span class="logo-text">
         <span class="logo-name">Burnout parental</span>
@@ -379,11 +430,10 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     </a>
     <nav class="main-nav" aria-label="Navigation principale">
       <ul class="nav-list">
-        <li><a class="nav-link" href="#signes">Reconnaître</a></li>
-        <li><a class="nav-link" href="#pourquoi">Pourquoi</a></li>
-        <li><a class="nav-link" href="#aide">Quand consulter</a></li>
-        <li><a class="nav-link" href="#accompagnement">Accompagnement</a></li>
-        <li><a class="nav-link" href="#faq">Questions</a></li>
+        <li><a class="nav-link" href="index.html#signes">Reconnaître</a></li>
+        <li><a class="nav-link" href="index.html#pourquoi">Pourquoi</a></li>
+        <li><a class="nav-link" href="index.html#aide">Quand consulter</a></li>
+        <li><a class="nav-link" href="index.html#accompagnement">Accompagnement</a></li>
         <li><a class="nav-link" href="tests.html">Tests</a></li>
         <li><a class="nav-link" href="reflexion-clinique.html">?</a></li>
       </ul>
@@ -399,220 +449,73 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 
 <main id="contenu">
 
-  <section class="hero">
-    <div class="wrap">
-      <span class="eyebrow" data-reveal>Épuisement parental</span>
-      <h1 class="h-display" data-reveal style="--d:.04s">Quand être parent devient <em>trop lourd</em> à porter</h1>
-      <p class="lead" data-reveal style="--d:.08s">Se sentir vidé, à bout, distant de son enfant ou envahi par la culpabilité n'est ni rare ni honteux. C'est un état reconnu, qui se travaille, seul, en couple ou en famille.</p>
-      <div class="hero-actions" data-reveal style="--d:.14s">
-        <a class="btn btn-primary btn-lg" href="https://www.doctolib.fr/psychotherapeute/paris/max-bouche" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
-          Prendre rendez-vous
-        </a>
-        <a class="btn btn-secondary btn-lg" href="#signes">Reconnaître les signes</a>
-      </div>
-      <div class="page-tools" data-reveal style="--d:.2s">
-        <button class="tool-btn" id="btnAudio" aria-pressed="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19 8a6 6 0 0 1 0 8M15.5 10.5a2.5 2.5 0 0 1 0 3"/></svg>
-          Écouter cette page
-        </button>
-        <div class="share-wrap">
-          <button class="tool-btn" id="btnShare" aria-haspopup="true" aria-expanded="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.6 15.4 6.4M8.6 13.4l6.8 4.2"/></svg>
-            Partager
-          </button>
-          <div class="popover" id="sharePopover">
-            <button id="btnCopyLink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.5-1.5"/></svg>Copier le lien</button>
-            <button id="btnPrint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2"/><path d="M6 14h12v7H6z"/></svg>Imprimer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="signes" class="section section-alt">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Se reconnaître</span>
-        <h2 class="h-section">Ce que beaucoup de parents épuisés n'osent pas dire</h2>
-        <p class="lead">Chacun de ces signes, pris seul, peut être passager. C'est leur accumulation dans la durée qui doit alerter.</p>
-      </div>
-      <div class="grid grid-4">
-        <div class="card" data-reveal style="--d:0s">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-          <h3>Une fatigue qui ne se répare pas</h3>
-          <p>Vous vous réveillez déjà épuisé·e, quelle que soit la nuit passée.</p>
-        </div>
-        <div class="card" data-reveal style="--d:.05s">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></div>
-          <h3>Une saturation nouvelle</h3>
-          <p>Un agacement, une lassitude du rôle de parent qui n'existaient pas avant.</p>
-        </div>
-        <div class="card" data-reveal style="--d:.1s">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c-4-2.5-7-6-7-10a7 7 0 0 1 14 0c0 4-3 7.5-7 10Z" stroke-dasharray="3 3"/></svg></div>
-          <h3>Moins de plaisir partagé</h3>
-          <p>Les moments avec vos enfants pèsent, là où ils vous portaient.</p>
-        </div>
-        <div class="card" data-reveal style="--d:.15s">
-          <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M15 6l6 6-6 6"/></svg></div>
-          <h3>Une distance qui s'installe</h3>
-          <p>Un éloignement émotionnel involontaire, suivi de culpabilité.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="comprendre" class="section">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Comprendre</span>
-        <h2 class="h-section">Un phénomène défini et étudié, pas une impression</h2>
-        <p class="lead">Les chercheuses Isabelle Roskam, Maria Elena Brianda et Moïra Mikolajczak ont décrit le burnout parental autour de quatre dimensions qui se renforcent mutuellement. Une première échelle en trois dimensions a été publiée en 2017, puis le modèle à quatre dimensions en 2018.</p>
-      </div>
-      <div class="dims" data-reveal>
-        <div class="dim"><span class="num">01</span><h3>Épuisement</h3><p>Dans le rôle de parent, distinct de la fatigue physique ordinaire.</p></div>
-        <div class="dim"><span class="num">02</span><h3>Contraste</h3><p>L'écart ressenti avec le parent qu'on était, ou qu'on pensait devenir.</p></div>
-        <div class="dim"><span class="num">03</span><h3>Perte de plaisir</h3><p>Un ras-le-bol du rôle parental qui remplace l'épanouissement.</p></div>
-        <div class="dim"><span class="num">04</span><h3>Distanciation</h3><p>Une mise à distance émotionnelle involontaire des enfants.</p></div>
-      </div>
-      <div class="stats" data-reveal>
-        <div class="stat"><span class="stat-number">2 à 12&nbsp;%</span><span class="stat-label">des parents concernés, selon la méthode de calcul retenue</span></div>
-        <div class="stat"><span class="stat-number">8,1&nbsp;%</span><span class="stat-label">des parents en Belgique, prévalence mesurée dans l'étude internationale portant sur 42 pays</span></div>
-        <div class="stat"><span class="stat-number">2018</span><span class="stat-label">publication du modèle à quatre dimensions et de l'échelle PBA</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="pourquoi" class="section section-alt">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Pourquoi cela arrive</span>
-        <h2 class="h-section">Un déséquilibre entre les charges et les ressources</h2>
-        <p class="lead">L'épuisement s'installe quand les exigences dépassent durablement les moyens de les tenir, sans relais suffisant pour souffler. Il n'y a jamais une cause unique.</p>
-      </div>
-      <ul class="check-list" data-reveal>
-        <li>Isolement et manque de relais : peu ou pas d'aide extérieure, une famille éloignée, une charge portée seul·e ou à deux sans répit.</li>
-        <li>Exigence et perfectionnisme éducatif : le sentiment de devoir toujours bien faire, alimenté par des injonctions parfois contradictoires.</li>
-        <li>Difficultés propres à l'enfant : une régulation émotionnelle difficile, un trouble du développement ou de l'attention, qui demande une vigilance constante.</li>
-        <li>Tensions dans le couple ou la coparentalité : déséquilibre dans la répartition des tâches, désaccords éducatifs, séparation difficile.</li>
-        <li>Événements de vie qui s'accumulent : deuil, maladie, précarité, sommeil très dégradé.</li>
-      </ul>
-    </div>
-  </section>
-
   <section class="section">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Un instant pour vous</span>
-        <h2 class="h-section">Est-ce que ça vous parle ?</h2>
-        <p class="lead">Ceci n'est pas un test diagnostique, seule une évaluation clinique peut poser un diagnostic. Ce sont des questions pour vous aider à y voir plus clair, à tête reposée.</p>
-      </div>
-      <div class="reflet" data-reveal>
-        <ul>
-          <li>Vous arrive-t-il de vous demander comment vous en êtes arrivé·e là, vous qui vouliez être un parent différent ?</li>
-          <li>Ressentez-vous une fatigue qui persiste même après du repos ou des vacances ?</li>
-          <li>Avez-vous l'impression de ne plus ressentir grand-chose face à vos enfants, là où vous ressentiez de la joie avant ?</li>
-          <li>Vous surprenez-vous à réagir avec plus de dureté que vous ne le voudriez, suivi de culpabilité ?</li>
-        </ul>
-        <p class="note">Ces questions ne donnent aucun score et ne permettent aucun diagnostic. Si elles vous parlent et que cela dure depuis plusieurs semaines, en parler avec un professionnel formé à ce sujet est un réflexe utile, pas un aveu d'échec.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="aide" class="section section-alt">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Quand demander de l'aide</span>
-        <h2 class="h-section">Ne pas attendre le point de rupture</h2>
-        <p class="lead">Consulter tôt laisse plus de marge pour travailler la situation. Certains signes demandent une réponse sans attendre.</p>
-      </div>
-      <div class="urgent" data-reveal>
-        <p style="margin:0;font-weight:600;">Si vous sentez que vous perdez le contrôle, que vous craignez de faire du mal à votre enfant ou à vous-même, ou si vous vous sentez en danger :</p>
-        <div class="urgent-grid">
-          <div class="urgent-item"><span class="urgent-num">15</span><span><strong>Urgence</strong><span>Médicale ou psychiatrique</span></span></div>
-          <div class="urgent-item"><span class="urgent-num">3114</span><span><strong>Prévention suicide</strong><span>Numéro national, 24 h/24, 7 j/7</span></span></div>
-          <div class="urgent-item"><span class="urgent-num">119</span><span><strong>Allô Enfance en Danger</strong><span>Si un enfant est en danger</span></span></div>
-        </div>
-        <p class="small" style="margin:16px 0 0;font-size:.84rem;color:var(--c-ink-faint);">Ce site informe et ne remplace pas une évaluation individuelle. Il ne permet pas de poser un diagnostic.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="accompagnement" class="section">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Accompagnement</span>
-        <h2 class="h-section">Accompagner sans juger, ni le parent ni l'enfant</h2>
-        <p class="lead">Équipe clinicienne expérimentée, formée au secteur hospitalier, à la recherche et aux travaux doctoraux.</p>
-        <p class="lead">Le burnout parental se travaille en tenant compte de la personne, du couple, de la famille et, si nécessaire, des difficultés propres de l'enfant. Jamais l'enfant n'est présenté comme la cause du problème, jamais le parent comme fautif.</p>
-      </div>
-      <div class="grid grid-2" data-reveal>
-        <div class="card">
-          <div class="person">
-            <div class="avatar">MB</div>
-            <div>
-              <h3>Max Bouche</h3>
-              <p class="role">Clinicien, psychothérapeute, psychanalyste</p>
-              <p>Reçoit les adultes, les couples et les familles. Accréditation EMDR Europe, formé aux dynamiques familiales et à l'accompagnement des parents en difficulté.</p>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="person">
-            <div class="avatar alt">SC</div>
-            <div>
-              <h3>Sabrina Chmura</h3>
-              <p class="role">Psychologue clinicienne spécialisée en neuropsychologie</p>
-              <p>Apporte un regard sur le fonctionnement de l'enfant lorsque c'est pertinent : régulation émotionnelle, attention, développement, à travers un bilan adapté.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="grid grid-4" style="margin-top:14px;" data-reveal>
-        <div class="card"><h3 style="font-size:.98rem;">Consultation individuelle</h3><p>Pour poser l'épuisement et ce qui l'entretient, à son rythme.</p></div>
-        <div class="card"><h3 style="font-size:.98rem;">Travail de couple</h3><p>Quand la coparentalité s'est fragilisée.</p></div>
-        <div class="card"><h3 style="font-size:.98rem;">Consultation familiale</h3><p>Quand la relation avec l'enfant s'est tendue.</p></div>
-        <div class="card"><h3 style="font-size:.98rem;">Regard sur l'enfant</h3><p>Quand ses difficultés propres pèsent dans l'équilibre familial.</p></div>
+    <div class="wrap-narrow">
+      <a class="breadcrumb" href="reflexion-clinique.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Réflexion clinique</a>
+      <span class="eyebrow" data-reveal>Réflexion clinique privée · Configuration familiale</span>
+      <h1 class="h-display" style="font-size:clamp(1.9rem,1.3rem + 2.6vw,2.9rem);" data-reveal>Tout-petit et jeune enfant (0-6 ans)</h1>
+      <p class="lead" data-reveal>Tout-petit et jeune enfant : les exigences propres à cette période (sommeil, dépendance physique, développement), et des pistes de travail selon quatre approches.</p>
+      <div class="note-box" data-reveal>
+        <p><strong>Note de travail.</strong> Ce contenu est une aide à la réflexion clinique, pas un protocole validé pour le burn-out parental en tant que tel. Il s'appuie sur la littérature existante quand elle est disponible, et formule le reste comme des pistes à évaluer au cas par cas.</p>
       </div>
     </div>
   </section>
 
   <section class="section section-alt">
-    <div class="wrap">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Pour les proches et les professionnels</span>
-        <h2 class="h-section">Repérer et orienter, sans culpabiliser</h2>
-        <p class="lead">Un proche, un enseignant, un médecin ou une puéricultrice remarque parfois l'épuisement avant le parent lui-même. En parler simplement, sans jugement, et orienter vers une consultation, est souvent le premier pas utile.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq" class="section">
     <div class="wrap-narrow">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Questions fréquentes</span>
-        <h2 class="h-section">Ce qu'on nous demande souvent</h2>
+        <span class="eyebrow">Ce qui distingue cette configuration</span>
       </div>
-      <div class="faq" data-reveal>
-        <details><summary>Est-ce que je dois venir seul·e ou avec mon conjoint ?<span class="pm"></span></summary><div class="answer">Cela dépend de ce qui pèse le plus dans votre situation. Le premier rendez-vous permet d'en discuter et d'orienter vers la formule la plus adaptée.</div></details>
-        <details><summary>Est-ce que mon enfant va être reçu ?<span class="pm"></span></summary><div class="answer">Pas systématiquement. Cela n'a de sens que si ses propres difficultés jouent un rôle dans l'épuisement, et se décide ensemble.</div></details>
-        <details><summary>Proposez-vous des téléconsultations ?<span class="pm"></span></summary><div class="answer">Oui, en complément des rendez-vous au cabinet, selon les disponibilités indiquées sur Doctolib.</div></details>
-        <details><summary>Comment se passe le premier rendez-vous ?<span class="pm"></span></summary><div class="answer">Il permet de poser la situation, d'évaluer ce qui pèse le plus, et de convenir ensemble du cadre de suivi le plus adapté.</div></details>
+      <div class="refl-article" data-reveal>
+        <p>La période 0-6 ans a une place particulière dans la littérature sur l'épuisement parental. Selon le modèle de référence du domaine, dit modèle BR (balance entre risques et ressources) développé par Mikolajczak et Roskam, le burn-out parental survient quand les facteurs de stress liés au rôle de parent dépassent durablement les ressources disponibles pour y faire face (Mikolajczak &amp; Roskam, "Beyond Job Burnout: Parental Burnout!", Trends in Cognitive Sciences, 2021). La petite enfance concentre plusieurs risques spécifiques dans ce modèle : dépendance corporelle quasi continue de l'enfant (portage, alimentation, soins physiques, surveillance constante), interruptions du sommeil du parent, imprévisibilité des rythmes de l'enfant, et absence fréquente de répit.</p>
+<p>Une étude parue dans Frontiers in Psychology en 2023 ("Parental burnout at different stages of parenthood : links with temperament, Big Five traits, and parental identity") rapporte que les parents d'enfants de 4 à 6 ans présentaient dans leur échantillon les scores de burn-out les plus élevés parmi les tranches d'âge étudiées, suivis des parents d'enfants de 0 à 3 ans, ces deux groupes se situant nettement au-dessus des parents d'adolescents. Les auteurs proposent, à titre d'hypothèse explicative, que l'endurance, la stabilité émotionnelle et l'engagement parental jouent un rôle protecteur plus déterminant durant les premières années que plus tard. Il s'agit d'une étude isolée, à interpréter avec prudence plutôt que comme une donnée généralisable en l'état.</p>
+<p>Le sommeil apparaît comme un marqueur particulièrement travaillé dans cette tranche d'âge. Une étude récente (Putois et al., "Revising Parental Burnout Theory: Toward a Differentiation of Sleep-Related Burnout Subtypes", Children, 2026) distingue deux profils de burn-out parental : un profil centré sur le sommeil de l'enfant, associé à l'insomnie maternelle et à des cognitions culpabilisantes du type "je suis une mauvaise mère" face aux pleurs nocturnes, et un profil lié plus largement à la charge diurne et au manque de soutien. Cette étude identifie aussi des facteurs protecteurs : la satisfaction conjugale y apparaît comme l'association la plus forte, devant une routine de coucher régulière, l'implication du père ou du coparent la nuit, et le soutien social. Elle met en évidence une chaîne où les troubles du sommeil de l'enfant favorisent l'insomnie parentale, qui favorise à son tour le burn-out.</p>
+<p>Sur le plan relationnel, une étude de Yakupova et Suarez ("Parental burnout, depression and emotional development of the preschoolers", Frontiers in Psychology, 2023) trouve, de façon assez contre-intuitive, une association positive entre le burn-out parental et certaines compétences de compréhension émotionnelle chez l'enfant d'âge préscolaire, plus marquée chez les filles. Les auteurs formulent l'hypothèse, à prendre comme piste et non comme fait établi, que l'enfant pourrait développer des stratégies de régulation en miroir de la dysrégulation parentale. Cette même étude souligne que le burn-out parental se distingue de la dépression maternelle et a un profil d'effets propre sur le développement de l'enfant, ce qui va dans le sens clinique de ne pas confondre les deux tableaux chez les parents de jeunes enfants.</p>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="wrap">
-      <div class="cta-band" data-reveal>
-        <span class="eyebrow">Vous n'avez pas à porter ça seul·e</span>
-        <h2 class="h-section">Un premier échange pour poser les choses clairement</h2>
-        <p>Il permet de voir si cet accompagnement vous correspond, sans engagement.</p>
-        <div class="actions" id="contact">
-          <a class="btn btn-primary btn-lg" href="https://www.doctolib.fr/psychotherapeute/paris/max-bouche" target="_blank" rel="noopener">Prendre rendez-vous</a>
-          <a class="btn btn-secondary btn-lg" href="mailto:contact@burnout-parental.fr">contact@burnout-parental.fr</a>
-        </div>
+    <div class="wrap-narrow">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Pistes de réflexion clinique, par approche</span>
+        <h2 class="h-section">EMDR, TCC, approche analytique, coaching parental</h2>
       </div>
+      <div class="refl-block" data-reveal>
+  <h3><span class="tag">EMDR</span></h3>
+  <p>Il n'existe pas, à ce jour dans la littérature consultée, de protocole EMDR validé spécifiquement pour le burn-out parental en tant que tel. L'indication la mieux établie de l'EMDR dans le champ périnatal concerne le traitement des vécus traumatiques identifiables : accouchement vécu comme traumatique, complications obstétricales, séjour en néonatologie, ce que documente notamment l'Institut Français d'EMDR à travers son protocole sur les traumatismes récents liés à la naissance.</p>
+<p>Une piste de réflexion, à formuler au conditionnel, serait que chez certains parents de jeunes enfants, l'accumulation de moments de débordement répétés (nuits de pleurs incessants, peurs pour la santé de l'enfant, sentiment d'impuissance face à des crises) pourrait fonctionner comme une charge de petits événements cumulatifs insuffisamment métabolisés, plutôt que comme un traumatisme unique et identifiable. Le modèle du traitement adaptatif de l'information qui sous-tend l'EMDR pourrait alors offrir un cadre pour retravailler ces souvenirs saturés d'affect (une nuit particulièrement éprouvante, une scène de sidération face à l'enfant), sans que cela constitue un traitement du burn-out parental en soi.</p>
+<p>Une autre piste, également hypothétique, concerne le travail sur les propres souvenirs d'attachement du parent réactivés par le contact quotidien avec la dépendance du tout-petit. Si le parent porte des souvenirs douloureux de sa propre petite enfance, la charge sensorielle et corporelle du soin à un jeune enfant peut les remettre en tension ; un travail EMDR ciblé sur ces souvenirs source, quand ils sont identifiés, pourrait indirectement alléger une part de la réactivité du parent, sans que cela équivaille à traiter le burn-out lui-même, qui reste avant tout lié à un déséquilibre chronique entre charge et ressources.</p>
+</div>
+<div class="refl-block" data-reveal>
+  <h3><span class="tag">TCC</span></h3>
+  <p>La TCC dispose d'une base plus construite que l'EMDR sur ce terrain précis. Une thèse soutenue à l'université Grenoble Alpes en 2022 a testé un essai clinique comparant trois types d'interventions pour prévenir et réduire l'épuisement parental : une approche fondée sur la thérapie cognitive et comportementale, une approche de psychologie positive de seconde vague, et une pratique informelle de pleine conscience. Cela donne une assise réelle, bien que encore limitée, à l'idée que des interventions structurées de type TCC peuvent viser spécifiquement le burn-out parental, et pas seulement l'anxiété ou la dépression parentale de façon générale.</p>
+<p>Appliqués à la petite enfance, les leviers TCC les plus pertinents concernent le repérage et la restructuration des cognitions dysfonctionnelles mises en évidence par la littérature sur le sommeil ("je suis un mauvais parent" face aux pleurs nocturnes, exigences perfectionnistes sur ce que "devrait" être un enfant de cet âge), la psychoéducation sur les rythmes de sommeil et les régressions développementales normales entre 0 et 6 ans, et des stratégies comportementales concrètes de résolution de problèmes face à la surcharge logistique (organisation des tâches, aménagement de temps de répit protégés). Les techniques de TCC de l'insomnie, centrées sur la régularité des routines de coucher, recoupent d'ailleurs directement le facteur protecteur identifié par Putois et ses collaborateurs concernant la régularité du coucher de l'enfant.</p>
+</div>
+<div class="refl-block" data-reveal>
+  <h3><span class="tag">Approche analytique</span></h3>
+  <p>L'approche psychanalytique éclaire cette configuration moins par des données chiffrées que par des concepts cliniques établis sur la relation précoce parent-bébé. La dépendance corporelle radicale du tout-petit vient réactiver chez le parent ses propres identifications infantiles et ses représentations inconscientes de ses propres figures parentales, ce que la littérature psychanalytique de la parentalité précoce décrit de longue date, notamment dans les travaux de Serge Lebovici sur les interactions précoces ("Le nourrisson, la mère et le psychanalyste", avec Serge Stoléru).</p>
+<p>Le décalage entre l'enfant fantasmé pendant la grossesse et l'enfant réel, une fois né, concept développé notamment par Lebovici, peut constituer un point d'appui pour penser certaines formes d'épuisement psychique qui ne se réduisent pas à la seule charge de travail matérielle : le parent doit continuellement faire le deuil de représentations imaginaires pour s'ajuster à un enfant réel, changeant, parfois déroutant. Daniel Stern, dans "La constellation maternelle", décrit par ailleurs comment la naissance d'un enfant fait émerger chez le parent une réorganisation psychique spécifique, avec ses propres enjeux de préoccupation et de vulnérabilité, distincte de l'identité antérieure du sujet.</p>
+<p>Dans cette perspective, l'épuisement du parent de jeune enfant pourrait se lire, à titre d'hypothèse clinique et non de fait établi, comme le signe que cette réorganisation psychique ne trouve pas suffisamment d'espace de représentation ou d'élaboration, plutôt que comme une simple question de fatigue physique. Un travail analytique viserait alors moins la disparition des symptômes que l'ouverture d'un espace où ce qui se rejoue de l'histoire infantile du parent, dans le contact avec son propre enfant, puisse se mettre en mots.</p>
+</div>
+<div class="refl-block" data-reveal>
+  <h3><span class="tag">Coaching parental</span></h3>
+  <p>Le coaching parental se positionne sur un registre différent, plus centré sur l'organisation concrète et les compétences pratiques que sur l'élaboration psychique. Pour cette tranche d'âge, les axes les plus cohérents avec les facteurs protecteurs identifiés dans la littérature portent sur le soutien à la vie de couple ou de coparentalité, la satisfaction conjugale apparaissant dans l'étude de Putois et ses collaborateurs comme l'association protectrice la plus forte contre le burn-out lié au sommeil, l'aide à la mise en place de routines régulières et prévisibles autour du coucher et des rythmes de la journée, et l'implication plus équilibrée des deux parents ou coparents dans les tâches de nuit.</p>
+<p>Un accompagnement de ce type peut aussi viser la répartition concrète de la charge entre les adultes de l'entourage, la construction d'un réseau de soutien social autour de la famille, et la clarification d'attentes réalistes sur ce qu'un enfant de cet âge peut ou ne peut pas encore faire seul, en cohérence avec son développement. Il ne s'agit pas d'une approche validée par des essais cliniques spécifiques au burn-out parental comme peut l'être en partie la TCC, mais ses principes généraux, centrés sur des ajustements comportementaux et organisationnels, recoupent directement les facteurs de protection mis en évidence par la recherche sur cette tranche d'âge.</p>
+</div>
+      <div class="refl-sources">
+  <h4>Sources</h4>
+  <ul><li>Mikolajczak, M. &amp; Roskam, I. (2021). Beyond Job Burnout: Parental Burnout! Trends in Cognitive Sciences. https://www.cell.com/trends/cognitive-sciences/abstract/S1364-6613(21)00030-9 (voir aussi https://pubmed.ncbi.nlm.nih.gov/33714668/)</li>
+<li>Mikolajczak, M., Aunola, K., Sorkkila, M. &amp; Roskam, I. (2023). 15 Years of Parental Burnout Research: Systematic Review and Agenda. Perspectives on Psychological Science. https://journals.sagepub.com/doi/abs/10.1177/09637214221142777</li>
+<li>Parental burnout at different stages of parenthood: Links with temperament, Big Five traits, and parental identity. Frontiers in Psychology, 2023. https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1087977/full</li>
+<li>Yakupova, V. &amp; Suarez, A. (2023). Parental burnout, depression and emotional development of the preschoolers. Frontiers in Psychology, vol. 14. https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2023.1207569/full</li>
+<li>Putois, B., Anders, R., Breton, A., Lecuelle, F. et al. (2026). Revising Parental Burnout Theory: Toward a Differentiation of Sleep-Related Burnout Subtypes. Children, 13(3), 394. https://www.mdpi.com/2227-9067/13/3/394</li>
+<li>Thèse de doctorat, Université Grenoble Alpes (2022). Prévenir et réduire l'épuisement parental : un essai clinique de trois interventions basées sur la thérapie cognitive et comportementale, la psychologie positive de seconde vague et les pratiques informelles de pleine conscience. https://theses.fr/2022GRALH011</li>
+<li>Institut Français d'EMDR (IFEMDR). Le protocole EMDR sur les traumatismes récents à la naissance. https://www.ifemdr.fr/le-protocole-emdr-sur-les-traumatismes-recents-a-la-naissance/</li>
+<li>Institut Français d'EMDR (IFEMDR). Dossier EMDR avec les familles. https://www.ifemdr.fr/dossier-emdr-avec-les-familles/</li>
+<li>Lebovici, S. &amp; Stoléru, S. Le nourrisson, la mère et le psychanalyste : les interactions précoces.</li>
+<li>Stern, D. N. La constellation maternelle (trad. française, Calmann-Lévy).</li></ul>
+</div>
     </div>
   </section>
 
@@ -876,6 +779,5 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
   });
 })();
 </script>
-
 </body>
 </html>

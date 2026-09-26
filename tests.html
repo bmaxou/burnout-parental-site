@@ -376,7 +376,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 
 /* Accordeon des tests, petite fleche */
 .acc-list{display:grid;gap:12px;}
-.acc{border-radius:var(--radius-m);background:var(--c-surface);border:1px solid var(--c-line);transition:box-shadow var(--dur) var(--ease);overflow:hidden;}
+.acc{border-radius:var(--radius-m);background:var(--c-surface);border:1px solid var(--c-line);border-left:4px solid transparent;transition:box-shadow var(--dur) var(--ease),background var(--dur) var(--ease);overflow:hidden;}
 .acc[open]{box-shadow:var(--shadow-m);}
 .acc summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;cursor:pointer;}
 .acc summary::-webkit-details-marker{display:none;}
@@ -386,6 +386,10 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 .acc-arrow{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--c-moss-soft);display:grid;place-items:center;transition:transform var(--dur) var(--ease-out);}
 .acc-arrow svg{width:15px;height:15px;color:var(--c-moss-strong);transition:transform var(--dur) var(--ease-out);}
 .acc[open] .acc-arrow svg{transform:rotate(180deg);}
+/* Mise en avant des tests a pertinence directe pour le burn-out parental */
+.acc.acc-direct{border-left-color:var(--c-moss-strong);background:linear-gradient(90deg,var(--c-moss-soft) 0%,var(--c-surface) 280px);}
+.acc-pill{display:inline-flex;align-items:center;gap:5px;margin-top:2px;padding:3px 10px 3px 8px;border-radius:999px;font:700 .66rem/1.4 var(--font-body);letter-spacing:.02em;background:var(--c-moss-strong);color:var(--c-on-accent,#fff);width:fit-content;}
+.acc-pill svg{width:10px;height:10px;flex:0 0 auto;}
 .acc-body{padding:0 22px 22px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));}
 .acc-field{background:var(--c-bg-alt);border-radius:var(--radius-s);padding:13px 15px;}
 .acc-field h4{margin:0 0 5px;font:700 .72rem/1.2 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--c-moss-strong);}
@@ -470,6 +474,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">BAT-G (Burnout Assessment Tool)</span>
       <span class="acc-sub">Burnout Assessment Tool (BAT). La désignation « BAT-G » n'est pas une appellation officielle distincte employée par les auteurs originaux dans le manuel technique consulté (version 2.0, juillet 2020) : ce document parle simplement du « BAT » (version complète à 23 items, dite parfois BAT-23) et de sa version courte (BAT-12). « G » pourrait renvoyer à « General/Générique », terme parfois utilisé dans la littérature pour distinguer la version tout-public du BAT des adaptations sectorielles (enseignants, secteur de la santé, étudiants). Ce point n'a pas pu être confirmé avec certitude à partir des sources consultées, voir confidence_note.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -489,6 +494,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">MBI (Maslach Burnout Inventory)</span>
       <span class="acc-sub">Maslach Burnout Inventory (MBI), créé par Christina Maslach et Susan E. Jackson. Il existe plusieurs versions : MBI-HSS (Human Services Survey, professions d'aide), MBI-ES (Educators Survey, enseignants), MBI-GS (General Survey, tous secteurs professionnels), et MBI-GS(S) / MBI-SS pour les étudiants.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -509,6 +515,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">COPSOQ</span>
       <span class="acc-sub">Copenhagen Psychosocial Questionnaire, questionnaire psychosocial de Copenhague, conçu par l'Institut national danois de santé au travail (NIOH / AMI, devenu le NRCWE, National Research Centre for the Working Environment)</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -525,6 +532,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">BAT-W</span>
       <span class="acc-sub">Burnout Assessment Tool, version travail (« Work-related version »). Outil développé au sein de la KU Leuven (Belgique) par Wilmar Schaufeli, Hans De Witte et Steffie Desart. Le BAT existe en deux déclinaisons contextuelles : BAT-W (travail) et BAT-G (« general », version sans référence au travail, pour personnes sans emploi) ; il existe aussi une version courte BAT-12 (contexte non spécifié) et une version « parent » adaptée par la même équipe.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -546,6 +554,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">OLBI (Oldenburg Burnout Inventory)</span>
       <span class="acc-sub">Oldenburg Burnout Inventory. Développé par Evangelia Demerouti, avec Arnold B. Bakker, à l'université d'Oldenburg (Allemagne). Version originale en allemand, puis traduction/validation anglaise notamment par Halbesleben &amp; Demerouti (2005).</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -564,6 +573,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">CBI, Copenhagen Burnout Inventory</span>
       <span class="acc-sub">Copenhagen Burnout Inventory, développé par Tage S. Kristensen, Marianne Borritz, Ebbe Villadsen et Karl B. Christensen, au National Institute of Occupational Health de Copenhague (aujourd'hui NRCWE, National Research Centre for the Working Environment), dans le cadre de l'étude PUMA (Project on Burnout, Motivation and job Satisfaction).</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -582,6 +592,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">SMBM (Shirom-Melamed Burnout Measure)</span>
       <span class="acc-sub">Shirom-Melamed Burnout Measure (SMBM), aussi connu sous le nom de Shirom-Melamed Burnout Questionnaire (SMBQ) dans certaines versions antérieures/apparentées. Auteurs originaux : Arie Shirom et Samuel Melamed (avec la contribution de T. Kushnir sur les tout premiers travaux).</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -601,6 +612,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">ProQOL</span>
       <span class="acc-sub">Professional Quality of Life Scale (échelle de qualité de vie professionnelle), sous-titrée « Compassion Satisfaction and Compassion Fatigue », auteure principale : Beth Hudnall Stamm, PhD.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -620,6 +632,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">Stanford PFI (Professional Fulfillment Index)</span>
       <span class="acc-sub">Stanford Professional Fulfillment Index (PFI), parfois « Stanford Physician Wellness Survey, sous-échelle PFI »</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -635,6 +648,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">BBI-15</span>
       <span class="acc-sub">Bergen Burnout Indicator-15 (BBI-15), traduction française : Indicateur de Burnout de Bergen à 15 items. Titre original finnois : « Bergen burnout indicator 15 : BBI-15 käsikirja » (manuel BBI-15)</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -650,6 +664,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">BM / BMS-10 (Burnout Measure / Burnout Measure Short Version)</span>
       <span class="acc-sub">Burnout Measure (BM, 21 items), Pines &amp; Aronson (1988), Career Burnout: Causes and Cures, The Free Press. Version courte : Burnout Measure Short version (BMS-10), Malach-Pines (2005). L'instrument est parfois désigné « Tedium Measure » dans sa toute première version (Pines, Aronson &amp; Kafry, 1981).</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -668,6 +683,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">Mini-Z (Mini-Z Burnout Survey)</span>
       <span class="acc-sub">Mini-Z Worklife and Burnout Reduction Instrument (à l'origine « Z Clinician Questionnaire »), développé par le Dr Mark Linzer et son équipe au Hennepin County Medical Center (aujourd'hui Hennepin Healthcare), Minneapolis, Minnesota, à partir de la Physician Worklife Survey et de la MEMO Study (Minimizing Error, Maximizing Outcomes)</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -687,6 +703,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">Mesure(s) à item unique du burn-out (Single-Item Burnout Measure)</span>
       <span class="acc-sub">Il ne s'agit pas d'un outil unique nommé, mais d'une famille de mesures d'auto-évaluation du burn-out en une seule question. Deux lignées principales : (1) l'item catégoriel du Physician Worklife Study, utilisé et validé par Rohland, Kruse &amp; Rohrer (2004) ; (2) les items uniques extraits verbatim du Maslach Burnout Inventory, « I feel burned out from my work » (épuisement émotionnel) et, dans certaines versions, « I have become more callous toward people since I took this job » (dépersonnalisation), validés par l'équipe de West, Dyrbye, Shanafelt et al. (fin des années 2000-2012). Ces items ont ensuite été repris dans de nombreuses adaptations (Dolan et al. 2015 ; Knox et al. 2018 ; Hansen &amp; Pit 2016 ; Mateo-Rodríguez et al. 2023 pour l'espagnol ; Nagasaki et al. 2022 pour le japonais ; Song et al. 2023 pour le coréen).</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -702,22 +719,24 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 <li>Hagan et al. (2024). "A Systematic Review of the Single-Item Burnout Question: Its Reliability Depends on Your Purpose." Journal of General Internal Medicine, revue systématique utile pour trancher la fiabilité selon l'usage visé.</li>
 <li>Roskam I, Brianda ME, Mikolajczak M (2018). "Parental Burnout Assessment." PsycTESTS Dataset, pour le test complémentaire cité (PBA-23).</li></ul></div></div>
 </details>
-<details class="acc" data-reveal>
+<details class="acc acc-direct" data-reveal>
   <summary>
     <div class="acc-title">
       <span class="acc-name">Parental Burnout Assessment (PBA)</span>
       <span class="acc-sub">Parental Burnout Assessment (PBA), conçu par Isabelle Roskam, Maria-Elena Brianda et Moïra Mikolajczak (Université catholique de Louvain, Belgique). Remarque : l'intitulé demandé dans la consigne mentionnait aussi "Raes" comme auteur, mais l'article fondateur retrouvé cite Roskam, Brianda et Mikolajczak comme auteurs du PBA (Raes est associé à un autre instrument, le Parental Burnout Inventory, PBI, Roskam, Raes &amp; Mikolajczak, 2017), voir confidence_note.</span>
+      <span class="acc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Pertinence directe</span>
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
   <div class="acc-badges"><span class="badge ok">Étalonné FR : oui</span><span class="badge ok">Accès libre</span></div>
   <div class="acc-body"><div class="acc-field full"><h4>Ce que ça évalue</h4><p>Le PBA mesure le burn-out parental comme syndrome spécifique (distinct de l'épuisement professionnel et de la dépression) à travers 4 dimensions et 23 items au total : (1) Épuisement dans son rôle de parent (9 items), sentiment d'être vidé, à bout de ressources dans le rôle parental ; (2) Contraste avec le parent qu'on était avant / perte de l'identité parentale antérieure (6 items), décalage entre le parent qu'on est devenu et celui qu'on pensait/voulait être ; (3) Ras-le-bol, saturation vis-à-vis du rôle parental (5 items), sentiment d'en avoir assez, de ne plus supporter son rôle ; (4) Distanciation émotionnelle vis-à-vis des enfants (3 items), un fonctionnement "mécanique", sans plus d'implication affective (proche de la dépersonnalisation du burn-out professionnel). Réponses sur échelle de Likert en 7 points de fréquence (jamais à tous les jours).</p></div><div class="acc-field full"><h4>Pertinence pour le burn-out parental</h4><p>Le PBA a été construit spécifiquement pour le burn-out PARENTAL (et non professionnel) : ses items portent explicitement sur le rôle de parent et la relation aux enfants, pas sur le travail. C'est l'un des deux outils de référence du courant de recherche initié par Roskam et Mikolajczak (avec le PBI), issu d'une adaptation conceptuelle du modèle du burn-out professionnel (proche du Maslach Burnout Inventory dans sa logique en 3 composantes, épuisement, distanciation, perte d'efficacité/d'identité, mais reformulé et validé empiriquement sur des échantillons de parents). Sa pertinence est donc directe, et non indirecte : ce n'est pas un outil de burn-out professionnel réutilisé par extrapolation.</p></div><div class="acc-field"><h4>Nombre de questions</h4><p>23 items (réduits à partir d'une version initiale de 50 items testée lors de la construction de l'échelle)</p></div><div class="acc-field"><h4>Durée de passation</h4><p>Non documenté précisément dans les sources consultées ce jour, mais étant donné le format (23 items, réponse simple en fréquence sur échelle de Likert), la passation est courte, de l'ordre de 5 à 10 minutes en auto-passation. Cette durée est une estimation raisonnable et non une donnée sourcée noir sur blanc.</p></div><div class="acc-field"><h4>Auto-évaluation</h4><p>Auto-évaluation : questionnaire auto-administré, rempli de façon autonome par le parent, sans nécessité de présence d'un professionnel pendant la passation. L'interprétation clinique des scores (et a fortiori toute annonce diagnostique) relève en revanche du professionnel.</p></div><div class="acc-field"><h4>Étalonnage en français</h4><p>Oui, avec un niveau de confiance élevé mais une nuance à noter : l'article de validation original (Frontiers in Psychology, 2018) a été construit et validé sur un échantillon multilingue incluant des parents francophones de Belgique et de France (aux côtés d'échantillons anglophones d'Angleterre et des États-Unis, total N=901). Le français fait donc partie des langues de validation d'origine, et non d'une simple traduction a posteriori. Je n'ai en revanche pas pu retrouver avec certitude, dans le temps disponible pour cette recherche, un article de validation psychométrique française autonome et distincte (avec ses propres indices d'ajustement calculés spécifiquement sur un échantillon français) ni la version exacte et "officielle" du libellé français des 23 items, voir confidence_note.</p></div><div class="acc-field full"><h4>Disponibilité / autorisation</h4><p>Point important et bien sourcé : l'article fondateur (Roskam, Brianda &amp; Mikolajczak, 2018, Frontiers in Psychology) indique explicitement que l'usage du PBA est libre/gratuit ("free"), contrairement au PBI (Parental Burnout Inventory) dont l'usage est payant/soumis à licence, les auteurs recommandent eux-mêmes le PBA dans toute situation où le coût est une considération. Cela en fait a priori un outil exploitable sur un site professionnel sans licence payante. Deux réserves à vérifier avant mise en ligne : (1) je n'ai pas pu confirmer l'existence ou non d'une formalité de citation/mention des auteurs exigée par les auteurs eux-mêmes (bonne pratique académique à respecter dans tous les cas) ; (2) je n'ai pas retrouvé le texte officiel des 23 items en français à republier tel quel, une vérification directe auprès de la publication originale ou des auteurs serait nécessaire avant toute mise en ligne du questionnaire complet, plutôt qu'une reconstruction des items par mes soins.</p></div><div class="acc-field full"><h4>Test à croiser</h4><p>Deux pistes de croisement pertinentes selon l'objectif clinique : (1) le Parenting Stress Index (PSI, Abidin) qui mesure le stress parental, construit envisagé comme précurseur du burn-out : croiser PSI et PBA permet de distinguer un stress parental élevé mais non encore installé en syndrome, d'un authentique burn-out parental constitué ; (2) une échelle de dépression/anxiété générale (type HAD, déjà utilisée dans vos batteries) pour la différenciation clinique burn-out parental / dépression, deux tableaux aux symptômes proches (fatigue, perte d'élan) mais aux mécanismes et à la prise en charge différents, la littérature sur le burn-out parental insiste sur cette distinction.</p></div><div class="acc-field full"><h4>Sources</h4><ul style="margin:0;padding-left:18px;"><li>Roskam, I., Brianda, M.-E., &amp; Mikolajczak, M. (2018). A Step Forward in the Conceptualization and Measurement of Parental Burnout: The Parental Burnout Assessment (PBA). Frontiers in Psychology, 9:758. DOI : 10.3389/fpsyg.2018.00758, https://www.frontiersin.org/articles/10.3389/fpsyg.2018.00758/full</li></ul></div></div>
 </details>
-<details class="acc" data-reveal>
+<details class="acc acc-direct" data-reveal>
   <summary>
     <div class="acc-title">
       <span class="acc-name">PBI, Parental Burnout Inventory</span>
       <span class="acc-sub">Parental Burnout Inventory (PBI), initialement présenté dans l'article « Exhausted Parents: Development and Preliminary Validation of the Parental Burnout Inventory »</span>
+      <span class="acc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Pertinence directe</span>
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -727,11 +746,12 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 <li>Van Bakel, H. J. A., Van Engen, M. L., &amp; Peters, P. (2018). Parental Burnout Inventory, Dutch Version [Database record]. PsycTESTS. DOI: 10.1037/t70212-000</li>
 <li>Brianda, M. E., Mikolajczak, M., Bader, M., Bon, S., Déprez, A., Favez, N., Holstein, L., Le Vigouroux, S., Lebert-Charron, A., Sánchez-Rodríguez, R., Séjourné, N., Wendland, J., &amp; Roskam, I. (2023). Optimizing the Assessment of Parental Burnout: A Multi-informant and Multimethod Approach to Determine Cutoffs for the Parental Burnout Inventory and the Parental Burnout Assessment. Assessment, 30(7), 2234-2246. DOI: 10.1177/10731911221141873</li></ul></div></div>
 </details>
-<details class="acc" data-reveal>
+<details class="acc acc-direct" data-reveal>
   <summary>
     <div class="acc-title">
       <span class="acc-name">BPBS</span>
       <span class="acc-sub">Brief Parental Burnout Scale (BPBS / BPBs). Remarque importante : aucune publication scientifique vérifiable ne correspond à l'appellation « Balanced Parental Burnout Scale ». Le sigle BPBS correspond en réalité, dans toute la littérature consultée (PubMed, Crossref, Europe PMC), à la « Brief Parental Burnout Scale », un outil réel et bien documenté. L'analyse ci-dessous porte donc sur cet instrument, en supposant qu'il s'agit de celui visé.</span>
+      <span class="acc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Pertinence directe</span>
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -741,11 +761,12 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 <li>Caviezel Schmitz, S., &amp; Krüger, P. (2024). Development and initial validation of the multilingual Swiss version of the brief parental burnout scale. Health Psychology Open, 11. https://doi.org/10.1177/20551029241308777 (accès libre, PMC11662314)</li>
 <li>Roskam, I., Brianda, M. E., &amp; Mikolajczak, M. (2018). A Step Forward in the Conceptualization and Measurement of Parental Burnout: The Parental Burnout Assessment (PBA). Frontiers in Psychology, 9, 758. https://doi.org/10.3389/fpsyg.2018.00758</li></ul></div></div>
 </details>
-<details class="acc" data-reveal>
+<details class="acc acc-direct" data-reveal>
   <summary>
     <div class="acc-title">
       <span class="acc-name">WPBS (Working Parent Burnout Scale)</span>
       <span class="acc-sub">Working Parent Burnout Scale (WPBS), avec item unique de dépistage rapide associé, développée par Kate Sustersic Gawlik, Bernadette Mazurek Melnyk, Jinjian Mu et Alai Tan</span>
+      <span class="acc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Pertinence directe</span>
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -754,11 +775,12 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 <li>PubMed: https://pubmed.ncbi.nlm.nih.gov/35811259/</li>
 <li>ScienceDirect: https://www.sciencedirect.com/science/article/abs/pii/S0891524522001523</li></ul></div></div>
 </details>
-<details class="acc" data-reveal>
+<details class="acc acc-direct" data-reveal>
   <summary>
     <div class="acc-title">
       <span class="acc-name">MBS (Maternal Burnout Scale)</span>
       <span class="acc-sub">Maternal Burnout Scale (MBS), développée par Raquel Sánchez-Rodríguez, Stacey Callahan et Natalène Séjourné, Centre d'Études et de Recherche en Psychopathologie et Psychologie de la Santé, Université de Toulouse (UT2J)</span>
+      <span class="acc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Pertinence directe</span>
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -769,11 +791,12 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 <li>Bal, N. G., &amp; Tosun, H. Maternal Burnout Scale--Turkish Version [fiche PsycTESTS]. DOI: 10.1037/t94606-000</li>
 <li>Roskam, I., Brianda, M. E., &amp; Mikolajczak, M. Parental Burnout Assessment [fiche PsycTESTS]. DOI: 10.1037/t70213-000 (test complémentaire cité)</li></ul></div></div>
 </details>
-<details class="acc" data-reveal>
+<details class="acc acc-direct" data-reveal>
   <summary>
     <div class="acc-title">
       <span class="acc-name">Échelle de burnout parental pour parents de jeunes enfants (étiquette de travail « PBS-PYC », non un sigle officiel des auteures)</span>
       <span class="acc-sub">Titre coréen original : 유아기 자녀의 부모소진 척도의 개발 및 타당화 연구. Titre anglais officiel de l'article : "Development and Validation of a Parental Burnout Scale for Parents of Young Children". Auteures : Keun Hee Kim (Kim Geun-hee), Hye Suk Jeong (Jung Hye-suk), Yeong Hee Kim (Kim Young-hee).</span>
+      <span class="acc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Pertinence directe</span>
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -789,6 +812,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">PSS (Parental Stress Scale)</span>
       <span class="acc-sub">Parental Stress Scale (« Échelle de stress parental »), développée par Judy O. Berry et Warren H. Jones (University of Tulsa)</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -803,6 +827,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">PSI / PSI-SF</span>
       <span class="acc-sub">Parenting Stress Index, forme longue actuelle : PSI-4 (120 items) ; forme courte : Parenting Stress Index, Short Form, PSI-4-SF (36 items). Auteur : Richard R. Abidin, EdD (psychologue, University of Virginia). Édité par PAR Inc. (Psychological Assessment Resources).</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -818,6 +843,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">ISP-4</span>
       <span class="acc-sub">Indice de Stress Parental, 4e édition, adaptation et traduction francophone (québécoise) du Parenting Stress Index (PSI) de Richard R. Abidin</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -831,11 +857,12 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 <li>https://www.irpcanada.com/isp-4</li>
 <li>Roskam, I., Brianda, M.E., &amp; Mikolajczak, M. (2018). A step forward in the conceptualization and measurement of parental burnout: The Parental Burnout Assessment (PBA). Frontiers in Psychology, 9, 758.</li></ul></div></div>
 </details>
-<details class="acc" data-reveal>
+<details class="acc acc-direct" data-reveal>
   <summary>
     <div class="acc-title">
       <span class="acc-name">BR²-Inventory (BR2)</span>
       <span class="acc-sub">Balance Between Risks and Resources Inventory (BR²), présenté dans l'article « A Theoretical and Clinical Framework for Parental Burnout: The Balance between Risks and Resources (BR²) »</span>
+      <span class="acc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Pertinence directe</span>
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -849,6 +876,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">PDH (Parenting Daily Hassles Scale)</span>
       <span class="acc-sub">Parenting Daily Hassles Scale (« index des tracas quotidiens liés au rôle parental »), initialement décrite dans l'article « Minor Parenting Stresses with Young Children ». Existe aussi sous forme abrégée/révisée (15, 17 ou 20 items selon les études de validation structurelle ultérieures).</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -864,6 +892,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">CBI (Copenhagen Burnout Inventory), versions courtes / abrégées</span>
       <span class="acc-sub">Copenhagen Burnout Inventory (CBI) ; version abrégée utilisée en médecine d'urgence : « Abbreviated Emergency Medicine Copenhagen Burnout Inventory » (parfois désignée AEM-CBI dans la littérature secondaire). Outil original créé par Tage S. Kristensen, Marianne Borritz, Ebbe Villadsen et Karl B. Christensen, au National Institute of Occupational Health du Danemark.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -878,6 +907,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">scr-OLBI</span>
       <span class="acc-sub">scr-OLBI (Oldenburg Burnout Inventory, version courte de dépistage ; le sigle « scr » vient des premières lettres du mot anglais « screening »). Dérivé de l'Oldenburg Burnout Inventory (OLBI) original créé par Evangelia Demerouti et collègues.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -894,6 +924,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">BAT-12 / BAT4 (Burnout Assessment Tool)</span>
       <span class="acc-sub">Burnout Assessment Tool, version courte à 12 items (BAT-12) et version ultra-courte à 4 items (BAT4). Auteurs originaux du BAT : Wilmar Schaufeli (Université d'Utrecht) et Hans De Witte (KU Leuven), avec Steffie Desart. La version BAT-12 a été développée par Hadžibajramović, Schaufeli et De Witte ; la version BAT4 par Hadžibajramović, Schaufeli, De Witte et Mazza.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -910,6 +941,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">SMBM-3 / SMBM-9 (Shirom-Melamed Burnout Measure, formes courtes)</span>
       <span class="acc-sub">Shirom-Melamed Burnout Measure (SMBM), formes réduites à 9 items (SMBM-9) et 3 items (SMBM-3)</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -924,6 +956,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">Mini-Z 2.0</span>
       <span class="acc-sub">Mini-Z 2.0 Worklife and Burnout Reduction Instrument (« Mini Z »), issu du programme « Zero Burnout Program » développé à l'origine dans le cadre de l'étude MEMO (Minimizing Error, Maximizing Outcome) au Hennepin Healthcare / AMA. La version 2.0 est la révision psychométriquement validée de l'outil original.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -937,6 +970,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">BBI-9</span>
       <span class="acc-sub">Bergen Burnout Inventory, version à 9 items (BBI-9), version courte du Bergen Burnout Inventory à 15 items (BBI-15)</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -950,6 +984,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">Mesure de burnout à 1 ou 2 items (famille d'outils ultra-brefs)</span>
       <span class="acc-sub">Il n'existe pas UN outil unique portant ce nom : les trois sources fournies renvoient en réalité à trois instruments distincts et apparentés, tous dérivés ou comparés au MBI (Maslach Burnout Inventory) : (1) le « Single Item Burnout » (SIB) de Hansen &amp; Pit ; (2) l'item unique non-propriétaire de Dolan et al., dérivé de l'item de Rohland/Physician Worklife Study ; (3) la version à 2 items (1 item d'épuisement émotionnel + 1 item de dépersonnalisation) extraite du MBI par West et al., revalidée en 2026 chez des soignants saoudiens par Kattan et al.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>
@@ -965,6 +1000,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
     <div class="acc-title">
       <span class="acc-name">Outil de détection précoce du burnout (SPF Emploi, Belgique)</span>
       <span class="acc-sub">« Détection précoce du burnout : mode d'emploi et outil », version pour le médecin du travail (une version parallèle existe pour le médecin généraliste). Publication du Service Public Fédéral Emploi, Travail et Concertation sociale (Belgique), Direction générale Humanisation du travail, Direction de la recherche sur l'amélioration des conditions de travail. Dépôt légal D/2020/1205/01.</span>
+      
     </div>
     <span class="acc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
   </summary>

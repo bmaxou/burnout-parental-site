@@ -376,7 +376,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 
 /* Accordeon des tests, petite fleche */
 .acc-list{display:grid;gap:12px;}
-.acc{border-radius:var(--radius-m);background:var(--c-surface);border:1px solid var(--c-line);transition:box-shadow var(--dur) var(--ease);overflow:hidden;}
+.acc{border-radius:var(--radius-m);background:var(--c-surface);border:1px solid var(--c-line);border-left:4px solid transparent;transition:box-shadow var(--dur) var(--ease),background var(--dur) var(--ease);overflow:hidden;}
 .acc[open]{box-shadow:var(--shadow-m);}
 .acc summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;cursor:pointer;}
 .acc summary::-webkit-details-marker{display:none;}
@@ -386,6 +386,16 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 .acc-arrow{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--c-moss-soft);display:grid;place-items:center;transition:transform var(--dur) var(--ease-out);}
 .acc-arrow svg{width:15px;height:15px;color:var(--c-moss-strong);transition:transform var(--dur) var(--ease-out);}
 .acc[open] .acc-arrow svg{transform:rotate(180deg);}
+/* Mise en avant des tests a pertinence directe pour le burn-out parental */
+.acc.acc-direct{border-left-color:var(--c-moss-strong);background:linear-gradient(90deg,var(--c-moss-soft) 0%,var(--c-surface) 280px);}
+.acc-pill{display:inline-flex;align-items:center;gap:5px;margin-top:2px;padding:3px 10px 3px 8px;border-radius:999px;font:700 .66rem/1.4 var(--font-body);letter-spacing:.02em;background:var(--c-moss-strong);color:var(--c-on-accent,#fff);width:fit-content;}
+.acc-pill svg{width:10px;height:10px;flex:0 0 auto;}
+/* Reponse concrete (prix/contact/statut, langue d'etalonnage) : affichee en tete de
+   fiche, juste sous les badges, avant le detail scientifique plus long. */
+.acc-verdict{margin:0 22px 18px;padding:2px;display:grid;gap:10px;background:var(--c-bg-alt);border:1px solid var(--c-line);border-radius:var(--radius-m);}
+.acc-verdict .acc-field{background:transparent;border-radius:0;padding:14px 16px;}
+.acc-verdict .acc-field:not(:last-child){border-bottom:1px dashed var(--c-line-strong);}
+.acc-verdict .acc-field h4{color:var(--c-accent);}
 .acc-body{padding:0 22px 22px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));}
 .acc-field{background:var(--c-bg-alt);border-radius:var(--radius-s);padding:13px 15px;}
 .acc-field h4{margin:0 0 5px;font:700 .72rem/1.2 var(--font-body);text-transform:uppercase;letter-spacing:.06em;color:var(--c-moss-strong);}
@@ -396,6 +406,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 .badge.ok{background:var(--c-moss-soft);color:var(--c-moss-strong);border-color:transparent;}
 .badge.warn{background:var(--c-accent-soft);color:var(--c-accent);border-color:transparent;}
 .tests-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));}
 </style>
 
 
@@ -515,9 +526,9 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
       <div class="section-head" data-reveal>
         <span class="eyebrow">Fond clinique</span>
         <h2 class="h-section">Comprendre le burn-out, en général et dans sa forme parentale</h2>
-        <p class="lead">Deux synthèses de fond, pour poser le cadre avant d'aborder les configurations cliniques.</p>
+        <p class="lead">Trois synthèses de fond, pour poser le cadre avant d'aborder les configurations cliniques.</p>
       </div>
-      <div class="grid grid-2">
+      <div class="grid grid-3">
         <a class="card card-link" href="reflexion-burnout-general.html" data-reveal>
   <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg></div>
   <h3>Le burn-out en général</h3>
@@ -527,6 +538,11 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
   <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 8l-3 6a3 3 0 0 0 6 0l-3-6ZM19 8l-3 6a3 3 0 0 0 6 0l-3-6ZM5 8h14M9 21h6"/></svg></div>
   <h3>Burn-out parental et autres burn-outs</h3>
   <p>Ce qui distingue structurellement le burn-out parental du burn-out professionnel.</p>
+</a>
+        <a class="card card-link" href="reflexion-accompagnement.html" data-reveal>
+  <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8l-2.5 5.5L8 16l2.5-5.5L16 8Z"/></svg></div>
+  <h3>Accompagner un parent en burn-out</h3>
+  <p>Repérage clinique, grille risques-ressources (BR²), ce qui fonctionne en intervention selon la recherche.</p>
 </a>
       </div>
     </div>

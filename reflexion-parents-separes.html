@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<script>(function(){try{if(localStorage.getItem('bp_gate_ok')==='1'){document.documentElement.classList.add('gate-ok');}}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parents separes : réflexion clinique burn-out parental</title>
@@ -337,7 +338,8 @@ html.js [data-reveal].is-visible{opacity:1;transform:none;}
 #gatescreen input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--c-line);background:var(--c-surface);color:var(--c-ink);font-size:15px;text-align:center;margin-bottom:12px;}
 #gatescreen button{width:100%;padding:12px 14px;border-radius:10px;border:none;background:var(--c-accent);color:var(--c-on-accent);font-size:15px;font-weight:600;cursor:pointer;}
 #gatescreen .err{color:#B23B2E;font-size:13px;min-height:18px;margin-top:10px;}
-body.locked > *:not(#gatescreen){display:none!important;}
+html:not(.gate-ok) body.locked > *:not(#gatescreen){display:none!important;}
+html.gate-ok #gatescreen{display:none!important;}
 
 @media (prefers-reduced-motion:reduce){
   html.ds{scroll-behavior:auto;}
@@ -612,6 +614,7 @@ Dans la garde partagée en contexte conflictuel, à l'inverse, le répit matéri
   function checkGate(){
     var v = document.getElementById('gatecode').value.trim();
     if(v === '1024'){
+      try{localStorage.setItem('bp_gate_ok','1');}catch(e){}
       document.body.classList.remove('locked');
       document.getElementById('gatescreen').remove();
       document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('is-visible'); });

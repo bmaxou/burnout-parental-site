@@ -1,4 +1,5 @@
-# Site en préparation : exploration interdite. Au lancement, mettre PREVIEW = False
-# dans _build/build.py et relancer le script : ce fichier sera réécrit automatiquement.
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /_build/
+
+Sitemap: https://burnout-parental.fr/sitemap.xml

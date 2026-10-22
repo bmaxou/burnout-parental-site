@@ -16,7 +16,7 @@ PREVIEW = False : site public (pas de code d'accès, pages indexables, sitemap d
 """
 import json, os, re, sys, html, datetime
 
-PREVIEW = True
+PREVIEW = False
 SITE = "https://burnout-parental.fr/"
 GATE_CODE = "1024"
 RDV = "https://www.doctolib.fr/psychotherapeute/paris/max-bouche"

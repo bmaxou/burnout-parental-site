@@ -1,0 +1,73 @@
+<!--meta
+{
+ "title": "Test coparentalité : où en est votre équipe parentale ?",
+ "description": "Auto-test coparentalité et couple parental : soutien, accord éducatif, reconnaissance, conflit. Pour parents ensemble ou séparés. Résultat animé.",
+ "h1": "Test : coparentalité et couple parental",
+ "eyebrow": "Auto-test · Coparentalité",
+ "lead": "Le soutien du coparent est l'une des ressources les plus protectrices contre le burn-out parental ; un conflit coparental chronique, l'une des charges les plus lourdes. Ce test fait le point sur votre équipe parentale, que vous viviez ensemble ou séparément.",
+ "nav_label": "Coparentalité et couple",
+ "kind": "article",
+ "quiz": 5,
+ "toc": false,
+ "updated": "2026-10-22",
+ "related": [
+  "consequences-enfant-couple",
+  "famille-recomposee",
+  "test-charge-mentale",
+  "reflexion-parents-separes"
+ ]
+}
+-->
+<div class="quiz" data-quiz id="q-copa" data-reveal>
+  <div class="quiz-head">
+    <h2>Le questionnaire</h2>
+    <p>Seize affirmations sur quatre aspects de la coparentalité. Pensez aux trois derniers mois. Si vous êtes séparé·e, « l'autre parent » désigne votre ex-conjoint·e.</p>
+    {{DISCLAIMER}}
+  </div>
+  <script type="application/json">
+  {
+    "dims":[{"id":"sou","label":"Soutien et relais","color":"var(--c-moss)"},{"id":"acc","label":"Accord éducatif","color":"#7FA6C9"},{"id":"rec","label":"Reconnaissance","color":"var(--c-accent)"},{"id":"con","label":"Conflit","color":"#C96A4A"}],
+    "scale":[{"v":0,"l":"Jamais"},{"v":1,"l":"Rarement"},{"v":2,"l":"Parfois"},{"v":3,"l":"Souvent"},{"v":4,"l":"Toujours"}],
+    "cta":"Voir notre profil",
+    "questions":[
+      {"t":"Quand je suis à bout, l'autre parent prend le relais sans que j'aie à insister.","d":"sou","reverse":true},
+      {"t":"Je peux compter sur l'autre parent dans les moments difficiles avec les enfants.","d":"sou","reverse":true},
+      {"t":"Nous nous répartissons les tâches liées aux enfants d'une façon que je trouve juste.","d":"sou","reverse":true},
+      {"t":"Je me sens seul·e pour élever nos enfants.","d":"sou"},
+      {"t":"Nous sommes d'accord sur l'essentiel de l'éducation (limites, écrans, sommeil, école).","d":"acc","reverse":true},
+      {"t":"Quand nous ne sommes pas d'accord, nous trouvons un compromis sans que les enfants en fassent les frais.","d":"acc","reverse":true},
+      {"t":"L'autre parent défait ce que je mets en place avec les enfants.","d":"acc"},
+      {"t":"Les enfants reçoivent des règles contradictoires selon le parent.","d":"acc"},
+      {"t":"L'autre parent voit et reconnaît ce que je fais pour les enfants.","d":"rec","reverse":true},
+      {"t":"Je me sens respecté·e comme parent par l'autre parent.","d":"rec","reverse":true},
+      {"t":"Je me sens critiqué·e ou jugé·e sur ma façon d'être parent.","d":"rec"},
+      {"t":"Mes efforts passent inaperçus.","d":"rec"},
+      {"t":"Nous nous disputons à propos des enfants.","d":"con"},
+      {"t":"Les tensions entre nous se passent devant les enfants.","d":"con"},
+      {"t":"Je me retiens de dire ce que je pense pour éviter un conflit.","d":"con"},
+      {"t":"Il m'arrive de me sentir en danger ou humilié·e dans mes échanges avec l'autre parent.","d":"con","risk":3}
+    ],
+    "result":{"type":"ring","sub":"tension coparentale","dimNoteMin":60,
+      "dimNotes":{
+        "sou":"le soutien et le relais manquent. C'est la ressource la plus protectrice contre l'épuisement, et celle qui se travaille le plus concrètement : des relais prévus, inscrits, non négociables.",
+        "acc":"les désaccords éducatifs sont fréquents. Ils épuisent et désorientent les enfants. Se mettre d'accord sur trois ou quatre règles essentielles, et accepter des différences sur le reste, suffit souvent à apaiser.",
+        "rec":"vous ne vous sentez pas reconnu·e comme parent. Ce manque pèse autant qu'une charge concrète. Il mérite d'être nommé, à froid, en termes de besoin plutôt que de reproche.",
+        "con":"le conflit est élevé. Au-delà d'un certain niveau, il ne se règle plus à deux ; un espace tiers (thérapie de couple, médiation familiale pour les parents séparés) permet d'en sortir."
+      },
+      "levels":[
+        {"max":25,"label":"Équipe solide","title":"Votre équipe parentale est une ressource","color":"var(--c-moss)","html":"<p>Soutien, accord, reconnaissance : vous pouvez compter l'un sur l'autre, même si tout n'est pas parfait. C'est l'un des meilleurs facteurs de protection contre l'épuisement parental. Entretenez-le, notamment par des moments de couple ou d'échange qui ne portent pas sur l'organisation.</p>"},
+        {"max":50,"label":"Équipe à consolider","title":"L'équipe tient, avec des points de friction","color":"var(--c-moss)","html":"<p>Certains aspects fonctionnent, d'autres fragilisent. Regardez la dimension qui ressort : c'est souvent là qu'une conversation posée, à froid, change beaucoup. Si vous vivez séparés, une coparentalité « suffisamment bonne » est un objectif réaliste et très protecteur pour les enfants.</p>"},
+        {"max":72,"label":"Équipe fragilisée","title":"La coparentalité est devenue une charge","color":"var(--c-accent)","html":"<p>Le manque de soutien, les désaccords ou le conflit pèsent sur vous et sur les enfants. Cela contribue directement à l'épuisement parental. Un travail de couple ou de coparentalité permet de sortir du face-à-face et de rebâtir une équipe, même après une séparation.</p>"},
+        {"max":100,"label":"Équipe en rupture","title":"Vous portez la parentalité contre, ou sans, l'autre parent","color":"#C96A4A","html":"<p>Le conflit ou l'absence de l'autre parent occupent presque tout l'espace. Ce n'est tenable ni pour vous ni pour les enfants, et ce n'est pas à vous seul·e de le résoudre. Un accompagnement (de couple, de coparentalité ou individuel) et, pour les parents séparés, une médiation familiale, sont des pistes concrètes.</p>"}
+      ],
+      "links":[{"href":"{{RDV}}","label":"Prendre rendez-vous","primary":true},{"href":"consequences-enfant-couple.html","label":"Effets sur le couple"},{"href":"test-charge-mentale.html","label":"Test charge mentale"}]}
+  }
+  </script>
+</div>
+
+<h2>Coparentalité : de quoi parle-t-on</h2>
+<p>La coparentalité, c'est la façon dont les deux parents coopèrent, se soutiennent et s'accordent dans l'éducation des enfants, indépendamment de leur relation de couple. Des parents séparés peuvent avoir une excellente coparentalité ; des parents qui vivent ensemble, une coparentalité conflictuelle. Les études sur le burn-out parental montrent que la qualité de cette coopération protège fortement, et que le conflit coparental expose fortement, bien plus que le statut (ensemble ou séparés) en lui-même.</p>
+<div class="fold-group">
+  <details class="fold"><summary>Si vous êtes séparés<span class="pm"></span></summary><div class="fold-body"><p>Les enjeux spécifiques (garde alternée ou principale, communication réduite, nouveau conjoint, loyautés de l'enfant) sont abordés dans la page <a href="reflexion-parents-separes.html">parents séparés</a> de l'espace de réflexion clinique, et dans la page <a href="famille-recomposee.html">famille recomposée</a>. La médiation familiale est une ressource utile quand le dialogue est rompu.</p></div></details>
+  <details class="fold"><summary>Si vous vous sentez en danger<span class="pm"></span></summary><div class="fold-body"><p>Humiliations, menaces, contrôle, violence physique ou sexuelle ne relèvent pas d'un « conflit de couple » : ce sont des violences. Le 3919 (Violences Femmes Info) est gratuit et anonyme ; le 17 en cas de danger immédiat. La page <a href="urgences-et-aide.html">urgences et aide</a> recense ces ressources.</p></div></details>
+</div>

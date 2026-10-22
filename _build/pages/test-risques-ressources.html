@@ -1,0 +1,69 @@
+<!--meta
+{
+ "title": "Test : ma balance charges / ressources de parent (modèle BR²)",
+ "description": "Auto-test inspiré du modèle balance risques/ressources (Mikolajczak & Roskam) : ce qui pèse, ce qui soutient. Balance animée et pistes pour rééquilibrer.",
+ "h1": "Test : ma balance charges / ressources",
+ "eyebrow": "Auto-test · Balance",
+ "lead": "Le burn-out parental s'installe quand ce qui pèse dépasse durablement ce qui soutient. Ce test inventorie les deux plateaux de votre balance et montre de quel côté elle penche. L'intérêt n'est pas le score : c'est de voir où vous pouvez agir.",
+ "nav_label": "Ma balance charges / ressources",
+ "kind": "article",
+ "quiz": 6,
+ "toc": false,
+ "updated": "2026-10-22",
+ "related": [
+  "causes-facteurs-de-risque",
+  "prevention-au-quotidien",
+  "test-burnout-parental",
+  "situations"
+ ]
+}
+-->
+<div class="quiz" data-quiz id="q-br" data-reveal>
+  <div class="quiz-head">
+    <h2>L'inventaire</h2>
+    <p>Dix affirmations décrivent des charges, dix décrivent des ressources. Répondez pour votre situation actuelle.</p>
+    {{DISCLAIMER}}
+  </div>
+  <script type="application/json">
+  {
+    "scale":[{"v":0,"l":"Pas du tout"},{"v":1,"l":"Un peu"},{"v":2,"l":"Moyennement"},{"v":3,"l":"Beaucoup"},{"v":4,"l":"Tout à fait"}],
+    "dims":[{"id":"risk","label":"Charges","color":"var(--c-accent)"},{"id":"res","label":"Ressources","color":"var(--c-moss)"}],
+    "cta":"Voir ma balance",
+    "questions":[
+      {"t":"Je me mets une forte pression pour être un parent irréprochable.","d":"risk"},
+      {"t":"Je porte l'essentiel de l'organisation familiale seul·e.","d":"risk"},
+      {"t":"Mon enfant (ou l'un de mes enfants) demande une vigilance de chaque instant (tempérament, santé, trouble, handicap).","d":"risk"},
+      {"t":"Les désaccords éducatifs avec l'autre parent sont fréquents.","d":"risk"},
+      {"t":"Mes nuits sont régulièrement coupées ou trop courtes.","d":"risk"},
+      {"t":"Mon travail (ou son absence) pèse lourdement sur mon énergie ou mes finances.","d":"risk"},
+      {"t":"J'ai traversé plusieurs événements difficiles ces douze derniers mois (déménagement, séparation, deuil, maladie, naissance).","d":"risk"},
+      {"t":"J'ai du mal à garder mon calme quand la tension monte à la maison.","d":"risk"},
+      {"t":"Je me compare souvent à d'autres parents et je m'en sors mal.","d":"risk"},
+      {"t":"Je n'ai personne à qui dire que c'est trop.","d":"risk"},
+      {"t":"L'autre parent (ou un adulte proche) prend réellement le relais, sans que j'aie à le demander.","d":"res"},
+      {"t":"J'ai au moins une personne avec qui parler sans me sentir jugé·e.","d":"res"},
+      {"t":"Je dispose chaque semaine de temps rien que pour moi, et je le prends.","d":"res"},
+      {"t":"Je peux confier mes enfants à quelqu'un de confiance quand j'en ai besoin.","d":"res"},
+      {"t":"Je sais me dire que « suffisamment bien » suffit.","d":"res"},
+      {"t":"Il y a encore des moments de plaisir gratuit avec mes enfants, sans objectif.","d":"res"},
+      {"t":"Je dors suffisamment la plupart des nuits.","d":"res"},
+      {"t":"J'ai une activité (sport, création, amis, nature) qui me recharge vraiment.","d":"res"},
+      {"t":"Je me sens reconnu·e dans ce que je fais pour ma famille.","d":"res"},
+      {"t":"Quand je suis dépassé·e, je sais comment me calmer.","d":"res"}
+    ],
+    "result":{"type":"balance","levels":[
+      {"max":35,"label":"Balance favorable","title":"Vos ressources l'emportent sur vos charges","html":"<p>Ce n'est pas que tout est facile, mais vous disposez de relais, de récupération et d'une certaine indulgence envers vous-même. Les charges existent ; elles sont portées. Surveillez simplement les périodes où plusieurs charges s'ajoutent d'un coup.</p>"},
+      {"max":50,"label":"Équilibre fragile","title":"La balance tient, mais sans marge","html":"<p>Charges et ressources se compensent à peu près. Un événement de plus, une ressource en moins, et elle penchera. C'est le bon moment pour renforcer une ou deux ressources, avant d'en avoir besoin : du relais prévu à l'avance, du temps pour soi inscrit dans la semaine, une personne à qui parler.</p>"},
+      {"max":68,"label":"Balance défavorable","title":"Vos charges dépassent vos ressources","html":"<p>Le déséquilibre est net. Regardez les charges que vous pouvez alléger (déléguer, renoncer, baisser une exigence) et les ressources que vous pouvez renforcer (relais, soutien, récupération). Si l'épuisement est déjà là, en parler à un professionnel aide à faire ce tri plus vite et sans culpabilité.</p>"},
+      {"max":100,"label":"Déséquilibre important","title":"Vous portez beaucoup, avec très peu de soutien","html":"<p>Un tel déséquilibre ne peut pas être tenu longtemps sans épuisement, et il n'est pas raisonnable de vous demander de le résoudre seul·e. Un accompagnement sert justement à reconstruire des ressources et à alléger ce qui peut l'être. Un premier rendez-vous est un bon point de départ.</p>"}
+    ],"links":[{"href":"prevention-au-quotidien.html","label":"Comment rééquilibrer","primary":true},{"href":"test-burnout-parental.html","label":"Mesurer l'épuisement"},{"href":"{{RDV}}","label":"Prendre rendez-vous"}]}
+  }
+  </script>
+</div>
+
+<h2>D'où vient cette balance</h2>
+<p>Ce test s'inspire du modèle théorique et clinique de l'équilibre entre risques et ressources (BR²) proposé par Moïra Mikolajczak et Isabelle Roskam en 2018. Dans ce modèle, aucun facteur n'est à lui seul responsable du burn-out parental : c'est l'excès chronique des risques sur les ressources qui compte. Les chercheuses ont construit un instrument de mesure de cette balance pour la recherche et la clinique ; notre questionnaire reprend le principe avec nos propres items, en version courte et non validée, à visée d'orientation.</p>
+<div class="fold-group">
+  <details class="fold"><summary>Pourquoi les ressources comptent autant que les charges<span class="pm"></span></summary><div class="fold-body"><p>Un parent peut porter des charges objectivement lourdes (enfant malade, monoparentalité, travail exigeant) sans s'épuiser, s'il dispose de relais, de récupération et d'indulgence envers lui-même. À l'inverse, des charges modestes épuisent un parent isolé et très exigeant. Les ressources sont souvent le côté de la balance sur lequel on a le plus de prise, parce qu'on peut en ajouter sans attendre que les charges diminuent.</p></div></details>
+  <details class="fold"><summary>Par où commencer pour rééquilibrer<span class="pm"></span></summary><div class="fold-body"><p>Par ce qui est le plus facile et le plus rapide, pas par ce qui est le plus important. Un relais hebdomadaire fixe, une exigence abandonnée, une conversation honnête avec le coparent, une demande d'aide à une personne précise : de petits déplacements suffisent souvent à faire basculer une balance fragile. La page <a href="prevention-au-quotidien.html">prévention au quotidien</a> détaille ces leviers.</p></div></details>
+</div>

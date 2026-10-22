@@ -24,3 +24,4 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
+            _build/**

@@ -1,0 +1,59 @@
+<!--meta
+{
+ "title": "Test : fatigue normale, épuisement parental ou dépression ?",
+ "description": "Auto-test d'orientation pour distinguer fatigue ordinaire, épuisement lié au rôle de parent et signes évoquant une dépression. Profil animé et conseils.",
+ "h1": "Test : fatigue, épuisement parental ou plus&nbsp;?",
+ "eyebrow": "Auto-test · Distinguer",
+ "lead": "Trois tableaux se ressemblent de l'extérieur : la fatigue qui se répare, l'épuisement centré sur le rôle de parent, et la dépression qui touche tous les domaines. Ce test situe ce que vous vivez entre ces trois profils. Il oriente, il ne diagnostique pas.",
+ "nav_label": "Fatigue, épuisement ou plus ?",
+ "kind": "article",
+ "quiz": 4,
+ "toc": false,
+ "updated": "2026-10-22",
+ "related": [
+  "burnout-parental-depression-fatigue",
+  "quand-consulter",
+  "perinatalite-post-partum",
+  "urgences-et-aide"
+ ]
+}
+-->
+<div class="quiz" data-quiz id="q-fat" data-reveal>
+  <div class="quiz-head">
+    <h2>Le questionnaire</h2>
+    <p>Quinze affirmations. Pensez aux deux dernières semaines.</p>
+    {{DISCLAIMER}}
+  </div>
+  <script type="application/json">
+  {
+    "dims":[{"id":"fat","label":"Fatigue qui se répare","color":"var(--c-moss)"},{"id":"bp","label":"Épuisement parental","color":"var(--c-accent)"},{"id":"dep","label":"Signes dépressifs","color":"#C96A4A"}],
+    "cta":"Voir mon profil",
+    "questions":[
+      {"t":"Après une bonne nuit ou un week-end allégé, je me sens nettement mieux.","d":"fat","reverse":true},
+      {"t":"Je ris encore avec mes enfants, même quand je suis fatigué·e.","d":"fat","reverse":true},
+      {"t":"Mes difficultés sont liées à une période précise (petite enfance, maladie, rentrée) et je sens qu'elles passeront.","d":"fat","reverse":true},
+      {"t":"Au travail ou dans mes loisirs, je retrouve de l'énergie et du plaisir.","d":"fat","reverse":true},
+      {"t":"Je garde l'envie de voir des amis ou de faire des choses qui me plaisent.","d":"fat","reverse":true},
+      {"t":"Je suis à bout précisément dans mon rôle de parent, davantage qu'ailleurs.","d":"bp"},
+      {"t":"Je m'occupe de mes enfants en automatique, sans émotion.","d":"bp"},
+      {"t":"Je ne me reconnais plus dans le parent que je suis devenu·e.","d":"bp"},
+      {"t":"Les moments avec mes enfants me pèsent plus qu'ils ne me portent.","d":"bp"},
+      {"t":"J'ai des pensées de fuite : partir, tout laisser.","d":"bp"},
+      {"t":"Je me sens triste, vide ou désespéré·e la plupart du temps, enfants ou pas.","d":"dep"},
+      {"t":"Je n'ai plus d'intérêt ni de plaisir pour quoi que ce soit, y compris ce que j'aimais avant.","d":"dep"},
+      {"t":"Je me sens sans valeur, coupable de tout, ou je pense que je gâche la vie des autres.","d":"dep"},
+      {"t":"Mon sommeil ou mon appétit ont nettement changé, en plus ou en moins, sans lien avec les enfants.","d":"dep"},
+      {"t":"Il m'arrive de penser à la mort, ou que je ferais mieux de ne plus être là.","d":"dep","risk":1}
+    ],
+    "result":{"type":"profile","levels":[
+      {"dim":"fat","label":"Plutôt une fatigue","title":"Vos réponses évoquent surtout une fatigue qui se répare","html":"<p>Le plaisir, le lien et l'envie restent présents ; le repos vous fait du bien et vous voyez le bout. Rien n'indique un épuisement installé. C'est le moment idéal pour la prévention : organiser du répit régulier, avant d'en avoir un besoin vital.</p>"},
+      {"dim":"bp","label":"Plutôt un épuisement parental","title":"Vos réponses évoquent un épuisement centré sur le rôle de parent","html":"<p>L'épuisement, la distance et le sentiment de ne plus vous reconnaître comme parent dominent, davantage que la tristesse généralisée. Ce tableau se travaille bien, surtout tôt : rééquilibrer charges et ressources, alléger les exigences, restaurer du plaisir partagé. Le test complet précise le profil ; la page « quand consulter » aide à décider.</p>"},
+      {"dim":"dep","label":"Signes dépressifs au premier plan","title":"Vos réponses évoquent des signes dépressifs, au-delà de la parentalité","html":"<p>La tristesse, la perte de plaisir et le sentiment de dévalorisation touchent l'ensemble de votre vie, pas seulement vos enfants. Cela mérite une consultation médicale ou psychologique sans attendre : la dépression se soigne, et bien. Un épuisement parental peut s'y ajouter ; l'évaluation le précisera.</p>"}
+    ],"links":[{"href":"quand-consulter.html","label":"Quand consulter ?","primary":true},{"href":"test-burnout-parental.html","label":"Test burn-out parental complet"},{"href":"{{RDV}}","label":"Prendre rendez-vous"}]}
+  }
+  </script>
+</div>
+
+<h2>Pourquoi distinguer</h2>
+<p>Parce que l'accompagnement n'est pas le même. Une fatigue appelle de la prévention et du répit ; un épuisement parental, un rééquilibrage de la balance charges / ressources et un travail sur la relation ; une dépression, une prise en charge médicale et psychothérapeutique, parfois un traitement. Et parce que les trois peuvent coexister : un burn-out parental qui dure peut évoluer vers une dépression, et une dépression rend la parentalité écrasante. La page <a href="burnout-parental-depression-fatigue.html">burn-out parental, dépression ou fatigue</a> détaille ces différences avec un tableau comparatif.</p>
+<div class="callout warn"><div class="callout-icon">{{WARN}}</div><div><p><strong>Après une naissance</strong>, la fatigue, l'épuisement et la dépression du post-partum s'entremêlent souvent. Si votre enfant a moins d'un an, lisez aussi <a href="perinatalite-post-partum.html">périnatalité et post-partum</a>, et parlez-en à votre sage-femme, votre médecin ou la PMI.</p></div></div>

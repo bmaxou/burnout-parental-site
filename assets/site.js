@@ -384,8 +384,6 @@
       var dimScores=dims.map(function(d){ var s=score(function(q){return q.d===d.id;}); return {id:d.id,label:d.label,color:d.color,pct:s.pct,sum:s.sum,max:s.max}; });
       var risk=false;
       qs.forEach(function(q,i){ if(q.risk!==undefined && answers[i]>=q.risk) risk=true; });
-      var h='';
-      if(risk) h+=ALERT_HTML;
       var lv, pct=total.pct, visual='', text='';
       if(res.type==='balance'){
         var rk=dimScores.filter(function(d){return d.id==='risk';})[0]||{pct:0}, rs=dimScores.filter(function(d){return d.id==='res';})[0]||{pct:0};

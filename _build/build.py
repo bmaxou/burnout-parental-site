@@ -27,6 +27,17 @@ RDV = "#rdv"
 # Pages où les noms restent en clair (obligation légale d'identifier l'éditeur) : non indexées, hors sitemap.
 CLAIR_AUTORISE = {"mentions-legales"}
 # Seuls liens sortants tolérés (le site lui-même et la prise de rendez-vous du cabinet).
+# Le seul recours cité est le cabinet : ces expressions (services ou structures extérieurs) sont refusées
+# sur les pages destinées aux parents. Les pages documentaires (tests.html, reflexion-*) décrivent des
+# instruments et des études et peuvent employer ces mots de façon descriptive.
+EXPRESSIONS_INTERDITES = (r"\bPMI\b|\bLAEP\b|lieux? d'accueil enfants-parents|services? d'urgence|numéros? d'urgence|\burgences?\b|"
+                          r"professionnel(?:le)?s? de santé|médecins? (?:traitants?|généralistes?)|\bmédecins?\b|\bpsychiatres?\b|sages?-femmes?|"
+                          r"puéricultrices?|\bpédiatres?\b|\bSAMU\b|\bSOS\b|lignes? d'écoute|\bassociations?\b|entretien postnatal|"
+                          r"\bmaternités?\b|\bCAF\b|\bMDPH\b|\bCCAS\b|\bCLIC\b|centres? sociaux|centres? médico|\bCMP\b|maisons? des adolescents|"
+                          r"travailleurs? sociaux|services? sociaux|unités? de psychiatrie|Maman Blues|SOS Préma|Allô|\b3114\b|\b119\b")
+PAGES_DOCUMENTAIRES = {"tests", "reflexion-clinique", "reflexion-parents-ensemble", "reflexion-parents-separes", "reflexion-jeune-enfant",
+                       "reflexion-adolescent", "reflexion-fratrie", "reflexion-burnout-general", "reflexion-distinction-parentale",
+                       "reflexion-accompagnement"}
 LIENS_AUTORISES = ("burnout-parental.fr", "doctolib.fr", "schema.org", "www.w3.org/2000/svg", "sitemaps.org")  # les deux derniers : identifiants techniques, pas des liens
 MAIL = "contact@burnout-parental.fr"
 TODAY = datetime.date.today().isoformat()
@@ -496,7 +507,7 @@ def hero_html(pages, meta, crumb):
   </section>'''
 
 
-DISCLAIMER = ('<div class="quiz-disclaimer">' + SVG["warn"] + '<span><strong>Outil d\'orientation, pas de diagnostic.</strong> Ce questionnaire n\'est pas un instrument validé scientifiquement : il aide à mettre des mots sur ce que vous vivez. Seul un entretien avec un professionnel permet une évaluation. Vos réponses restent dans votre navigateur et ne sont jamais envoyées.</span></div>')
+DISCLAIMER = ('<div class="quiz-disclaimer">' + SVG["warn"] + '<span><strong>Outil d\'orientation, pas de diagnostic.</strong> Ce questionnaire n\'est pas un instrument validé scientifiquement : il aide à mettre des mots sur ce que vous vivez. Seul un entretien au cabinet permet une évaluation. Vos réponses restent dans votre navigateur et ne sont jamais envoyées.</span></div>')
 
 
 def expand(body):
@@ -591,6 +602,9 @@ def check(pages, outputs):
             txt = re.sub(r"<[^>]+>", " ", txt)
             for m in re.finditer(r"\b3114\b|\b3919\b|\b119\b(?!\s*(?:items?|pages?|parents?|participants?|\d|%|-))|\bSAMU\b|Enfance en [Dd]anger|appelez le 15\b|\ble 15 (?:pour|en|sans|ou)\b|\b15, le 3114|urgent-num", txt):
                 errors.append(f"{slug}: numéro ou dispositif d'urgence interdit : « {m.group(0)} »")
+            if slug.replace(".html", "") not in PAGES_DOCUMENTAIRES:
+                for m in re.finditer(EXPRESSIONS_INTERDITES, txt):
+                    errors.append(f"{slug}: recours extérieur interdit : « {m.group(0)} »")
             unl = MASKER.unlisted_citations(html_out)
             if unl:
                 errors.append(f"{slug}: nom(s) probable(s) non listé(s) dans _build/noms.json : {', '.join(unl)}")

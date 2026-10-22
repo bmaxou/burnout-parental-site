@@ -26,6 +26,8 @@ GATE_CODE = "1024"
 RDV = "#rdv"
 # Pages où les noms restent en clair (obligation légale d'identifier l'éditeur) : non indexées, hors sitemap.
 CLAIR_AUTORISE = {"mentions-legales"}
+# Seuls liens sortants tolérés (le site lui-même et la prise de rendez-vous du cabinet).
+LIENS_AUTORISES = ("burnout-parental.fr", "doctolib.fr", "schema.org", "www.w3.org/2000/svg", "sitemaps.org")  # les deux derniers : identifiants techniques, pas des liens
 MAIL = "contact@burnout-parental.fr"
 TODAY = datetime.date.today().isoformat()
 
@@ -316,7 +318,7 @@ def footer_html(pages, meta):
         cols += f'<div><h3>{e(s["label"])}</h3><ul>{lis}</ul></div>'
     cols += (f'<div class="cta-col"><h3>Le cabinet</h3><p>Cabinet Bouche &amp; Chmura. Colombes, Les Pavillons-sous-Bois, Colombier-le-Vieux, et téléconsultation partout en France.</p>'
              f'<ul><li><a href="equipe-cabinet.html">L\'équipe</a></li><li><a href="{RDV}">Prendre rendez-vous (Doctolib)</a></li><li><a href="mailto:{MAIL}">{MAIL}</a></li>'
-             f'<li>Urgences : 15 (SAMU), 3114 (prévention du suicide), 119 (enfance en danger)</li><li><a href="reflexion-clinique.html">Réflexion clinique (professionnels)</a></li></ul></div>')
+             f'<li><a href="quand-consulter.html">Quand consulter ?</a></li><li><a href="reflexion-clinique.html">Réflexion clinique (professionnels)</a></li></ul></div>')
     updated = meta.get("updated", TODAY)
     return f'''<footer class="site-footer">
   <div class="wrap">
@@ -581,6 +583,14 @@ def check(pages, outputs):
             for u in set(re.findall(r'(?:href|src)="([^"]+)"', html_out)) | set(re.findall(r'https?://[^\s<>"]+', html_out)) | set(re.findall(r'[\w.\-]+@[\w.\-]+\.\w+', html_out)):
                 if MASKER.name_in_url(u):
                     errors.append(f"{slug}: adresse contenant un nom : {u}")
+            # Aucun lien externe (hors cabinet / prise de rendez-vous) et aucun numéro d'urgence : décision du client.
+            for u in set(re.findall(r'(?:href|src)="([^"]+)"', html_out)) | set(re.findall(r'https?://[^\s<>"]+', html_out)):
+                if u.startswith(("http://", "https://")) and not any(d in u for d in LIENS_AUTORISES):
+                    errors.append(f"{slug}: lien externe interdit : {u}")
+            txt = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html_out, flags=re.S)
+            txt = re.sub(r"<[^>]+>", " ", txt)
+            for m in re.finditer(r"\b3114\b|\b3919\b|\b119\b(?!\s*(?:items?|pages?|parents?|participants?|\d|%|-))|\bSAMU\b|Enfance en [Dd]anger|appelez le 15\b|\ble 15 (?:pour|en|sans|ou)\b|\b15, le 3114|urgent-num", txt):
+                errors.append(f"{slug}: numéro ou dispositif d'urgence interdit : « {m.group(0)} »")
             unl = MASKER.unlisted_citations(html_out)
             if unl:
                 errors.append(f"{slug}: nom(s) probable(s) non listé(s) dans _build/noms.json : {', '.join(unl)}")

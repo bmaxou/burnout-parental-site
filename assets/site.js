@@ -14,7 +14,8 @@
 
   /* ---- Lien de prise de rendez-vous (l'adresse n'est pas écrite dans le HTML) ---- */
   var RDV=atob('aHR0cHM6Ly93d3cuZG9jdG9saWIuZnIvcHN5Y2hvdGhlcmFwZXV0ZS9wYXJpcy9tYXgtYm91Y2hl');
-  function setRdv(scope){ (scope||document).querySelectorAll('a[href="#rdv"]').forEach(function(a){ a.href=RDV; a.target='_blank'; a.rel='noopener'; }); }
+  var RDV_LIEUX={colombes:'?pid=practice-597924',pavillons:'?pid=practice-670447',ardeche:'?pid=practice-597947',tele:'/booking/availabilities?specialityId=169&telehealth=true'};
+  function setRdv(scope){ (scope||document).querySelectorAll('a[href^="#rdv"]').forEach(function(a){ var k=a.getAttribute('href').slice(5); a.href=RDV+(RDV_LIEUX[k]||''); a.target='_blank'; a.rel='noopener'; }); }
   setRdv();
 
   /* ---- Aperçu privé (retiré au lancement) ---- */

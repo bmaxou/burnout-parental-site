@@ -116,7 +116,7 @@ a:hover{color:var(--c-accent);}
 .logo-name{font-family:var(--font-display);font-weight:600;font-size:1.08rem;letter-spacing:-.01em;}
 .logo-tagline{font:600 .66rem/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-soft);margin-top:2px;}
 .main-nav{display:none;}
-@media (min-width:900px){.main-nav{display:flex;gap:2px;}}
+@media (min-width:1100px){.main-nav{display:flex;gap:2px;}}
 .nav-list{list-style:none;margin:0;padding:0;display:flex;gap:2px;}
 .nav-link{padding:9px 12px;border-radius:999px;color:var(--c-ink);font:600 .88rem/1 var(--font-body);text-decoration:none!important;transition:background-color var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease);}
 .nav-link:hover{background:var(--c-moss-soft);color:var(--c-moss-strong)!important;}
@@ -411,7 +411,7 @@ html.ds[data-motion="off"] [data-reveal]{opacity:1!important;transform:none!impo
 
 /* Bouton menu mobile */
 .menu-btn{display:inline-grid;}
-@media (min-width:900px){.menu-btn{display:none;}}
+@media (min-width:1100px){.menu-btn{display:none;}}
 .mobile-nav{position:fixed;top:0;right:0;bottom:0;z-index:130;width:min(380px,100%);background:var(--c-surface);border-left:1px solid var(--c-line);box-shadow:var(--shadow-l);transform:translateX(104%);transition:transform .4s var(--ease-out),visibility 0s linear .4s;visibility:hidden;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
 .mobile-nav.is-open{transform:none;visibility:visible;transition:transform .4s var(--ease-out),visibility 0s;}
 .mobile-nav .panel-body{padding:8px 14px 30px;}
@@ -747,3 +747,11 @@ html.ds[data-motion="off"] .portal-hero::before,html.ds[data-motion="off"] .port
 /* Encadré d'alerte des tests : pas de débordement sur mobile */
 .qr-alert > div{min-width:0;}
 .qr-alert .btn{white-space:normal;text-align:center;height:auto;min-height:42px;padding:10px 1.2em;line-height:1.25;}
+
+/* Menu principal : six rubriques, compact entre 900 et 1240 px */
+@media (min-width:1100px) and (max-width:1400px){.nav-link{padding:9px 7px;font-size:.8rem;}.nav-link svg{width:11px;height:11px;}.header-inner{gap:10px;}.logo-tagline{display:none;}}
+.logo-name{white-space:nowrap;}
+.site-header .header-inner{width:min(1260px,100% - 2 * var(--gutter));}
+@media (min-width:1100px) and (max-width:1300px){.nav-link{padding:9px 6px;font-size:.78rem;}}
+@media (min-width:1100px) and (max-width:1199px){.header-actions .btn{display:none;}}
+.main-nav{flex-shrink:0;}

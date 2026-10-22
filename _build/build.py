@@ -54,7 +54,7 @@ SECTIONS = [
      "pages": ["burnout-parental-definition", "signes-symptomes", "causes-facteurs-de-risque",
                "burnout-parental-depression-fatigue", "burnout-parental-et-professionnel",
                "consequences-enfant-couple", "chiffres-cles"]},
-    {"id": "tests", "label": "Auto-tests", "hub": "auto-tests",
+    {"id": "tests", "label": "Tests", "hub": "auto-tests",
      "pages": ["test-burnout-parental", "test-risques-ressources", "test-charge-mentale",
                "test-fatigue-epuisement", "test-coparentalite", "test-perfectionnisme-parental", "tests"]},
     {"id": "situations", "label": "Situations", "hub": "situations",
@@ -62,17 +62,20 @@ SECTIONS = [
                "enfant-besoins-specifiques", "perinatalite-post-partum", "teletravail-double-charge",
                "aidants-epuisement"]},
     {"id": "accompagnement", "label": "Accompagnement", "hub": "accompagnement",
-     "pages": ["quand-consulter", "deroule-accompagnement", "approches-therapeutiques",
-               "equipe-cabinet", "proches-professionnels"]},
+     "pages": ["quand-consulter", "deroule-accompagnement", "approches-therapeutiques", "proches-professionnels"]},
     {"id": "ressources", "label": "Ressources", "hub": "ressources",
      "pages": ["prevention-au-quotidien", "signaux-alerte-negligence-violence",
                "glossaire", "bibliographie", "faq"]},
+    {"id": "cabinet", "label": "Le Cabinet", "hub": "le-cabinet",
+     "pages": ["lieux-de-consultation", "prendre-rendez-vous", "mentions-legales", "confidentialite"]},
     {"id": "reflexion", "label": "Réflexion clinique", "hub": "reflexion-clinique", "in_menu": False,
      "pages": ["reflexion-parents-ensemble", "reflexion-parents-separes", "reflexion-jeune-enfant",
                "reflexion-adolescent", "reflexion-fratrie", "reflexion-burnout-general",
                "reflexion-distinction-parentale", "reflexion-accompagnement"]},
 ]
-STANDALONE = ["index", "mentions-legales", "plan-du-site"]
+STANDALONE = ["index", "plan-du-site"]
+# Anciennes adresses conservées : une petite page de redirection est écrite pour chacune.
+REDIRECTIONS = {"equipe-cabinet": "le-cabinet"}
 
 SVG = {
     "chev": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
@@ -155,7 +158,6 @@ def nav_html(pages, current):
         items.append(
             f'<li class="nav-item has-sub"><button class="nav-link{active}" type="button" aria-haspopup="true" aria-expanded="false">{e(s["label"])}{SVG["chev"]}</button>'
             f'<ul class="sub-menu">{sub}</ul></li>')
-    items.append(f'<li class="nav-item"><a class="nav-link{" is-active" if current == "faq" else ""}" href="faq.html">FAQ</a></li>')
     return '<nav class="main-nav" aria-label="Navigation principale"><ul class="nav-list">' + "".join(items) + "</ul></nav>"
 
 
@@ -322,14 +324,16 @@ def cta_html(meta):
 def footer_html(pages, meta):
     cols = ""
     for s in SECTIONS:
-        if s.get("in_menu") is False:
+        if s.get("in_menu") is False or s["id"] == "cabinet":
             continue
         lis = f'<li><a href="{url(s["hub"])}"><strong>{e(pages[s["hub"]].get("nav_label", ""))}</strong></a></li>'
         lis += "".join(f'<li><a href="{url(p)}">{e(pages[p].get("nav_label", pages[p]["title"]))}</a></li>' for p in s["pages"])
         cols += f'<div><h3>{e(s["label"])}</h3><ul>{lis}</ul></div>'
-    cols += (f'<div class="cta-col"><h3>Le cabinet</h3><p>Cabinet Bouche &amp; Chmura. Colombes, Les Pavillons-sous-Bois, Colombier-le-Vieux, et téléconsultation partout en France.</p>'
-             f'<ul><li><a href="equipe-cabinet.html">L\'équipe</a></li><li><a href="{RDV}">Prendre rendez-vous (Doctolib)</a></li><li><a href="mailto:{MAIL}">{MAIL}</a></li>'
-             f'<li><a href="quand-consulter.html">Quand consulter ?</a></li><li><a href="reflexion-clinique.html">Réflexion clinique (professionnels)</a></li></ul></div>')
+    cols += (f'<div class="cta-col"><h3>Le Cabinet</h3><ul>'
+             f'<li><a href="le-cabinet.html">Qui vous reçoit</a></li><li><a href="lieux-de-consultation.html">Lieux de consultation</a></li>'
+             f'<li><a href="prendre-rendez-vous.html">Prendre rendez-vous</a></li><li><a href="mailto:{MAIL}">Contact&nbsp;: {MAIL}</a></li>'
+             f'<li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="confidentialite.html">Confidentialité</a></li></ul>'
+             f'<p style="font-size:.8rem;margin-top:10px;">© 2026 Cabinet Bouche &amp; Chmura. Site privé d\'information, qui ne remplace pas une consultation.</p></div>')
     updated = meta.get("updated", TODAY)
     return f'''<footer class="site-footer">
   <div class="wrap">
@@ -337,12 +341,12 @@ def footer_html(pages, meta):
       <div class="footer-brand">
         <a class="logo" href="index.html"><span class="logo-mark">{SVG["leaf"]}</span><span class="logo-text"><span class="logo-name">Burnout parental</span><span class="logo-tagline">Épuisement parental</span></span></a>
       </div>
-      <div><span>© Cabinet Bouche &amp; Chmura</span><br><span>Site d'information rédigé par des cliniciens. Il ne remplace pas une consultation.</span></div>
+      <div><span>Site d'information rédigé par des cliniciens. Il ne remplace pas une consultation.</span></div>
     </div>
     <div class="footer-map">{cols}</div>
     <div class="footer-bottom">
       <p class="sources">Page mise à jour le {e(fr_date(updated))}. Rédaction : Max Bouche, clinicien, psychothérapeute, psychanalyste. Les auto-tests de ce site sont des outils d'orientation, pas des outils de diagnostic ; aucune réponse n'est enregistrée ni transmise.</p>
-      <p class="footer-legal"><a href="mentions-legales.html">Mentions légales et confidentialité</a><a href="plan-du-site.html">Plan du site</a><a href="bibliographie.html">Sources</a></p>
+      <p class="footer-legal"><a href="plan-du-site.html">Plan du site</a><a href="bibliographie.html">Sources</a></p>
     </div>
   </div>
 </footer>'''
@@ -418,6 +422,11 @@ def faq_ld(body):
     return {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": qa}
 
 
+LIEUX = [
+    {"@type": "Place", "name": "Cabinet de Colombes", "address": {"@type": "PostalAddress", "streetAddress": "5 avenue Clert et Robert", "postalCode": "92700", "addressLocality": "Colombes", "addressCountry": "FR"}},
+    {"@type": "Place", "name": "Cabinet des Pavillons-sous-Bois", "address": {"@type": "PostalAddress", "streetAddress": "10 passage de la Main Ferme", "postalCode": "93320", "addressLocality": "Les Pavillons-sous-Bois", "addressCountry": "FR"}},
+    {"@type": "Place", "name": "Cabinet de Colombier-le-Vieux", "address": {"@type": "PostalAddress", "streetAddress": "24 Grande Rue", "postalCode": "07410", "addressLocality": "Colombier-le-Vieux", "addressCountry": "FR"}},
+]
 # Données structurées : aucun nom de personne (le nom du cabinet est formé de noms de personnes).
 ORG = {"@type": "MedicalBusiness", "@id": SITE + "#cabinet", "name": "Cabinet de psychothérapie, de psychanalyse et de psychologie clinique",
        "url": SITE, "email": MAIL, "areaServed": "France", "availableLanguage": "fr",
@@ -440,8 +449,8 @@ def jsonld(meta, body, crumb_ld):
         if meta.get("quiz"):
             page["mainEntity"] = {"@type": "Quiz", "name": strip_tags(meta.get("h1", meta["title"])), "educationalUse": "self-assessment"}
         out.append(page)
-        if meta["slug"] == "equipe-cabinet":
-            out.append(dict({"@context": "https://schema.org"}, **ORG))
+        if meta["slug"] in ("le-cabinet", "lieux-de-consultation", "prendre-rendez-vous"):
+            out.append(dict({"@context": "https://schema.org"}, **ORG, location=LIEUX))
     f = faq_ld(MASKER.mask_html(body) if meta["slug"] not in CLAIR_AUTORISE else body)  # texte sans les noms
     if f:
         out.append(f)
@@ -580,7 +589,7 @@ def check(pages, outputs):
             elif not href.endswith(".html") and href != "sitemap.xml" and not os.path.exists(os.path.join(ROOT, href)):
                 errors.append(f"{slug}: fichier manquant {href}")
         for href in re.findall(r'href="#([^"]+)"', html_out):
-            if href in ("contenu", "rdv"):
+            if href == "contenu" or href.startswith("rdv"):
                 continue
             if f'id="{href}"' not in html_out:
                 errors.append(f"{slug}: ancre #{href} introuvable")
@@ -642,10 +651,17 @@ def main():
     for fn, content in outputs.items():
         with open(os.path.join(ROOT, fn), "w", encoding="utf-8") as f:
             f.write(content)
+    for old, new in REDIRECTIONS.items():
+        with open(os.path.join(ROOT, old + ".html"), "w", encoding="utf-8") as f:
+            f.write(f'<!DOCTYPE html>\n<html lang="fr"><head><meta charset="UTF-8"><title>Redirection</title><meta name="robots" content="noindex">'
+                    f'<link rel="canonical" href="{abs_url(new)}"><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta http-equiv="refresh" content="0;url={new}.html"></head>'
+                    f'<body><p>Cette page a changé d\'adresse : <a href="{new}.html">{e(pages[new]["title"])}</a>.</p></body></html>\n')
     # sitemap
     order = ["index"] + [x for s in SECTIONS for x in [s["hub"]] + s["pages"]] + ["plan-du-site"]
     urls = []
     for slug in order:
+        if slug in CLAIR_AUTORISE:
+            continue
         m = pages[slug]
         prio = "1.0" if slug == "index" else ("0.8" if slug in {s["hub"] for s in SECTIONS} else ("0.5" if slug.startswith("reflexion") or slug in ("mentions-legales", "plan-du-site") else "0.7"))
         urls.append(f"  <url><loc>{abs_url(slug)}</loc><lastmod>{m.get('updated', TODAY)}</lastmod><changefreq>monthly</changefreq><priority>{prio}</priority></url>")

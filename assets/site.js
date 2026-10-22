@@ -12,6 +12,11 @@
     try{return window.matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){return false;}
   }
 
+  /* ---- Lien de prise de rendez-vous (l'adresse n'est pas écrite dans le HTML) ---- */
+  var RDV=atob('aHR0cHM6Ly93d3cuZG9jdG9saWIuZnIvcHN5Y2hvdGhlcmFwZXV0ZS9wYXJpcy9tYXgtYm91Y2hl');
+  function setRdv(scope){ (scope||document).querySelectorAll('a[href="#rdv"]').forEach(function(a){ a.href=RDV; a.target='_blank'; a.rel='noopener'; }); }
+  setRdv();
+
   /* ---- Aperçu privé (retiré au lancement) ---- */
   var gate=$('gatescreen');
   if(gate){
@@ -268,8 +273,7 @@
   var SVG_WARN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.6 17.2A2 2 0 0 0 4.3 20h15.4a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>';
   var DEFAULT_SCALE=[{v:0,l:'Jamais'},{v:1,l:'Rarement'},{v:2,l:'Parfois'},{v:3,l:'Souvent'},{v:4,l:'Très souvent'}];
   var ALERT_HTML='<div class="qr-alert" role="alert"><div class="callout-icon">'+SVG_WARN+'</div><div><p><strong>Une ou plusieurs de vos réponses décrivent une situation qui mérite une aide sans attendre.</strong> Ce n\'est pas une faute, c\'est un signal que la charge dépasse ce qu\'une personne peut porter seule. Des interlocuteurs sont joignables tout de suite, de jour comme de nuit.</p>'+
-    '<div class="urgent-grid"><div class="urgent-item"><span class="urgent-num">3114</span><span><strong>Prévention du suicide</strong><span>Gratuit, 24 h/24, 7 j/7</span></span></div><div class="urgent-item"><span class="urgent-num">15</span><span><strong>SAMU</strong><span>Urgence médicale ou psychiatrique</span></span></div><div class="urgent-item"><span class="urgent-num">119</span><span><strong>Allô Enfance en Danger</strong><span>Si vous craignez pour un enfant, y compris le vôtre</span></span></div></div>'+
-    '<p style="margin:12px 0 0"><a href="urgences-et-aide.html">Toutes les ressources d\'urgence et d\'aide</a></p></div></div>';
+    '<div class="urgent-grid"><div class="urgent-item"><span class="urgent-num">3114</span><span><strong>Prévention du suicide</strong><span>Gratuit, 24 h/24, 7 j/7</span></span></div><div class="urgent-item"><span class="urgent-num">15</span><span><strong>SAMU</strong><span>Urgence médicale ou psychiatrique</span></span></div><div class="urgent-item"><span class="urgent-num">119</span><span><strong>Allô Enfance en Danger</strong><span>Si vous craignez pour un enfant, y compris le vôtre</span></span></div></div>'+'</div></div>';
 
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
@@ -410,11 +414,12 @@
         if(notes.length) text+='<p><strong>Ce qui ressort le plus chez vous :</strong></p><ul>'+notes.join('')+'</ul>';
       }
       text+='<p class="small" style="font-size:.8rem;color:var(--c-ink-faint)">Résultat indicatif, calculé dans votre navigateur et non enregistré. Il ne remplace pas une évaluation clinique.</p>';
-      text+='<div class="qr-actions">'+(res.links||[]).map(function(l){ return '<a class="btn '+(l.primary?'btn-primary':'btn-secondary')+'" href="'+esc(l.href)+'"'+(l.href.indexOf('http')===0?' target="_blank" rel="noopener"':'')+'>'+esc(l.label)+'</a>'; }).join('')+'<button type="button" class="btn btn-secondary q-print">Imprimer mon résultat</button></div></div>';
+      text+='<div class="qr-actions">'+(res.links||[]).map(function(l){ return '<a class="btn '+(l.primary?'btn-primary':'btn-secondary')+'" href="'+esc(l.href)+'"'+'>'+esc(l.label)+'</a>'; }).join('')+'<button type="button" class="btn btn-secondary q-print">Imprimer mon résultat</button></div></div>';
       result.innerHTML='<div class="qr-grid"><div>'+visual+'</div>'+text+'</div>';
       if(risk) result.insertAdjacentHTML('afterbegin',ALERT_HTML);
       result.classList.add('is-open');
       result.querySelector('.q-print').addEventListener('click',function(){ window.print(); });
+      setRdv(result);
       /* lance les animations après l'affichage */
       requestAnimationFrame(function(){ requestAnimationFrame(function(){
         playVisuals(result);

@@ -15,11 +15,17 @@ PREVIEW = True  : site en préparation (code d'accès, balise noindex, robots.tx
 PREVIEW = False : site public (pas de code d'accès, pages indexables, sitemap déclaré).
 """
 import json, os, re, sys, html, datetime
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import noms as nomsmod
 
 PREVIEW = False
 SITE = "https://burnout-parental.fr/"
 GATE_CODE = "1024"
-RDV = "https://www.doctolib.fr/psychotherapeute/paris/max-bouche"
+# Lien de prise de rendez-vous : posé par assets/site.js au chargement (l'adresse contient un nom
+# et ne doit pas figurer dans le HTML). Dans les pages, href="#rdv".
+RDV = "#rdv"
+# Pages où les noms restent en clair (obligation légale d'identifier l'éditeur) : non indexées, hors sitemap.
+CLAIR_AUTORISE = {"mentions-legales"}
 MAIL = "contact@burnout-parental.fr"
 TODAY = datetime.date.today().isoformat()
 
@@ -46,7 +52,7 @@ SECTIONS = [
      "pages": ["quand-consulter", "deroule-accompagnement", "approches-therapeutiques",
                "equipe-cabinet", "proches-professionnels"]},
     {"id": "ressources", "label": "Ressources", "hub": "ressources",
-     "pages": ["prevention-au-quotidien", "signaux-alerte-negligence-violence", "urgences-et-aide",
+     "pages": ["prevention-au-quotidien", "signaux-alerte-negligence-violence",
                "glossaire", "bibliographie", "faq"]},
     {"id": "reflexion", "label": "Réflexion clinique", "hub": "reflexion-clinique", "in_menu": False,
      "pages": ["reflexion-parents-ensemble", "reflexion-parents-separes", "reflexion-jeune-enfant",
@@ -156,7 +162,7 @@ def mobile_nav_html(pages, current):
         h += '</ul></details>'
     h += '<a class="mnav-single" href="faq.html">Questions fréquentes</a>'
     h += '<a class="mnav-single" href="reflexion-clinique.html">Réflexion clinique (espace professionnel)</a>'
-    h += f'<div class="mnav-cta"><a class="btn btn-primary" href="{RDV}" target="_blank" rel="noopener">{SVG["cal"]}Prendre rendez-vous</a><a class="btn btn-secondary" href="mailto:{MAIL}">Écrire au cabinet</a></div>'
+    h += f'<div class="mnav-cta"><a class="btn btn-primary" href="{RDV}">{SVG["cal"]}Prendre rendez-vous</a><a class="btn btn-secondary" href="mailto:{MAIL}">Écrire au cabinet</a></div>'
     return (f'<div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-labelledby="mnavTitle">'
             f'<div class="panel-head"><h2 id="mnavTitle">Menu</h2><button class="icon-btn" id="btnCloseMenu" aria-label="Fermer le menu">'
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>'
@@ -178,7 +184,7 @@ def header_html(pages, current):
       <button class="icon-btn" id="btnA11y" aria-haspopup="dialog" aria-controls="a11yPanel" aria-expanded="false" title="Affichage et lecture" aria-label="Ouvrir les options d'affichage et de lecture">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/></svg>
       </button>
-      <a class="btn btn-primary" href="{RDV}" target="_blank" rel="noopener" style="--bh:40px;padding:0 1.1em;font-size:.86rem;">Prendre RDV</a>
+      <a class="btn btn-primary" href="{RDV}" style="--bh:40px;padding:0 1.1em;font-size:.86rem;">Prendre RDV</a>
       <button class="icon-btn menu-btn" id="btnMenu" aria-haspopup="dialog" aria-controls="mobileNav" aria-expanded="false" aria-label="Ouvrir le menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -292,7 +298,7 @@ def cta_html(meta):
         <h2 class="h-section">Un premier échange pour poser les choses clairement</h2>
         <p>Il permet de voir si cet accompagnement vous correspond, sans engagement. Au cabinet ou en téléconsultation.</p>
         <div class="actions">
-          <a class="btn btn-primary btn-lg" href="{RDV}" target="_blank" rel="noopener">{SVG["cal"]}Prendre rendez-vous</a>
+          <a class="btn btn-primary btn-lg" href="{RDV}">{SVG["cal"]}Prendre rendez-vous</a>
           <a class="btn btn-secondary btn-lg" href="mailto:{MAIL}">{MAIL}</a>
         </div>
       </div>
@@ -309,8 +315,8 @@ def footer_html(pages, meta):
         lis += "".join(f'<li><a href="{url(p)}">{e(pages[p].get("nav_label", pages[p]["title"]))}</a></li>' for p in s["pages"])
         cols += f'<div><h3>{e(s["label"])}</h3><ul>{lis}</ul></div>'
     cols += (f'<div class="cta-col"><h3>Le cabinet</h3><p>Cabinet Bouche &amp; Chmura. Colombes, Les Pavillons-sous-Bois, Colombier-le-Vieux, et téléconsultation partout en France.</p>'
-             f'<ul><li><a href="equipe-cabinet.html">L\'équipe</a></li><li><a href="{RDV}" target="_blank" rel="noopener">Prendre rendez-vous (Doctolib)</a></li><li><a href="mailto:{MAIL}">{MAIL}</a></li>'
-             f'<li><a href="urgences-et-aide.html">Urgences : 15, 3114, 119</a></li><li><a href="reflexion-clinique.html">Réflexion clinique (professionnels)</a></li></ul></div>')
+             f'<ul><li><a href="equipe-cabinet.html">L\'équipe</a></li><li><a href="{RDV}">Prendre rendez-vous (Doctolib)</a></li><li><a href="mailto:{MAIL}">{MAIL}</a></li>'
+             f'<li>Urgences : 15 (SAMU), 3114 (prévention du suicide), 119 (enfance en danger)</li><li><a href="reflexion-clinique.html">Réflexion clinique (professionnels)</a></li></ul></div>')
     updated = meta.get("updated", TODAY)
     return f'''<footer class="site-footer">
   <div class="wrap">
@@ -399,13 +405,10 @@ def faq_ld(body):
     return {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": qa}
 
 
-ORG = {"@type": "MedicalBusiness", "@id": SITE + "#cabinet", "name": "Cabinet Bouche & Chmura", "url": SITE, "email": MAIL,
-       "areaServed": "France", "availableLanguage": "fr",
-       "employee": [
-           {"@type": "Person", "name": "Max Bouche", "jobTitle": "Clinicien, psychothérapeute, psychanalyste",
-            "identifier": {"@type": "PropertyValue", "propertyID": "RPPS", "value": "10010375631"}},
-           {"@type": "Person", "name": "Sabrina Chmura", "jobTitle": "Psychologue clinicienne spécialisée en neuropsychologie",
-            "identifier": {"@type": "PropertyValue", "propertyID": "RPPS", "value": "10008870825"}}]}
+# Données structurées : aucun nom de personne (le nom du cabinet est formé de noms de personnes).
+ORG = {"@type": "MedicalBusiness", "@id": SITE + "#cabinet", "name": "Cabinet de psychothérapie, de psychanalyse et de psychologie clinique",
+       "url": SITE, "email": MAIL, "areaServed": "France", "availableLanguage": "fr",
+       "medicalSpecialty": "Psychiatric", "knowsAbout": "Burn-out parental"}
 
 
 def jsonld(meta, body, crumb_ld):
@@ -419,14 +422,14 @@ def jsonld(meta, body, crumb_ld):
         page = {"@context": "https://schema.org", "@type": "MedicalWebPage", "name": strip_tags(meta.get("h1", meta["title"])),
                 "description": meta["description"], "url": abs_url(meta["slug"]), "inLanguage": "fr-FR",
                 "dateModified": meta.get("updated", TODAY), "about": {"@type": "MedicalCondition", "name": "Burn-out parental"},
-                "author": {"@type": "Person", "name": "Max Bouche", "jobTitle": "Clinicien, psychothérapeute, psychanalyste"},
+                "author": {"@id": SITE + "#cabinet"},
                 "publisher": {"@id": SITE + "#cabinet"}, "audience": {"@type": "MedicalAudience", "audienceType": "Patient"}}
         if meta.get("quiz"):
             page["mainEntity"] = {"@type": "Quiz", "name": strip_tags(meta.get("h1", meta["title"])), "educationalUse": "self-assessment"}
         out.append(page)
         if meta["slug"] == "equipe-cabinet":
             out.append(dict({"@context": "https://schema.org"}, **ORG))
-    f = faq_ld(body)
+    f = faq_ld(MASKER.mask_html(body) if meta["slug"] not in CLAIR_AUTORISE else body)  # texte sans les noms
     if f:
         out.append(f)
     return "\n".join('<script type="application/ld+json">' + json.dumps(o, ensure_ascii=False) + "</script>" for o in out)
@@ -436,7 +439,7 @@ def head_html(meta, body, crumb_ld):
     title = meta["title"]
     desc = meta["description"]
     canon = abs_url(meta["slug"])
-    robots = '<meta name="robots" content="noindex,nofollow">' if PREVIEW else '<meta name="robots" content="index,follow,max-image-preview:large">'
+    robots = '<meta name="robots" content="noindex,nofollow">' if (PREVIEW or meta["slug"] in CLAIR_AUTORISE) else '<meta name="robots" content="index,follow,max-image-preview:large">'
     gate_js = '<script>(function(){try{if(localStorage.getItem(\'bp_gate_ok\')===\'1\'){document.documentElement.classList.add(\'gate-ok\');}}catch(e){}})();</script>' if PREVIEW else ""
     return f'''<!DOCTYPE html>
 <html lang="fr">
@@ -539,6 +542,12 @@ def render(pages, meta):
   {cta_html(meta)}
 </main>'''
     out = head + "\n" + hdr + main + "\n" + footer_html(pages, meta) + "\n" + mobile_nav_html(pages, slug) + "\n" + a11y_panel() + '\n<script src="assets/site.js" defer></script>\n</body>\n</html>\n'
+    if slug not in CLAIR_AUTORISE:
+        MASKER.used = {}
+        out = MASKER.mask_html(out)
+        if MASKER.used:
+            css = nomsmod.BASE_CSS + "\n" + MASKER.css_for()
+            out = out.replace("</head>", "<style>\n" + css + "\n</style>\n</head>", 1)
     return out
 
 
@@ -558,13 +567,23 @@ def check(pages, outputs):
             elif not href.endswith(".html") and href != "sitemap.xml" and not os.path.exists(os.path.join(ROOT, href)):
                 errors.append(f"{slug}: fichier manquant {href}")
         for href in re.findall(r'href="#([^"]+)"', html_out):
-            if href in ("contenu",):
+            if href in ("contenu", "rdv"):
                 continue
             if f'id="{href}"' not in html_out:
                 errors.append(f"{slug}: ancre #{href} introuvable")
         for src in re.findall(r'<img[^>]+>', html_out):
             if 'alt=' not in src:
                 errors.append(f"{slug}: image sans attribut alt")
+        if slug.replace(".html", "") not in CLAIR_AUTORISE:
+            left = MASKER.leftovers(html_out)
+            if left:
+                errors.append(f"{slug}: nom(s) encore en clair : {', '.join(left)}")
+            for u in set(re.findall(r'(?:href|src)="([^"]+)"', html_out)) | set(re.findall(r'https?://[^\s<>"]+', html_out)) | set(re.findall(r'[\w.\-]+@[\w.\-]+\.\w+', html_out)):
+                if MASKER.name_in_url(u):
+                    errors.append(f"{slug}: adresse contenant un nom : {u}")
+            unl = MASKER.unlisted_citations(html_out)
+            if unl:
+                errors.append(f"{slug}: nom(s) probable(s) non listé(s) dans _build/noms.json : {', '.join(unl)}")
     titles = {}
     for slug, m in pages.items():
         titles.setdefault(m["title"], []).append(slug)
@@ -578,7 +597,12 @@ def check(pages, outputs):
         sys.exit(1)
 
 
+MASKER = None
+
+
 def main():
+    global MASKER
+    MASKER = nomsmod.Masker()
     pages = read_pages()
     expected = set(STANDALONE) | {s["hub"] for s in SECTIONS} | {p for s in SECTIONS for p in s["pages"]}
     missing = expected - set(pages)
@@ -595,7 +619,7 @@ def main():
         with open(os.path.join(ROOT, fn), "w", encoding="utf-8") as f:
             f.write(content)
     # sitemap
-    order = ["index"] + [x for s in SECTIONS for x in [s["hub"]] + s["pages"]] + ["mentions-legales", "plan-du-site"]
+    order = ["index"] + [x for s in SECTIONS for x in [s["hub"]] + s["pages"]] + ["plan-du-site"]
     urls = []
     for slug in order:
         m = pages[slug]
@@ -608,7 +632,8 @@ def main():
             f.write("# Site en préparation : exploration interdite. Au lancement, mettre PREVIEW = False\n# dans _build/build.py et relancer le script : ce fichier sera réécrit automatiquement.\nUser-agent: *\nDisallow: /\n")
         else:
             f.write(f"User-agent: *\nAllow: /\nDisallow: /_build/\n\nSitemap: {SITE}sitemap.xml\n")
-    print(f"[build] {len(outputs)} pages générées, sitemap.xml et robots.txt écrits (PREVIEW={PREVIEW}).")
+    print(f"[build] {len(outputs)} pages générées, sitemap.xml et robots.txt écrits (PREVIEW={PREVIEW}). "
+          f"{len(MASKER.index)} noms masqués ; en clair uniquement sur : {', '.join(sorted(CLAIR_AUTORISE))}.")
 
 
 if __name__ == "__main__":

@@ -343,8 +343,8 @@ def footer_html(pages, meta):
     return '''<footer class="site-footer">
   <nav class="wrap footer-nav" aria-label="Autres pages"><div class="footer-share" id="footerShare" role="group" aria-label="Partager cette page"><span class="lib">Partager</span></div></nav>
   <div class="wrap footer-row">
-    <span>© Cabinet Bouche &amp; Chmura</span>
-    <span class="footer-right"><a href="mentions-legales.html">Mentions légales</a></span>
+    <span><a class="footer-cab" href="https://www.psy-psy.fr/cabinet" target="_blank" rel="noopener">© Cabinet Bouche &amp; Chmura</a></span>
+    <span class="footer-right"><a href="mentions-legales.html">Mentions légales</a><i class="ghost" aria-hidden="true"></i><i class="ghost" aria-hidden="true"></i></span>
   </div>
 </footer>'''
 

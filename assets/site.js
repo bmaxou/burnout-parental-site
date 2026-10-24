@@ -329,10 +329,9 @@
   /* =====================================================================
      Moteur d'auto-tests. Tout est calculé localement, rien n'est envoyé.
      ===================================================================== */
-  var SVG_WARN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.6 17.2A2 2 0 0 0 4.3 20h15.4a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>';
+  /* Phrase de cadrage validée par le cabinet : affichée une seule fois, sous le résultat (jamais en début de test). Le build vérifie qu'elle est identique à PHRASE_CADRAGE dans _build/build.py. */
+  var CADRAGE="Ces questionnaires, élaborés par des cliniciens, sont une première approche : ils ne remplacent pas les tests psychométriques normés et validés, dont la diffusion en ligne est protégée par des droits d'auteur et dont certains ne se passent qu'en entretien clinique. Si vos réponses font apparaître des signaux, un rendez-vous au cabinet permet d'aller plus loin avec des évaluations plus approfondies.";
   var DEFAULT_SCALE=[{v:0,l:'Jamais'},{v:1,l:'Rarement'},{v:2,l:'Parfois'},{v:3,l:'Souvent'},{v:4,l:'Très souvent'}];
-  var ALERT_HTML='<div class="qr-alert" role="alert"><div class="callout-icon">'+SVG_WARN+'</div><div><p><strong>Une ou plusieurs de vos réponses décrivent une situation qui mérite une aide rapide.</strong> Ce n\'est pas une faute : c\'est le signe que la charge dépasse ce qu\'une personne peut porter seule. N\'attendez pas que ça passe : prenez contact avec le cabinet dans les jours qui viennent. Il vous répondra sans jugement et pourra proposer un premier rendez-vous rapidement.</p>'+
-    '<p style="margin:12px 0 0"><a class="btn btn-primary" href="#rdv" style="--bh:42px">Prendre contact avec le cabinet</a></p></div></div>';
 
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
@@ -445,8 +444,6 @@
       var res=def.result||{type:'ring',levels:[]};
       var total=score();
       var dimScores=dims.map(function(d){ var s=score(function(q){return q.d===d.id;}); return {id:d.id,label:d.label,color:d.color,pct:s.pct,sum:s.sum,max:s.max}; });
-      var risk=false;
-      qs.forEach(function(q,i){ if(q.risk!==undefined && answers[i]>=q.risk) risk=true; });
       var lv, pct=total.pct, visual='', text='';
       if(res.type==='balance'){
         var rk=dimScores.filter(function(d){return d.id==='risk';})[0]||{pct:0}, rs=dimScores.filter(function(d){return d.id==='res';})[0]||{pct:0};
@@ -473,9 +470,9 @@
         if(notes.length) text+='<p><strong>Ce qui ressort le plus chez vous :</strong></p><ul>'+notes.join('')+'</ul>';
       }
       text+='<p class="small" style="font-size:.8rem;color:var(--c-ink-faint)">Résultat calculé dans votre navigateur, non enregistré.</p>';
+      text+='<p class="qr-cadre">'+CADRAGE+'</p>';
       text+='<div class="qr-actions">'+(res.links||[]).map(function(l){ return '<a class="btn '+(l.primary?'btn-primary':'btn-secondary')+'" href="'+esc(l.href)+'"'+'>'+esc(l.label)+'</a>'; }).join('')+'<button type="button" class="btn btn-secondary q-print">Imprimer mon résultat</button></div></div>';
       result.innerHTML='<div class="qr-grid"><div>'+visual+'</div>'+text+'</div>';
-      if(risk) result.insertAdjacentHTML('afterbegin',ALERT_HTML);
       result.classList.add('is-open');
       result.querySelector('.q-print').addEventListener('click',function(){ window.print(); });
       setRdv(result);

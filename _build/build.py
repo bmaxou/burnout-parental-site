@@ -49,6 +49,13 @@ FORMULES_INTERDITES = (r"pas (?:un |de |d'un )?diagnostic|aucun diagnostic|sans 
                        r"ne remplacent? (?:pas|en aucun cas) (?:une |un )?(?:consultation|évaluation|avis|entretien|diagnostic)|\bindicati(?:f|fs|ve|ves)\b|avis médical|"
                        r"(?:ils|elles|il) orientent?, (?:ils|elles|il) ne mesurent?|sont-ils fiables")
 PAGES_EXEMPTEES_FORMULES = {"mentions-legales"}
+# Phrase de cadrage validée mot pour mot par le client : sous le résultat des tests (site.js) et dans la FAQ
+# « Comment sont construits les auto-tests ? ». Elle est retirée du texte avant le contrôle des formules, sans
+# assouplir le contrôle pour le reste ; le build vérifie qu'elle est identique dans assets/site.js.
+PHRASE_CADRAGE = ("Ces questionnaires, élaborés par des cliniciens, sont une première approche : ils ne remplacent pas les tests psychométriques normés et validés, dont la diffusion en ligne est protégée par des droits d'auteur et dont certains ne se passent qu'en entretien clinique. Si vos réponses font apparaître des signaux, un rendez-vous au cabinet permet d'aller plus loin avec des évaluations plus approfondies.")
+# Encadré d'alerte des tests (réponse « à risque ») supprimé à la demande du client : aucun résidu, ni dans les pages
+# (champ "risk" des questions, classe qr-alert, texte de l'encadré) ni dans assets/site.js.
+ALERTE_INTERDITE = r'"risk":\s*\d|qr-alert|mérite une aide rapide|ALERT_HTML|q\.risk'
 PAGES_DOCUMENTAIRES = {"tests", "reflexion-clinique", "reflexion-parents-ensemble", "reflexion-parents-separes", "reflexion-jeune-enfant",
                        "reflexion-adolescent", "reflexion-fratrie", "reflexion-burnout-general", "reflexion-distinction-parentale",
                        "reflexion-accompagnement"}
@@ -672,12 +679,24 @@ def check(pages, outputs):
             if slug.replace(".html", "") not in PAGES_DOCUMENTAIRES:
                 for m in re.finditer(EXPRESSIONS_INTERDITES, txt):
                     errors.append(f"{slug}: recours extérieur interdit : « {m.group(0)} »")
+            if txt.count(PHRASE_CADRAGE) > 1:
+                errors.append(f"{slug}: phrase de cadrage présente {txt.count(PHRASE_CADRAGE)} fois (une seule attendue)")
             if slug.replace(".html", "") not in PAGES_DOCUMENTAIRES | PAGES_EXEMPTEES_FORMULES:
-                for m in re.finditer(FORMULES_INTERDITES, txt):
+                for m in re.finditer(FORMULES_INTERDITES, txt.replace(PHRASE_CADRAGE, " ")):
                     errors.append(f"{slug}: formule défensive interdite : « {m.group(0)} »")
+            for m in re.finditer(ALERTE_INTERDITE, html_out):
+                errors.append(f"{slug}: résidu de l'encadré d'alerte des tests (supprimé) : « {m.group(0)} »")
             unl = MASKER.unlisted_citations(html_out)
             if unl:
                 errors.append(f"{slug}: nom(s) probable(s) non listé(s) dans _build/noms.json : {', '.join(unl)}")
+    with open(os.path.join(ROOT, "assets", "site.js"), encoding="utf-8") as f:
+        js = f.read()
+    for m in re.finditer(ALERTE_INTERDITE, js):
+        errors.append(f"assets/site.js: résidu de l'encadré d'alerte des tests (supprimé) : « {m.group(0)} »")
+    if js.count(PHRASE_CADRAGE) != 1 or 'var CADRAGE="' + PHRASE_CADRAGE + '"' not in js:
+        errors.append("assets/site.js: la phrase de cadrage (CADRAGE) doit être identique à PHRASE_CADRAGE, une seule fois")
+    if PHRASE_CADRAGE in DISCLAIMER:
+        errors.append("la phrase de cadrage ne doit pas figurer en début de test (DISCLAIMER)")
     titles = {}
     for slug, m in pages.items():
         titles.setdefault(m["title"], []).append(slug)

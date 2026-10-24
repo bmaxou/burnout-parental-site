@@ -494,3 +494,17 @@
   }
   document.querySelectorAll('.quiz[data-quiz]').forEach(buildQuiz);
 })();
+
+/* Sections repliables des pages de réflexion : bouton « − » en bas à droite pour refermer */
+(function(){
+  document.querySelectorAll('.refl-article details.fold').forEach(function(d){
+    var body=d.querySelector('.fold-body'); if(!body) return;
+    var b=document.createElement('button');
+    b.type='button'; b.className='fold-close'; b.setAttribute('aria-label','Replier cette section'); b.title='Replier'; b.textContent='\u2212';
+    b.addEventListener('click',function(){
+      d.open=false;
+      var s=d.querySelector('summary'); if(s){ s.scrollIntoView({block:'center',behavior:'smooth'}); s.focus({preventScroll:true}); }
+    });
+    body.appendChild(b);
+  });
+})();

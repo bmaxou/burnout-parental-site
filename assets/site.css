@@ -807,3 +807,21 @@ html.ds[data-motion="off"] .portal-hero::before,html.ds[data-motion="off"] .port
 .vault-form label{font-size:.86rem;color:var(--c-ink-soft);}
 .vault-form input{min-height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--c-line);background:var(--c-surface);color:var(--c-ink);font:inherit;width:12em;}
 .vault-msg{font-size:.86rem;color:#C96A4A;}
+
+/* Page de réflexion longue : colonne de lecture plus large, texte plus grand, sections repliables avec bouton « replier » */
+.wrap-read{width:min(920px,100% - 2 * var(--gutter));}
+.wrap-read .refl-article p,.wrap-read .refl-article li{font-size:1.12rem;line-height:1.8;}
+.wrap-read .refl-article .fold summary{font-size:1.15rem;padding:20px 24px;}
+.wrap-read .refl-article .fold .fold-body{padding:0 24px 20px;}
+.fold-close{display:flex;align-items:center;justify-content:center;width:34px;height:34px;margin:6px 0 0 auto;border-radius:50%;border:1px solid var(--c-line);background:var(--c-moss-soft);color:var(--c-moss-strong);font:600 1.2rem/1 var(--font-body);cursor:pointer;}
+.fold-close:hover,.fold-close:focus-visible{background:var(--c-surface);box-shadow:var(--shadow-m);}
+.refl-sign{margin:26px 0 8px;font-size:.95rem;color:var(--c-ink-soft);}
+.src-inline{margin:0 0 6px;}
+.src-inline summary{display:inline;list-style:none;cursor:pointer;font-size:.9rem;color:var(--c-ink-faint);text-decoration:underline;text-underline-offset:3px;}
+.src-inline summary::-webkit-details-marker{display:none;}
+.src-inline summary:hover,.src-inline summary:focus-visible{color:var(--c-ink);}
+.src-inline ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px;}
+.src-inline li{font-size:.9rem;color:var(--c-ink-faint);line-height:1.6;padding-left:14px;position:relative;overflow-wrap:anywhere;}
+.src-inline li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--c-line-strong);}
+@media print{.fold-close{display:none;}}
+.wrap-read .refl-article .src-inline li{font-size:.9rem;line-height:1.6;}

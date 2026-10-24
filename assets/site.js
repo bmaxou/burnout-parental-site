@@ -472,7 +472,7 @@
         var notes=dimScores.filter(function(d){return d.pct>=(res.dimNoteMin||60) && res.dimNotes[d.id];}).map(function(d){return '<li><strong>'+esc(d.label)+' :</strong> '+res.dimNotes[d.id]+'</li>';});
         if(notes.length) text+='<p><strong>Ce qui ressort le plus chez vous :</strong></p><ul>'+notes.join('')+'</ul>';
       }
-      text+='<p class="small" style="font-size:.8rem;color:var(--c-ink-faint)">Résultat indicatif, calculé dans votre navigateur et non enregistré. Il ne remplace pas une évaluation clinique.</p>';
+      text+='<p class="small" style="font-size:.8rem;color:var(--c-ink-faint)">Résultat calculé dans votre navigateur, non enregistré.</p>';
       text+='<div class="qr-actions">'+(res.links||[]).map(function(l){ return '<a class="btn '+(l.primary?'btn-primary':'btn-secondary')+'" href="'+esc(l.href)+'"'+'>'+esc(l.label)+'</a>'; }).join('')+'<button type="button" class="btn btn-secondary q-print">Imprimer mon résultat</button></div></div>';
       result.innerHTML='<div class="qr-grid"><div>'+visual+'</div>'+text+'</div>';
       if(risk) result.insertAdjacentHTML('afterbegin',ALERT_HTML);

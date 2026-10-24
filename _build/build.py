@@ -42,6 +42,13 @@ EXPRESSIONS_INTERDITES = (r"\bPMI\b|\bLAEP\b|lieux? d'accueil enfants-parents|se
                           r"puéricultrices?|\bpédiatres?\b|\bSAMU\b|\bSOS\b|lignes? d'écoute|\bassociations?\b|entretien postnatal|"
                           r"\bmaternités?\b|\bCAF\b|\bMDPH\b|\bCCAS\b|\bCLIC\b|centres? sociaux|centres? médico|\bCMP\b|maisons? des adolescents|"
                           r"travailleurs? sociaux|services? sociaux|unités? de psychiatrie|Maman Blues|SOS Préma|Allô|\b3114\b|\b119\b")
+# Formules défensives (mises en garde sur les tests) que le client ne veut plus voir sur les pages publiques.
+FORMULES_INTERDITES = (r"pas (?:un |de |d'un )?diagnostic|aucun diagnostic|sans valeur de diagnostic|ne diagnostique|ne (?:pose|posent|constitue|constituent)nt? (?:pas |aucun )?(?:de |un )?diagnostic|"
+                       r"outils? d'orientation|questionnaires? d'orientation|tests? d'orientation|(?:à )?visée d'orientation|score d'orientation|"
+                       r"(?:non|pas) (?:des |un |des )?instruments? validés?|non validée?s?\b|pas (?:fait l'objet d'une )?validation|"
+                       r"ne remplacent? (?:pas|en aucun cas) (?:une |un )?(?:consultation|évaluation|avis|entretien|diagnostic)|\bindicati(?:f|fs|ve|ves)\b|avis médical|"
+                       r"(?:ils|elles|il) orientent?, (?:ils|elles|il) ne mesurent?|sont-ils fiables")
+PAGES_EXEMPTEES_FORMULES = {"mentions-legales"}
 PAGES_DOCUMENTAIRES = {"tests", "reflexion-clinique", "reflexion-parents-ensemble", "reflexion-parents-separes", "reflexion-jeune-enfant",
                        "reflexion-adolescent", "reflexion-fratrie", "reflexion-burnout-general", "reflexion-distinction-parentale",
                        "reflexion-accompagnement"}
@@ -512,7 +519,8 @@ def hero_html(pages, meta, crumb):
   </section>'''
 
 
-DISCLAIMER = ('<div class="quiz-disclaimer">' + SVG["warn"] + '<span><strong>Outil d\'orientation, pas de diagnostic.</strong> Ce questionnaire n\'est pas un instrument validé scientifiquement : il aide à mettre des mots sur ce que vous vivez. Seul un entretien au cabinet permet une évaluation. Vos réponses restent dans votre navigateur et ne sont jamais envoyées.</span></div>')
+SVG_LOCK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>'
+DISCLAIMER = ('<div class="quiz-disclaimer">' + SVG_LOCK + '<span><strong>Confidentiel.</strong> Vos réponses restent dans votre navigateur : rien n\'est enregistré ni transmis. Le résultat s\'affiche immédiatement, avec un profil et des pistes concrètes.</span></div>')
 
 
 def expand(body):
@@ -664,6 +672,9 @@ def check(pages, outputs):
             if slug.replace(".html", "") not in PAGES_DOCUMENTAIRES:
                 for m in re.finditer(EXPRESSIONS_INTERDITES, txt):
                     errors.append(f"{slug}: recours extérieur interdit : « {m.group(0)} »")
+            if slug.replace(".html", "") not in PAGES_DOCUMENTAIRES | PAGES_EXEMPTEES_FORMULES:
+                for m in re.finditer(FORMULES_INTERDITES, txt):
+                    errors.append(f"{slug}: formule défensive interdite : « {m.group(0)} »")
             unl = MASKER.unlisted_citations(html_out)
             if unl:
                 errors.append(f"{slug}: nom(s) probable(s) non listé(s) dans _build/noms.json : {', '.join(unl)}")

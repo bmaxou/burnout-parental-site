@@ -106,9 +106,12 @@ CABINET_URL = "https://www.psy-psy.fr/cabinet"
 CABINET_PAGE = "le-cabinet.html"  # page de passage (nouvel onglet) : le retour arrière ramène sur le site
 # Autres sites du cabinet, atteints par le même principe (page de passage, nouvel onglet, retour arrière préservé).
 PASSAGES_AUTRES = {
-    "bilan-psychologique": {"url": "https://www.psy-psy.fr/bilans-psychologiques", "titre": "Le bilan psychologique",
-                            "lead": "La page du cabinet consacrée aux bilans psychologiques s'ouvre dans un instant. Pour revenir ici, utilisez le bouton « Retour » de votre navigateur.",
-                            "bouton": "Voir le bilan psychologique", "texte": "Vous y trouverez le déroulé d'un bilan, ses indications et la prise de rendez-vous."},
+    "bilans": {"url": "https://www.psy-psy.fr/bilans", "titre": "Les bilans du cabinet",
+               "lead": "La page du cabinet consacrée aux bilans, psychologique et neuropsychologique, s'ouvre dans un instant. Pour revenir ici, utilisez le bouton « Retour » de votre navigateur.",
+               "bouton": "Voir les bilans", "texte": "Vous y trouverez les bilans proposés par le cabinet et la prise de rendez-vous."},
+    "pedopsy": {"url": "https://www.psy-psy.fr/pedopsy", "titre": "L'accompagnement de l'enfant",
+                "lead": "La page du cabinet consacrée à l'accompagnement de l'enfant s'ouvre dans un instant. Pour revenir ici, utilisez le bouton « Retour » de votre navigateur.",
+                "bouton": "Voir l'accompagnement de l'enfant", "texte": "Vous y trouverez comment le cabinet accompagne l'enfant, et la famille avec lui."},
     "bilan-mdph": {"url": "https://bilan-mdph.fr/", "titre": "Le bilan MDPH",
                    "lead": "Le site bilan-mdph.fr s'ouvre dans un instant. Pour revenir ici, utilisez le bouton « Retour » de votre navigateur.",
                    "bouton": "Voir bilan-mdph.fr", "texte": "Vous y trouverez comment un bilan peut accompagner un dossier MDPH, pour un enfant comme pour un adulte."},

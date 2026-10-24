@@ -103,6 +103,7 @@ PAGES_PRIVEES = {"tests"}
 MDP_PRIVE = os.environ.get("BP_MDP_TESTS", "1024")
 # La rubrique « Le Cabinet » renvoie vers le site du cabinet.
 CABINET_URL = "https://www.psy-psy.fr/cabinet"
+CABINET_PAGE = "le-cabinet.html"  # page de passage (nouvel onglet) : le retour arrière ramène sur le site
 # Anciennes adresses conservées : une petite page de redirection (noindex) vers le site du cabinet.
 REDIRECTIONS = {"equipe-cabinet": CABINET_URL, "le-cabinet": CABINET_URL, "lieux-de-consultation": CABINET_URL, "prendre-rendez-vous": CABINET_URL,
                 "confidentialite": "mentions-legales.html"}
@@ -226,7 +227,7 @@ def header_html(pages, current):
 <header class="site-header" id="siteHeader">
   <div class="wrap header-inner">
     <a class="logo" href="index.html" aria-label="Burnout parental, accueil">
-      <span class="logo-mark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><linearGradient id="bpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7BA68A"/><stop offset="1" stop-color="#15372B"/></linearGradient></defs><rect width="48" height="48" rx="12" fill="url(#bpg)"/><circle cx="24" cy="14" r="6.6" fill="#B9D6BF"/><g fill="none" stroke="#F6EFDB" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.500 35h3.700"/><path d="M10.200 35l5-2.600c2.800-1.400 6-1.200 8.600.5l4.800 3.100"/><path d="M10.200 39.200l4.600 2.100c1.600.7 3.300 1.100 5 1.100h8.300c2.400 0 4.600-1 6.200-2.800l7.200-8.300"/></g></svg></span>
+      <span class="logo-mark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><linearGradient id="bpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#78AC8D"/><stop offset=".55" stop-color="#2D6650"/><stop offset="1" stop-color="#0F3427"/></linearGradient></defs><rect width="48" height="48" rx="12" fill="url(#bpg)"/><circle class="logo-head" cx="25" cy="14" r="6.2" fill="#9CC9A8"/><g fill="#F7F0DE" stroke="#F7F0DE" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="24.500" width="8" height="15.500" rx="2.800" stroke="none"/><rect x="11" y="24.500" width="15.500" height="4.200" rx="2.100" stroke="none"/><path d="M13.500 35.200h10.800c2.300 0 4.400-.9 6-2.500l7.600-7.600" fill="none" stroke-width="5.600"/><path d="M13 30.700h12" fill="none" stroke-width="3.400"/></g></svg></span>
       <span class="logo-text"><span class="logo-name">Burnout parental</span><span class="logo-tagline">Épuisement parental</span></span>
     </a>
     {nav_html(pages, current)}
@@ -483,7 +484,7 @@ def head_html(meta, body, crumb_ld):
 <meta name="description" content="{e(desc)}">
 {robots}
 <link rel="canonical" href="{canon}">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml"><link rel="icon" href="favicon-48.png?v=2" sizes="48x48" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <link rel="sitemap" type="application/xml" href="sitemap.xml">
 <meta property="og:site_name" content="Burnout parental">
 <meta property="og:title" content="{e(title)}">
@@ -640,13 +641,13 @@ def render_cabinet(pages, slug):
     meta = {
         "slug": slug, "title": "Le cabinet", "description": "Le cabinet est présenté sur son site dédié.",
         "h1": "Le cabinet", "eyebrow": "Le cabinet", "nav_label": "Le cabinet",
-        "lead": "Le cabinet est présenté sur son site dédié, qui s'ouvre dans un nouvel onglet. Ce site reste ouvert ici.",
+        "lead": "Le site du cabinet s'ouvre dans un instant. Pour revenir ici, utilisez le bouton « Retour » de votre navigateur.",
         "kind": "prive", "related": [], "quiz": None, "toc": False, "noindex": True, "canonical": CABINET_URL,
         "body": f'''<section class="section" style="padding-top:0"><div class="wrap">
-  <p class="hero-actions" style="margin:0 0 18px"><a class="btn btn-primary btn-lg" id="cabinetLien" href="{CABINET_URL}" target="_blank" rel="noopener">{SVG["arrow"]}Voir le cabinet</a><a class="btn btn-secondary btn-lg" href="index.html">Retour à l'accueil</a></p>
+  <p class="hero-actions" style="margin:0 0 18px"><a class="btn btn-primary btn-lg" id="cabinetLien" href="{CABINET_URL}">{SVG["arrow"]}Voir le cabinet</a><a class="btn btn-secondary btn-lg" href="index.html">Retour à l'accueil</a></p>
   <p>Vous y trouverez la présentation de l'équipe, les lieux de consultation et la prise de rendez-vous.</p>
 </div></section>
-<script>(function(){{var a=document.getElementById('cabinetLien');if(!a)return;try{{if(sessionStorage.getItem('bp_cabinet_ouvert')==='1')return;sessionStorage.setItem('bp_cabinet_ouvert','1');}}catch(e){{}}setTimeout(function(){{try{{window.open(a.href,'_blank','noopener');}}catch(e){{}}}},1000);}})();</script>''',
+<script>(function(){{var K='bp_cabinet_vu';try{{if(sessionStorage.getItem(K)==='1')return;sessionStorage.setItem(K,'1');}}catch(e){{return;}}var a=document.getElementById('cabinetLien');if(!a)return;setTimeout(function(){{location.href=a.href;}},1000);}})();</script>''',
     }
     return render(pages, meta)
 
@@ -753,9 +754,13 @@ def check(pages, outputs):
                     errors.append(f"{slug}: formule défensive interdite : « {m.group(0)} »")
             for f_ in typo_fautes(html_out):
                 errors.append(f"{slug}: espace ordinaire avant une ponctuation (typographie) : « {f_} »")
+            est_passage = slug.replace(".html", "") in {o for o, d in REDIRECTIONS.items() if d == CABINET_URL}
             for m in re.finditer(r'<a\b[^>]*href="https://www\.psy-psy\.fr[^"]*"[^>]*>', html_out):
-                if 'target="_blank"' not in m.group(0) or 'rel="noopener"' not in m.group(0):
-                    errors.append(f"{slug}: lien vers le site du cabinet sans nouvel onglet : {m.group(0)}")
+                if not est_passage:
+                    errors.append(f"{slug}: lien direct vers le site du cabinet (passer par {CABINET_PAGE}) : {m.group(0)}")
+            for m in re.finditer(r'<a\b[^>]*href="' + re.escape(CABINET_PAGE) + r'"[^>]*>', html_out):
+                if not est_passage and ('target="_blank"' not in m.group(0) or 'rel="noopener"' not in m.group(0)):
+                    errors.append(f"{slug}: lien vers le cabinet sans nouvel onglet : {m.group(0)}")
             for m in re.finditer(ALERTE_INTERDITE, html_out):
                 errors.append(f"{slug}: résidu de l'encadré d'alerte des tests (supprimé) : « {m.group(0)} »")
             unl = MASKER.unlisted_citations(html_out)
@@ -802,6 +807,10 @@ def main():
     for old, dest in REDIRECTIONS.items():
         if dest == CABINET_URL:
             outputs[old + ".html"] = render_cabinet(pages, old)
+    passage = {old + ".html" for old, dest in REDIRECTIONS.items() if dest == CABINET_URL}
+    for fn in list(outputs):
+        if fn not in passage:
+            outputs[fn] = outputs[fn].replace('href="' + CABINET_URL + '"', 'href="' + CABINET_PAGE + '"')
     check(pages, outputs)
     for fn, content in outputs.items():
         with open(os.path.join(ROOT, fn), "w", encoding="utf-8") as f:
@@ -812,7 +821,7 @@ def main():
         canon = dest if dest.startswith("http") else SITE + dest
         with open(os.path.join(ROOT, old + ".html"), "w", encoding="utf-8") as f:
             f.write(typo_fr(f'<!DOCTYPE html>\n<html lang="fr"><head><meta charset="UTF-8"><title>Redirection</title><meta name="robots" content="noindex">'
-                            f'<link rel="canonical" href="{canon}"><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta http-equiv="refresh" content="0;url={dest}"></head>'
+                            f'<link rel="canonical" href="{canon}"><link rel="icon" href="favicon.svg?v=2" type="image/svg+xml"><link rel="icon" href="favicon-48.png?v=2" sizes="48x48" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=2"><meta http-equiv="refresh" content="0;url={dest}"></head>'
                             f'<body><p>Cette page a été déplacée : <a href="{dest}" rel="noopener">{dest}</a>.</p></body></html>\n'))
     # sitemap
     order = ["index"] + [x for s in SECTIONS for x in [s["hub"]] + s["pages"]] + ["plan-du-site"]

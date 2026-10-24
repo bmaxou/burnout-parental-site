@@ -821,3 +821,8 @@ html.ds[data-motion="off"] .portal-hero::before,html.ds[data-motion="off"] .port
 .wrap-read .refl-article .src-inline li{font-size:.9rem;line-height:1.6;}
 .fold summary .tag{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 12px;border-radius:10px;background:var(--c-moss-soft);color:var(--c-moss-strong);font:700 .82rem/1 var(--font-body);letter-spacing:.03em;text-transform:uppercase;}
 .wrap-read .refl-article .fold summary .tag{font-size:.86rem;}
+
+/* Logo : la tête change doucement de teinte (vert sauge, blanc crème, vert intense) */
+@keyframes logoHead{0%,100%{fill:#9CC9A8}34%{fill:#F6FAF2}68%{fill:#3FB27B}}
+.logo-head{animation:logoHead 7s ease-in-out infinite;}
+@media (prefers-reduced-motion:reduce){.logo-head{animation:none;}}

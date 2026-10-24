@@ -52,7 +52,7 @@ PAGES_EXEMPTEES_FORMULES = {"mentions-legales"}
 # Phrase de cadrage validée mot pour mot par le client : sous le résultat des tests (site.js) et dans la FAQ
 # « Comment sont construits les auto-tests ? ». Elle est retirée du texte avant le contrôle des formules, sans
 # assouplir le contrôle pour le reste ; le build vérifie qu'elle est identique dans assets/site.js.
-PHRASE_CADRAGE = ("Ces questionnaires, élaborés par des cliniciens, sont une première approche : ils ne remplacent pas les tests psychométriques normés et validés, dont la diffusion en ligne est protégée par des droits d'auteur et dont certains ne se passent qu'en entretien clinique. Si vos réponses font apparaître des signaux, un rendez-vous au cabinet permet d'aller plus loin avec des évaluations plus approfondies.")
+PHRASE_CADRAGE = ("Ces questionnaires, élaborés par des cliniciens, sont une première approche : ils ne remplacent pas les tests psychométriques normés et validés, dont la diffusion en ligne est protégée par des droits d'auteur et dont certains ne se passent qu'en entretien clinique. Si vos réponses font apparaître des signaux, un rendez-vous au cabinet permet d'aller plus loin avec des évaluations plus approfondies.")
 # Encadré d'alerte des tests (réponse « à risque ») supprimé à la demande du client : aucun résidu, ni dans les pages
 # (champ "risk" des questions, classe qr-alert, texte de l'encadré) ni dans assets/site.js.
 ALERTE_INTERDITE = r'"risk":\s*\d|qr-alert|mérite une aide rapide|ALERT_HTML|q\.risk'
@@ -470,8 +470,8 @@ def jsonld(meta, body, crumb_ld):
 def head_html(meta, body, crumb_ld):
     title = meta["title"]
     desc = meta["description"]
-    canon = abs_url(meta["slug"])
-    robots = '<meta name="robots" content="noindex,nofollow">' if (PREVIEW or meta["slug"] in CLAIR_AUTORISE or meta["slug"] in PAGES_PRIVEES) else '<meta name="robots" content="index,follow,max-image-preview:large">'
+    canon = meta.get("canonical") or abs_url(meta["slug"])
+    robots = '<meta name="robots" content="noindex,nofollow">' if (PREVIEW or meta.get("noindex") or meta["slug"] in CLAIR_AUTORISE or meta["slug"] in PAGES_PRIVEES) else '<meta name="robots" content="index,follow,max-image-preview:large">'
     gate_js = '<script>(function(){try{if(localStorage.getItem(\'bp_gate_ok\')===\'1\'){document.documentElement.classList.add(\'gate-ok\');}}catch(e){}})();</script>' if PREVIEW else ""
     return f'''<!DOCTYPE html>
 <html lang="fr">
@@ -581,7 +581,74 @@ def render(pages, meta):
         if MASKER.used:
             css = nomsmod.BASE_CSS + "\n" + MASKER.css_for()
             out = out.replace("</head>", "<style>\n" + css + "\n</style>\n</head>", 1)
-    return out
+    return typo_fr(out)
+
+
+# ---------------------------------------------------------------------------------------------
+# Typographie française : espace insécable avant : ; ? ! % et à l'intérieur des guillemets « … »,
+# uniquement dans les nœuds de texte (jamais dans les balises, attributs, <script>, <style>,
+# JSON-LD, commentaires ni dans le bloc chiffré, qui est un attribut). Les questionnaires
+# (<script type="application/json">) sont traités : leurs chaînes contiennent le texte affiché.
+# Rien n'est ajouté quand il n'y a pas d'espace (12:30, https:, :-) restent tels quels).
+# ---------------------------------------------------------------------------------------------
+NBSP = "\u00a0"
+_TOKENS = re.compile(r'(<!--.*?-->|<script\b[^>]*>.*?</script>|<style\b[^>]*>.*?</style>|<[^>]+>)', re.S)
+_JSON_BLOCK = re.compile(r'^<script type="application/json">', re.S)
+_AVANT = re.compile(r'(?:(?<=\S)|^)[ \u202f]+(?=[:;?!%])')
+_OUVRANT = re.compile(r'«[ \u202f]+')
+_FERMANT = re.compile(r'[ \u202f]+»')
+
+
+def typo_texte(t):
+    t = _AVANT.sub(NBSP, t)
+    t = _OUVRANT.sub("«" + NBSP, t)
+    t = _FERMANT.sub(NBSP + "»", t)
+    return t
+
+
+def typo_fr(html_out):
+    parts = _TOKENS.split(html_out)
+    for i, p in enumerate(parts):
+        if i % 2 == 0:
+            parts[i] = typo_texte(p)
+        elif _JSON_BLOCK.match(p):
+            inner = _TOKENS.split(p[len('<script type="application/json">'):-len("</script>")])
+            parts[i] = '<script type="application/json">' + "".join(typo_texte(x) if j % 2 == 0 else x for j, x in enumerate(inner)) + "</script>"
+    return "".join(parts)
+
+
+_TYPO_FAUTE = re.compile(r'(?:\S|^) [:;?!%]|« | »')
+
+
+def typo_fautes(html_out):
+    """Espaces ordinaires restant avant : ; ? ! % ou dans les guillemets, dans les nœuds de texte."""
+    fautes = []
+    parts = _TOKENS.split(html_out)
+    for i, p in enumerate(parts):
+        if i % 2 == 1 and _JSON_BLOCK.match(p):
+            p = " ".join(x for j, x in enumerate(_TOKENS.split(p[len('<script type="application/json">'):-len("</script>")])) if j % 2 == 0)
+        elif i % 2 == 1:
+            continue
+        for m in _TYPO_FAUTE.finditer(p):
+            fautes.append(p[max(0, m.start() - 25):m.end() + 10].replace("\n", " "))
+    return fautes
+
+
+def render_cabinet(pages, slug):
+    """Anciennes adresses du cabinet : page du site (en-tête, menu, pied de page), sans redirection dans l'onglet
+    courant ; le site du cabinet s'ouvre dans un nouvel onglet (bouton, et tentative automatique après une seconde)."""
+    meta = {
+        "slug": slug, "title": "Le cabinet", "description": "Le cabinet est présenté sur son site dédié.",
+        "h1": "Le cabinet", "eyebrow": "Le cabinet", "nav_label": "Le cabinet",
+        "lead": "Le cabinet est présenté sur son site dédié, qui s'ouvre dans un nouvel onglet. Ce site reste ouvert ici.",
+        "kind": "prive", "related": [], "quiz": None, "toc": False, "noindex": True, "canonical": CABINET_URL,
+        "body": f'''<section class="section" style="padding-top:0"><div class="wrap">
+  <p class="hero-actions" style="margin:0 0 18px"><a class="btn btn-primary btn-lg" id="cabinetLien" href="{CABINET_URL}" target="_blank" rel="noopener">{SVG["arrow"]}Voir le cabinet</a><a class="btn btn-secondary btn-lg" href="index.html">Retour à l'accueil</a></p>
+  <p>Vous y trouverez la présentation de l'équipe, les lieux de consultation et la prise de rendez-vous.</p>
+</div></section>
+<script>(function(){{var a=document.getElementById('cabinetLien');if(!a)return;try{{if(sessionStorage.getItem('bp_cabinet_ouvert')==='1')return;sessionStorage.setItem('bp_cabinet_ouvert','1');}}catch(e){{}}setTimeout(function(){{try{{window.open(a.href,'_blank','noopener');}}catch(e){{}}}},1000);}})();</script>''',
+    }
+    return render(pages, meta)
 
 
 def chiffrer(texte, mdp):
@@ -684,6 +751,11 @@ def check(pages, outputs):
             if slug.replace(".html", "") not in PAGES_DOCUMENTAIRES | PAGES_EXEMPTEES_FORMULES:
                 for m in re.finditer(FORMULES_INTERDITES, txt.replace(PHRASE_CADRAGE, " ")):
                     errors.append(f"{slug}: formule défensive interdite : « {m.group(0)} »")
+            for f_ in typo_fautes(html_out):
+                errors.append(f"{slug}: espace ordinaire avant une ponctuation (typographie) : « {f_} »")
+            for m in re.finditer(r'<a\b[^>]*href="https://www\.psy-psy\.fr[^"]*"[^>]*>', html_out):
+                if 'target="_blank"' not in m.group(0) or 'rel="noopener"' not in m.group(0):
+                    errors.append(f"{slug}: lien vers le site du cabinet sans nouvel onglet : {m.group(0)}")
             for m in re.finditer(ALERTE_INTERDITE, html_out):
                 errors.append(f"{slug}: résidu de l'encadré d'alerte des tests (supprimé) : « {m.group(0)} »")
             unl = MASKER.unlisted_citations(html_out)
@@ -727,16 +799,21 @@ def main():
     outputs = {}
     for slug, meta in pages.items():
         outputs[url(slug)] = render_prive(pages, meta) if slug in PAGES_PRIVEES else render(pages, meta)
+    for old, dest in REDIRECTIONS.items():
+        if dest == CABINET_URL:
+            outputs[old + ".html"] = render_cabinet(pages, old)
     check(pages, outputs)
     for fn, content in outputs.items():
         with open(os.path.join(ROOT, fn), "w", encoding="utf-8") as f:
             f.write(content)
     for old, dest in REDIRECTIONS.items():
+        if dest == CABINET_URL:
+            continue  # déjà écrite ci-dessus (page du site, nouvel onglet)
         canon = dest if dest.startswith("http") else SITE + dest
         with open(os.path.join(ROOT, old + ".html"), "w", encoding="utf-8") as f:
-            f.write(f'<!DOCTYPE html>\n<html lang="fr"><head><meta charset="UTF-8"><title>Redirection</title><meta name="robots" content="noindex">'
-                    f'<link rel="canonical" href="{canon}"><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta http-equiv="refresh" content="0;url={dest}"></head>'
-                    f'<body><p>Cette page a été déplacée : <a href="{dest}" rel="noopener">{dest}</a>.</p></body></html>\n')
+            f.write(typo_fr(f'<!DOCTYPE html>\n<html lang="fr"><head><meta charset="UTF-8"><title>Redirection</title><meta name="robots" content="noindex">'
+                            f'<link rel="canonical" href="{canon}"><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta http-equiv="refresh" content="0;url={dest}"></head>'
+                            f'<body><p>Cette page a été déplacée : <a href="{dest}" rel="noopener">{dest}</a>.</p></body></html>\n'))
     # sitemap
     order = ["index"] + [x for s in SECTIONS for x in [s["hub"]] + s["pages"]] + ["plan-du-site"]
     urls = []

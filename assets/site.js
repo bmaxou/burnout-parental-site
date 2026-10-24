@@ -330,7 +330,7 @@
      Moteur d'auto-tests. Tout est calculé localement, rien n'est envoyé.
      ===================================================================== */
   /* Phrase de cadrage validée par le cabinet : affichée une seule fois, sous le résultat (jamais en début de test). Le build vérifie qu'elle est identique à PHRASE_CADRAGE dans _build/build.py. */
-  var CADRAGE="Ces questionnaires, élaborés par des cliniciens, sont une première approche : ils ne remplacent pas les tests psychométriques normés et validés, dont la diffusion en ligne est protégée par des droits d'auteur et dont certains ne se passent qu'en entretien clinique. Si vos réponses font apparaître des signaux, un rendez-vous au cabinet permet d'aller plus loin avec des évaluations plus approfondies.";
+  var CADRAGE="Ces questionnaires, élaborés par des cliniciens, sont une première approche : ils ne remplacent pas les tests psychométriques normés et validés, dont la diffusion en ligne est protégée par des droits d'auteur et dont certains ne se passent qu'en entretien clinique. Si vos réponses font apparaître des signaux, un rendez-vous au cabinet permet d'aller plus loin avec des évaluations plus approfondies.";
   var DEFAULT_SCALE=[{v:0,l:'Jamais'},{v:1,l:'Rarement'},{v:2,l:'Parfois'},{v:3,l:'Souvent'},{v:4,l:'Très souvent'}];
 
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -466,8 +466,8 @@
       var lvlClass='l'+Math.min(4,lv.idx+1);
       text='<div class="qr-text"><span class="qr-level '+lvlClass+'">'+esc(lv.lvl.label)+'</span><h3>'+esc(lv.lvl.title||lv.lvl.label)+'</h3>'+(lv.lvl.html||'');
       if(res.dimNotes && dims.length){
-        var notes=dimScores.filter(function(d){return d.pct>=(res.dimNoteMin||60) && res.dimNotes[d.id];}).map(function(d){return '<li><strong>'+esc(d.label)+' :</strong> '+res.dimNotes[d.id]+'</li>';});
-        if(notes.length) text+='<p><strong>Ce qui ressort le plus chez vous :</strong></p><ul>'+notes.join('')+'</ul>';
+        var notes=dimScores.filter(function(d){return d.pct>=(res.dimNoteMin||60) && res.dimNotes[d.id];}).map(function(d){return '<li><strong>'+esc(d.label)+' :</strong> '+res.dimNotes[d.id]+'</li>';});
+        if(notes.length) text+='<p><strong>Ce qui ressort le plus chez vous :</strong></p><ul>'+notes.join('')+'</ul>';
       }
       text+='<p class="small" style="font-size:.8rem;color:var(--c-ink-faint)">Résultat calculé dans votre navigateur, non enregistré.</p>';
       text+='<p class="qr-cadre">'+CADRAGE+'</p>';

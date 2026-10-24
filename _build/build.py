@@ -32,7 +32,7 @@ GATE_CODE = "1024"
 # et ne doit pas figurer dans le HTML). Dans les pages, href="#rdv".
 RDV = "#rdv"
 # Pages où les noms restent en clair (obligation légale d'identifier l'éditeur) : non indexées, hors sitemap.
-CLAIR_AUTORISE = {"mentions-legales"}
+CLAIR_AUTORISE = set()
 # Seuls liens sortants tolérés (le site lui-même et la prise de rendez-vous du cabinet).
 # Le seul recours cité est le cabinet : ces expressions (services ou structures extérieurs) sont refusées
 # sur les pages destinées aux parents. Les pages documentaires (tests.html, reflexion-*) décrivent des

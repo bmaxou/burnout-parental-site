@@ -800,3 +800,10 @@ html.ds[data-motion="off"] .portal-hero::before,html.ds[data-motion="off"] .port
 .footer-row .footer-cab:hover,.footer-row .footer-cab:focus-visible{text-decoration:underline;}
 @media (max-width:760px){.footer-nav{display:flex;flex-wrap:wrap;align-items:center;}.footer-share{float:none;flex:0 0 100%;margin:0 0 12px;justify-content:flex-start;}.footer-row{flex-direction:column;align-items:flex-start;gap:18px;}}
 @media print{.footer-share{display:none!important;}}
+
+/* ---- Accès réservé (contenu chiffré) ---- */
+.vault{margin:34px 0 0;}
+.vault-form{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px;}
+.vault-form label{font-size:.86rem;color:var(--c-ink-soft);}
+.vault-form input{min-height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--c-line);background:var(--c-surface);color:var(--c-ink);font:inherit;width:12em;}
+.vault-msg{font-size:.86rem;color:#C96A4A;}

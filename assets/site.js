@@ -199,6 +199,34 @@
     scope.querySelectorAll('.spark').forEach(function(el){ el.classList.add('is-on'); });
   }
 
+  /* ---- Contenu protégé par mot de passe (déchiffré dans le navigateur, rien n'est envoyé) ---- */
+  var vault=$('vault');
+  if(vault && window.crypto && crypto.subtle){
+    var vBtn=$('vaultBtn'), vForm=$('vaultForm'), vPwd=$('vaultPwd'), vMsg=$('vaultMsg');
+    var raw=Uint8Array.from(atob(vault.getAttribute('data-vault')),function(c){return c.charCodeAt(0);});
+    var salt=raw.slice(0,16), iv=raw.slice(16,28), ct=raw.slice(28);
+    function ouvrir(mdp){
+      var enc=new TextEncoder();
+      return crypto.subtle.importKey('raw',enc.encode(mdp),'PBKDF2',false,['deriveKey']).then(function(k){
+        return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:200000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['decrypt']);
+      }).then(function(key){ return crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,ct); }).then(function(buf){
+        var d=JSON.parse(new TextDecoder().decode(buf));
+        var st=document.createElement('style'); st.textContent=d.css; document.head.appendChild(st);
+        var main=$('contenu'); main.innerHTML=d.html;
+        main.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('is-visible'); });
+        try{ sessionStorage.setItem('bp_vault',mdp); }catch(e){}
+        window.scrollTo(0,0);
+      });
+    }
+    vBtn.addEventListener('click',function(){ var open=vForm.hidden; vForm.hidden=!open; vBtn.setAttribute('aria-expanded',open?'true':'false'); if(open) vPwd.focus(); });
+    vForm.addEventListener('submit',function(e){
+      e.preventDefault(); vMsg.textContent='';
+      ouvrir(vPwd.value).catch(function(){ vMsg.textContent='Mot de passe incorrect'; vPwd.select(); });
+    });
+    var memo=null; try{ memo=sessionStorage.getItem('bp_vault'); }catch(e){}
+    if(memo) ouvrir(memo).catch(function(){ try{ sessionStorage.removeItem('bp_vault'); }catch(e){} });
+  }
+
   /* ---- Partage de la page (pied de page) : adresses construites au clic, rien dans le HTML ---- */
   var shareBox=$('footerShare');
   if(shareBox){

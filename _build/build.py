@@ -82,6 +82,11 @@ SECTIONS = [
                "reflexion-distinction-parentale", "reflexion-accompagnement"]},
 ]
 STANDALONE = ["index", "plan-du-site", "mentions-legales"]
+# Pages protégées : le contenu est chiffré dans la page (WebCrypto : PBKDF2 + AES-GCM) et ne s'affiche
+# qu'après saisie du mot de passe. Celui-ci vient de la variable d'environnement BP_MDP_TESTS ;
+# valeur par défaut « 1024 » (accès de confort, pas une sécurité forte : le client le sait).
+PAGES_PRIVEES = {"tests"}
+MDP_PRIVE = os.environ.get("BP_MDP_TESTS", "1024")
 # La rubrique « Le Cabinet » renvoie vers le site du cabinet.
 CABINET_URL = "https://www.psy-psy.fr/cabinet"
 # Anciennes adresses conservées : une petite page de redirection (noindex) vers le site du cabinet.
@@ -320,7 +325,7 @@ def related_html(pages, meta):
 
 
 def cta_html(meta):
-    if meta.get("kind") in ("legal",):
+    if meta.get("kind") in ("legal", "prive"):
         return ""
     return f'''<section class="section" aria-label="Prendre contact">
     <div class="wrap">
@@ -432,7 +437,7 @@ def jsonld(meta, body, crumb_ld):
         out.append({"@context": "https://schema.org", "@type": "WebSite", "name": "Burnout parental", "url": SITE, "inLanguage": "fr-FR",
                     "publisher": {"@id": SITE + "#cabinet"}})
         out.append(dict({"@context": "https://schema.org"}, **ORG))
-    elif kind != "legal":
+    elif kind not in ("legal", "prive"):
         page = {"@context": "https://schema.org", "@type": "MedicalWebPage", "name": strip_tags(meta.get("h1", meta["title"])),
                 "description": meta["description"], "url": abs_url(meta["slug"]), "inLanguage": "fr-FR",
                 "dateModified": meta.get("updated", TODAY), "about": {"@type": "MedicalCondition", "name": "Burn-out parental"},
@@ -452,7 +457,7 @@ def head_html(meta, body, crumb_ld):
     title = meta["title"]
     desc = meta["description"]
     canon = abs_url(meta["slug"])
-    robots = '<meta name="robots" content="noindex,nofollow">' if (PREVIEW or meta["slug"] in CLAIR_AUTORISE) else '<meta name="robots" content="index,follow,max-image-preview:large">'
+    robots = '<meta name="robots" content="noindex,nofollow">' if (PREVIEW or meta["slug"] in CLAIR_AUTORISE or meta["slug"] in PAGES_PRIVEES) else '<meta name="robots" content="index,follow,max-image-preview:large">'
     gate_js = '<script>(function(){try{if(localStorage.getItem(\'bp_gate_ok\')===\'1\'){document.documentElement.classList.add(\'gate-ok\');}}catch(e){}})();</script>' if PREVIEW else ""
     return f'''<!DOCTYPE html>
 <html lang="fr">
@@ -537,7 +542,7 @@ def render(pages, meta):
     hdr = header_html(pages, slug)
     if kind == "home":
         main = f'<main id="contenu">\n{body}\n{cta_html(meta)}\n</main>'
-    elif kind in ("hub", "legal", "plain"):
+    elif kind in ("hub", "legal", "plain", "prive"):
         main = f'''<main id="contenu">
   {hero_html(pages, meta, crumb)}
   {body}
@@ -562,6 +567,60 @@ def render(pages, meta):
             css = nomsmod.BASE_CSS + "\n" + MASKER.css_for()
             out = out.replace("</head>", "<style>\n" + css + "\n</style>\n</head>", 1)
     return out
+
+
+def chiffrer(texte, mdp):
+    """Chiffre un texte avec PBKDF2-SHA256 (200 000 tours) + AES-256-GCM. Sel et IV sont dérivés de
+    l'empreinte du contenu (uniques par contenu, mais stables : le build reste reproductible)."""
+    try:
+        from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+        from cryptography.hazmat.primitives import hashes
+        from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+    except ImportError:
+        sys.exit("[build] module cryptography manquant : pip install cryptography (en dehors du dépôt)")
+    import hashlib, base64
+    data = texte.encode("utf-8")
+    h = hashlib.sha256(data).digest()
+    salt = hashlib.sha256(b"sel" + h).digest()[:16]
+    iv = hashlib.sha256(b"iv" + h).digest()[:12]
+    key = PBKDF2HMAC(algorithm=hashes.SHA256(), length=32, salt=salt, iterations=200000).derive(mdp.encode("utf-8"))
+    ct = AESGCM(key).encrypt(iv, data, None)
+    return base64.b64encode(salt + iv + ct).decode("ascii")
+
+
+def render_prive(pages, meta):
+    """Page publique neutre + contenu complet chiffré dans la page (déchiffré par assets/site.js après mot de passe)."""
+    complet = render(pages, meta)  # rendu habituel (noms en images), jamais écrit sur le disque
+    left = MASKER.leftovers(complet)
+    if left:
+        sys.exit(f"[build] {meta['slug']} (contenu protégé) : nom(s) en clair : {', '.join(left)}")
+    style = re.search(r"<style>\n\.nm\{.*?</style>", complet, re.S)
+    main = re.search(r"<main id=\"contenu\">(.*?)</main>", complet, re.S)
+    payload = json.dumps({"css": re.sub(r"</?style>", "", style.group(0)) if style else "", "html": main.group(1)}, ensure_ascii=False)
+    blob = chiffrer(payload, MDP_PRIVE)
+    pub = dict(meta)
+    pub.update({
+        "title": "En cours de modification",
+        "description": "Page en cours de modification, accès indisponible provisoirement.",
+        "h1": "Page en cours de modification",
+        "eyebrow": "Accès indisponible provisoirement",
+        "lead": "Cette page est en cours de modification et n'est pas consultable pour le moment. Merci de votre compréhension.",
+        "nav_label": "En cours de modification",
+        "kind": "prive", "related": [], "quiz": None,
+        "body": f'''<section class="section" style="padding-top:0"><div class="wrap-narrow">
+  <p><a class="btn btn-primary" href="index.html">Retour à l'accueil</a> <a class="btn btn-secondary" href="auto-tests.html">Les auto-tests</a></p>
+  <div class="vault" id="vault" data-vault="{blob}">
+    <button type="button" class="tool-btn vault-btn" id="vaultBtn" aria-expanded="false" aria-controls="vaultForm">Accès réservé</button>
+    <form class="vault-form" id="vaultForm" hidden>
+      <label for="vaultPwd">Mot de passe</label>
+      <input type="password" id="vaultPwd" autocomplete="current-password">
+      <button type="submit" class="btn btn-secondary">Ouvrir</button>
+      <span class="vault-msg" id="vaultMsg" aria-live="polite"></span>
+    </form>
+  </div>
+</div></section>''',
+    })
+    return render(pages, pub)
 
 
 # ---------------------------------------------------------------------------
@@ -637,7 +696,7 @@ def main():
         sys.exit("[build] pages non déclarées dans SECTIONS/STANDALONE : " + ", ".join(sorted(extra)))
     outputs = {}
     for slug, meta in pages.items():
-        outputs[url(slug)] = render(pages, meta)
+        outputs[url(slug)] = render_prive(pages, meta) if slug in PAGES_PRIVEES else render(pages, meta)
     check(pages, outputs)
     for fn, content in outputs.items():
         with open(os.path.join(ROOT, fn), "w", encoding="utf-8") as f:
@@ -652,7 +711,7 @@ def main():
     order = ["index"] + [x for s in SECTIONS for x in [s["hub"]] + s["pages"]] + ["plan-du-site"]
     urls = []
     for slug in order:
-        if slug in CLAIR_AUTORISE:
+        if slug in CLAIR_AUTORISE or slug in PAGES_PRIVEES:
             continue
         m = pages[slug]
         prio = "1.0" if slug == "index" else ("0.8" if slug in {s["hub"] for s in SECTIONS} else ("0.5" if slug.startswith("reflexion") or slug in ("mentions-legales", "plan-du-site") else "0.7"))
@@ -665,7 +724,7 @@ def main():
         else:
             f.write(f"User-agent: *\nAllow: /\nDisallow: /_build/\n\nSitemap: {SITE}sitemap.xml\n")
     print(f"[build] {len(outputs)} pages générées, sitemap.xml et robots.txt écrits (PREVIEW={PREVIEW}). "
-          f"{len(MASKER.index)} noms masqués ; en clair uniquement sur : {', '.join(sorted(CLAIR_AUTORISE))}.")
+          f"{len(MASKER.index)} noms masqués ; en clair uniquement sur : {', '.join(sorted(CLAIR_AUTORISE)) or 'aucune page'}.")
 
 
 if __name__ == "__main__":

@@ -55,11 +55,13 @@ PAGES_EXEMPTEES_FORMULES = {"mentions-legales"}
 # par an, contact par WhatsApp, SMS ou e-mail, deux cliniciens, EMDR / écoute analytique / TCC, séances à plusieurs, bilans.
 AFFIRMATIONS_INTERDITES = (r"messagerie (?:Doctolib|sécurisée)|messagerie|\btarifs?\b|rembours\w*|\bmutuelles?\b|Assurance maladie|honoraires?|"
                            r"environ une heure|une heure par semaine|séance par semaine|tous les quinze jours|rendez-vous de suivi|"
-                           r"(?:proposé|organisé|obtenu)e? rapidement|premier créneau|sous quelques jours|dans les jours qui viennent|"
-                           r"bébé présent|tout-petit présent|créneaux? en soirée|partout en France|sans ordonnance|sans démarche préalable|"
+                           r"sous quelques jours|dans les jours qui viennent|"
                            r"(?:ne rédigent?|n'écri\w+) pas d'attestation|ne témoignent? pas|autre professionnel|structures qui|organismes compétents|"
                            r"conseiller sur la conduite|aider (?:à identifier|dans les démarches|à faire le point sur celles)|le cabinet (?:l'|les )?aborde|"
-                           r"traitement (?:complémentaire|peut parfois)|groupes? de parents du cabinet|le résultat vous invite")
+                           r"traitement (?:complémentaire|peut parfois|médicamenteux)|ne se traite pas par médicament|des médicaments pour|médicaments ont-ils|"
+                           r"(?:cabinet|cliniciens?|nous) (?:vous )?prescri\w+|prescri\w+ (?:par|au) (?:le )?cabinet|diagnostic médical|consultation médicale|suivi médical|"
+                           r"n'en propose pas|le résultat vous invite|"
+                           r"(?:cabinet|cliniciens?|nous sommes|nous) (?:médecins?|psychiatres?)|psychiatres? du cabinet")
 PAGES_EXEMPTEES_AFFIRMATIONS = {"mentions-legales"}
 # Phrase de cadrage validée mot pour mot par le client : sous le résultat des tests (site.js) et dans la FAQ
 # « Comment sont construits les auto-tests ? ». Elle est retirée du texte avant le contrôle des formules, sans

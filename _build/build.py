@@ -226,7 +226,7 @@ def header_html(pages, current):
 <header class="site-header" id="siteHeader">
   <div class="wrap header-inner">
     <a class="logo" href="index.html" aria-label="Burnout parental, accueil">
-      <span class="logo-mark">{SVG["leaf"]}</span>
+      <span class="logo-mark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><linearGradient id="bpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7BA68A"/><stop offset="1" stop-color="#15372B"/></linearGradient></defs><rect width="48" height="48" rx="12" fill="url(#bpg)"/><circle cx="24" cy="14" r="6.6" fill="#B9D6BF"/><g fill="none" stroke="#F6EFDB" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.500 35h3.700"/><path d="M10.200 35l5-2.600c2.800-1.400 6-1.200 8.600.5l4.800 3.100"/><path d="M10.200 39.200l4.600 2.100c1.600.7 3.300 1.100 5 1.100h8.300c2.400 0 4.600-1 6.200-2.800l7.200-8.300"/></g></svg></span>
       <span class="logo-text"><span class="logo-name">Burnout parental</span><span class="logo-tagline">Épuisement parental</span></span>
     </a>
     {nav_html(pages, current)}

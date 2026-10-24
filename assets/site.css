@@ -109,9 +109,9 @@ a:hover{color:var(--c-accent);}
 .header-inner{display:flex;align-items:center;gap:16px;height:var(--header-h);transition:height var(--dur) var(--ease);}
 .site-header.is-scrolled .header-inner{height:60px;}
 .logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none!important;color:var(--c-ink)!important;margin-right:auto;}
-.logo-mark{width:38px;height:38px;flex:0 0 auto;border-radius:11px;background:linear-gradient(145deg,var(--c-moss),var(--c-navy));display:grid;place-items:center;color:#fff;transition:transform var(--dur) var(--ease);}
+.logo-mark{width:38px;height:38px;flex:0 0 auto;display:block;transition:transform var(--dur) var(--ease);}
 .site-header.is-scrolled .logo-mark{transform:scale(.9);}
-.logo-mark svg{width:19px;height:19px;}
+.logo-mark svg{width:100%;height:100%;display:block;}
 .logo-text{display:flex;flex-direction:column;line-height:1.18;}
 .logo-name{font-family:var(--font-display);font-weight:600;font-size:1.08rem;letter-spacing:-.01em;}
 .logo-tagline{font:600 .66rem/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink-soft);margin-top:2px;}

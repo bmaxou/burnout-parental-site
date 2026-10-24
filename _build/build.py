@@ -74,7 +74,8 @@ SECTIONS = [
      "pages": ["quand-consulter", "deroule-accompagnement", "approches-therapeutiques", "proches-professionnels"]},
     {"id": "ressources", "label": "Ressources", "hub": "ressources",
      "pages": ["prevention-au-quotidien", "signaux-alerte-negligence-violence",
-               "glossaire", "bibliographie", "faq"]},
+               "glossaire", "bibliographie", "faq"],
+     "extra": [("reflexion-clinique", "Réflexion clinique (professionnels)"), ("plan-du-site", "Plan du site")]},
     {"id": "reflexion", "label": "Réflexion clinique", "hub": "reflexion-clinique", "in_menu": False,
      "pages": ["reflexion-parents-ensemble", "reflexion-parents-separes", "reflexion-jeune-enfant",
                "reflexion-adolescent", "reflexion-fratrie", "reflexion-burnout-general",
@@ -165,6 +166,8 @@ def nav_html(pages, current):
             pg = pages[p]
             cur = ' aria-current="page"' if p == current else ""
             sub += f'<li><a href="{url(p)}"{cur}>{e(pg.get("nav_label", pg["title"]))}</a></li>'
+        for p, lab in s.get("extra", []):
+            sub += f'<li><a href="{url(p)}"{" aria-current=\"page\"" if p == current else ""}>{e(lab)}</a></li>'
         items.append(
             f'<li class="nav-item has-sub"><button class="nav-link{active}" type="button" aria-haspopup="true" aria-expanded="false">{e(s["label"])}{SVG["chev"]}</button>'
             f'<ul class="sub-menu">{sub}</ul></li>')
@@ -185,10 +188,11 @@ def mobile_nav_html(pages, current):
             pg = pages[p]
             cur = ' aria-current="page"' if p == current else ""
             h += f'<li><a href="{url(p)}"{cur}>{e(pg.get("nav_label", pg["title"]))}</a></li>'
+        for p, lab in s.get("extra", []):
+            h += f'<li><a href="{url(p)}"{" aria-current=\"page\"" if p == current else ""}>{e(lab)}</a></li>'
         h += '</ul></details>'
     h += f'<a class="mnav-single" href="{CABINET_URL}" target="_blank" rel="noopener">Le Cabinet</a>'
     h += '<a class="mnav-single" href="faq.html">Questions fréquentes</a>'
-    h += '<a class="mnav-single" href="reflexion-clinique.html">Réflexion clinique (espace professionnel)</a>'
     h += f'<div class="mnav-cta"><a class="btn btn-primary" href="{RDV}">{SVG["cal"]}Prendre rendez-vous</a><a class="btn btn-secondary" href="mailto:{MAIL}">Écrire au cabinet</a></div>'
     return (f'<div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-labelledby="mnavTitle">'
             f'<div class="panel-head"><h2 id="mnavTitle">Menu</h2><button class="icon-btn" id="btnCloseMenu" aria-label="Fermer le menu">'
@@ -334,16 +338,13 @@ def cta_html(meta):
 
 
 def footer_html(pages, meta):
-    """Pied de page sobre, sur le modèle du site du cabinet : partage de la page, ©, liens discrets."""
-    updated = meta.get("updated", TODAY)
-    return f'''<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-share" id="footerShare" role="group" aria-label="Partager cette page"><span class="lib">Partager</span></div>
-    <div class="footer-row">
-      <span>© 2026 Cabinet Bouche &amp; Chmura</span>
-      <nav class="footer-links" aria-label="Liens de bas de page"><a href="{CABINET_URL}" target="_blank" rel="noopener">Le Cabinet</a><a href="mentions-legales.html">Mentions légales</a><a href="plan-du-site.html">Plan du site</a><a href="mailto:{MAIL}">Contact&nbsp;: {MAIL}</a></nav>
-    </div>
-    <p class="footer-note">Site d'information rédigé par des cliniciens ; il ne remplace pas une consultation. Les auto-tests sont des outils d'orientation, pas des outils de diagnostic ; aucune réponse n'est enregistrée ni transmise. Page mise à jour le {e(fr_date(updated))}. Rédaction : Max Bouche, clinicien, psychothérapeute, psychanalyste.</p>
+    """Pied de page identique à celui du site du cabinet : rangée 1 (liens à gauche, aucun ici ; partage à droite),
+    rangée 2 (© à gauche, Mentions légales à droite)."""
+    return '''<footer class="site-footer">
+  <nav class="wrap footer-nav" aria-label="Autres pages"><div class="footer-share" id="footerShare" role="group" aria-label="Partager cette page"><span class="lib">Partager</span></div></nav>
+  <div class="wrap footer-row">
+    <span>© Cabinet Bouche &amp; Chmura</span>
+    <span class="footer-right"><a href="mentions-legales.html">Mentions légales</a></span>
   </div>
 </footer>'''
 

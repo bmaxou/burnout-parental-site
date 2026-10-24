@@ -496,9 +496,9 @@ def head_html(meta, body, crumb_ld):
 def hero_html(pages, meta, crumb):
     kind = meta.get("kind", "article")
     minutes = max(1, round(len(strip_tags(meta["body"]).split()) / 200))
-    metas = f'<span>{SVG["clock"]}Lecture : {minutes} min</span><span>{SVG["pen"]}Max Bouche, clinicien</span><span>{SVG["cal"]}Mis à jour le {e(fr_date(meta.get("updated", TODAY)))}</span>'
+    metas = f'<span>{SVG["clock"]}Lecture : {minutes} min</span><span>{SVG["pen"]}Rédigé par le cabinet</span><span>{SVG["cal"]}Mis à jour le {e(fr_date(meta.get("updated", TODAY)))}</span>'
     if meta.get("quiz"):
-        metas = f'<span>{SVG["clock"]}Environ {meta["quiz"]} min</span><span>{SVG["pen"]}Rédigé par un clinicien</span><span>Vos réponses restent dans votre navigateur</span>'
+        metas = f'<span>{SVG["clock"]}Environ {meta["quiz"]} min</span><span>{SVG["pen"]}Rédigé par le cabinet</span><span>Vos réponses restent dans votre navigateur</span>'
     lead = f'<p class="lead" data-reveal style="--d:.08s">{meta["lead"]}</p>' if meta.get("lead") else ""
     return f'''<section class="page-hero">
     <div class="wrap">

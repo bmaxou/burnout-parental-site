@@ -40,7 +40,7 @@ CLAIR_AUTORISE = set()
 EXPRESSIONS_INTERDITES = (r"\bPMI\b|\bLAEP\b|lieux? d'accueil enfants-parents|services? d'urgence|numéros? d'urgence|\burgences?\b|"
                           r"professionnel(?:le)?s? de santé|médecins? (?:traitants?|généralistes?)|\bmédecins?\b|\bpsychiatres?\b|sages?-femmes?|"
                           r"puéricultrices?|\bpédiatres?\b|\bSAMU\b|\bSOS\b|lignes? d'écoute|\bassociations?\b|entretien postnatal|"
-                          r"\bmaternités?\b|\bCAF\b|\bMDPH\b|\bCCAS\b|\bCLIC\b|centres? sociaux|centres? médico|\bCMP\b|maisons? des adolescents|"
+                          r"\bmaternités?\b|\bCAF\b|\bCCAS\b|\bCLIC\b|centres? sociaux|centres? médico|\bCMP\b|maisons? des adolescents|"
                           r"travailleurs? sociaux|services? sociaux|unités? de psychiatrie|Maman Blues|SOS Préma|Allô|\b3114\b|\b119\b")
 # Formules défensives (mises en garde sur les tests) que le client ne veut plus voir sur les pages publiques.
 FORMULES_INTERDITES = (r"pas (?:un |de |d'un )?diagnostic|aucun diagnostic|sans valeur de diagnostic|ne diagnostique|ne (?:pose|posent|constitue|constituent)nt? (?:pas |aucun )?(?:de |un )?diagnostic|"
@@ -104,6 +104,16 @@ MDP_PRIVE = os.environ.get("BP_MDP_TESTS", "1024")
 # La rubrique « Le Cabinet » renvoie vers le site du cabinet.
 CABINET_URL = "https://www.psy-psy.fr/cabinet"
 CABINET_PAGE = "le-cabinet.html"  # page de passage (nouvel onglet) : le retour arrière ramène sur le site
+# Autres sites du cabinet, atteints par le même principe (page de passage, nouvel onglet, retour arrière préservé).
+PASSAGES_AUTRES = {
+    "bilan-psychologique": {"url": "https://www.psy-psy.fr/bilans-psychologiques", "titre": "Le bilan psychologique",
+                            "lead": "La page du cabinet consacrée aux bilans psychologiques s'ouvre dans un instant. Pour revenir ici, utilisez le bouton « Retour » de votre navigateur.",
+                            "bouton": "Voir le bilan psychologique", "texte": "Vous y trouverez le déroulé d'un bilan, ses indications et la prise de rendez-vous."},
+    "bilan-mdph": {"url": "https://bilan-mdph.fr/", "titre": "Le bilan MDPH",
+                   "lead": "Le site bilan-mdph.fr s'ouvre dans un instant. Pour revenir ici, utilisez le bouton « Retour » de votre navigateur.",
+                   "bouton": "Voir bilan-mdph.fr", "texte": "Vous y trouverez comment un bilan peut accompagner un dossier MDPH, pour un enfant comme pour un adulte."},
+}
+URLS_PASSAGES = {LIEN for LIEN in [v["url"] for v in PASSAGES_AUTRES.values()]}
 # Anciennes adresses conservées : une petite page de redirection (noindex) vers le site du cabinet.
 REDIRECTIONS = {"equipe-cabinet": CABINET_URL, "le-cabinet": CABINET_URL, "lieux-de-consultation": CABINET_URL, "prendre-rendez-vous": CABINET_URL,
                 "confidentialite": "mentions-legales.html"}
@@ -635,21 +645,29 @@ def typo_fautes(html_out):
     return fautes
 
 
-def render_cabinet(pages, slug):
-    """Anciennes adresses du cabinet : page du site (en-tête, menu, pied de page), sans redirection dans l'onglet
-    courant ; le site du cabinet s'ouvre dans un nouvel onglet (bouton, et tentative automatique après une seconde)."""
+def render_passage(pages, slug, dest, titre, lead, bouton, texte, description=None):
+    """Page de passage : page du site (en-tête, menu, pied de page) qui, une seconde après son ouverture dans un
+    nouvel onglet, envoie cet onglet vers l'autre site. Le drapeau en sessionStorage évite toute boucle : au retour
+    arrière, la page reste affichée avec ses boutons."""
+    cle = "bp_passage_" + slug
     meta = {
-        "slug": slug, "title": "Le cabinet", "description": "Le cabinet est présenté sur son site dédié.",
-        "h1": "Le cabinet", "eyebrow": "Le cabinet", "nav_label": "Le cabinet",
-        "lead": "Le site du cabinet s'ouvre dans un instant. Pour revenir ici, utilisez le bouton « Retour » de votre navigateur.",
-        "kind": "prive", "related": [], "quiz": None, "toc": False, "noindex": True, "canonical": CABINET_URL,
+        "slug": slug, "title": titre, "description": description or (titre + " : page de passage."),
+        "h1": titre, "eyebrow": titre, "nav_label": titre, "lead": lead,
+        "kind": "prive", "related": [], "quiz": None, "toc": False, "noindex": True, "canonical": dest,
         "body": f'''<section class="section" style="padding-top:0"><div class="wrap">
-  <p class="hero-actions" style="margin:0 0 18px"><a class="btn btn-primary btn-lg" id="cabinetLien" href="{CABINET_URL}">{SVG["arrow"]}Voir le cabinet</a><a class="btn btn-secondary btn-lg" href="index.html">Retour à l'accueil</a></p>
-  <p>Vous y trouverez la présentation de l'équipe, les lieux de consultation et la prise de rendez-vous.</p>
+  <p class="hero-actions" style="margin:0 0 18px"><a class="btn btn-primary btn-lg" id="passageLien" href="{dest}">{SVG["arrow"]}{bouton}</a><a class="btn btn-secondary btn-lg" href="index.html">Retour à l'accueil</a></p>
+  <p>{texte}</p>
 </div></section>
-<script>(function(){{var K='bp_cabinet_vu';try{{if(sessionStorage.getItem(K)==='1')return;sessionStorage.setItem(K,'1');}}catch(e){{return;}}var a=document.getElementById('cabinetLien');if(!a)return;setTimeout(function(){{location.href=a.href;}},1000);}})();</script>''',
+<script>(function(){{var K='{cle}';try{{if(sessionStorage.getItem(K)==='1')return;sessionStorage.setItem(K,'1');}}catch(e){{return;}}var a=document.getElementById('passageLien');if(!a)return;setTimeout(function(){{location.href=a.href;}},1000);}})();</script>''',
     }
     return render(pages, meta)
+
+
+def render_cabinet(pages, slug):
+    return render_passage(pages, slug, CABINET_URL, "Le cabinet",
+                          "Le site du cabinet s'ouvre dans un instant. Pour revenir ici, utilisez le bouton « Retour » de votre navigateur.",
+                          "Voir le cabinet", "Vous y trouverez la présentation de l'équipe, les lieux de consultation et la prise de rendez-vous.",
+                          "Le cabinet est présenté sur son site dédié.")
 
 
 def chiffrer(texte, mdp):
@@ -738,7 +756,7 @@ def check(pages, outputs):
                     errors.append(f"{slug}: adresse contenant un nom : {u}")
             # Aucun lien externe (hors cabinet / prise de rendez-vous) et aucun numéro d'urgence : décision du client.
             for u in set(re.findall(r'(?:href|src)="([^"]+)"', html_out)) | set(re.findall(r'https?://[^\s<>"]+', html_out)):
-                if u.startswith(("http://", "https://")) and u != LIEN_CABINET_AUTORISE and not any(d in u for d in LIENS_AUTORISES):
+                if u.startswith(("http://", "https://")) and u != LIEN_CABINET_AUTORISE and not (u in URLS_PASSAGES and slug.replace(".html", "") in PASSAGES_AUTRES) and not any(d in u for d in LIENS_AUTORISES):
                     errors.append(f"{slug}: lien externe interdit : {u}")
             txt = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html_out, flags=re.S)
             txt = re.sub(r"<[^>]+>", " ", txt)
@@ -754,11 +772,12 @@ def check(pages, outputs):
                     errors.append(f"{slug}: formule défensive interdite : « {m.group(0)} »")
             for f_ in typo_fautes(html_out):
                 errors.append(f"{slug}: espace ordinaire avant une ponctuation (typographie) : « {f_} »")
-            est_passage = slug.replace(".html", "") in {o for o, d in REDIRECTIONS.items() if d == CABINET_URL}
+            est_passage = slug.replace(".html", "") in ({o for o, d in REDIRECTIONS.items() if d == CABINET_URL} | set(PASSAGES_AUTRES))
             for m in re.finditer(r'<a\b[^>]*href="https://www\.psy-psy\.fr[^"]*"[^>]*>', html_out):
                 if not est_passage:
                     errors.append(f"{slug}: lien direct vers le site du cabinet (passer par {CABINET_PAGE}) : {m.group(0)}")
-            for m in re.finditer(r'<a\b[^>]*href="' + re.escape(CABINET_PAGE) + r'"[^>]*>', html_out):
+            est_passage = est_passage or slug.replace(".html", "") in PASSAGES_AUTRES
+            for m in re.finditer(r'<a\b[^>]*href="(?:' + "|".join(re.escape(x) for x in [CABINET_PAGE] + [k + ".html" for k in PASSAGES_AUTRES]) + r')"[^>]*>', html_out):
                 if not est_passage and ('target="_blank"' not in m.group(0) or 'rel="noopener"' not in m.group(0)):
                     errors.append(f"{slug}: lien vers le cabinet sans nouvel onglet : {m.group(0)}")
             for m in re.finditer(ALERTE_INTERDITE, html_out):
@@ -807,9 +826,12 @@ def main():
     for old, dest in REDIRECTIONS.items():
         if dest == CABINET_URL:
             outputs[old + ".html"] = render_cabinet(pages, old)
-    passage = {old + ".html" for old, dest in REDIRECTIONS.items() if dest == CABINET_URL}
+    for sl, d in PASSAGES_AUTRES.items():
+        outputs[sl + ".html"] = render_passage(pages, sl, d["url"], d["titre"], d["lead"], d["bouton"], d["texte"])
+    passage = {old + ".html" for old, dest in REDIRECTIONS.items() if dest == CABINET_URL} | {sl + ".html" for sl in PASSAGES_AUTRES}
+    passage_cabinet = {old + ".html" for old, dest in REDIRECTIONS.items() if dest == CABINET_URL}
     for fn in list(outputs):
-        if fn not in passage:
+        if fn not in passage_cabinet:
             outputs[fn] = outputs[fn].replace('href="' + CABINET_URL + '"', 'href="' + CABINET_PAGE + '"')
     check(pages, outputs)
     for fn, content in outputs.items():

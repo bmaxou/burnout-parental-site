@@ -49,6 +49,18 @@ FORMULES_INTERDITES = (r"pas (?:un |de |d'un )?diagnostic|aucun diagnostic|sans 
                        r"ne remplacent? (?:pas|en aucun cas) (?:une |un )?(?:consultation|évaluation|avis|entretien|diagnostic)|\bindicati(?:f|fs|ve|ves)\b|avis médical|"
                        r"(?:ils|elles|il) orientent?, (?:ils|elles|il) ne mesurent?|sont-ils fiables")
 PAGES_EXEMPTEES_FORMULES = {"mentions-legales"}
+# Affirmations sur le fonctionnement concret du cabinet qui ne sont pas vérifiables dans les sources de référence
+# (site du cabinet), et argent (hors mentions légales) : refusées, à la demande du client (« je n'aime pas quand tu inventes »).
+# Faits admis : lieux (Colombes, Pavillons-sous-Bois, Colombier-le-Vieux), téléconsultation, rendez-vous sur Doctolib 365 jours
+# par an, contact par WhatsApp, SMS ou e-mail, deux cliniciens, EMDR / écoute analytique / TCC, séances à plusieurs, bilans.
+AFFIRMATIONS_INTERDITES = (r"messagerie (?:Doctolib|sécurisée)|messagerie|\btarifs?\b|rembours\w*|\bmutuelles?\b|Assurance maladie|honoraires?|"
+                           r"environ une heure|une heure par semaine|séance par semaine|tous les quinze jours|rendez-vous de suivi|"
+                           r"(?:proposé|organisé|obtenu)e? rapidement|premier créneau|sous quelques jours|dans les jours qui viennent|"
+                           r"bébé présent|tout-petit présent|créneaux? en soirée|partout en France|sans ordonnance|sans démarche préalable|"
+                           r"(?:ne rédigent?|n'écri\w+) pas d'attestation|ne témoignent? pas|autre professionnel|structures qui|organismes compétents|"
+                           r"conseiller sur la conduite|aider (?:à identifier|dans les démarches|à faire le point sur celles)|le cabinet (?:l'|les )?aborde|"
+                           r"traitement (?:complémentaire|peut parfois)|groupes? de parents du cabinet|le résultat vous invite")
+PAGES_EXEMPTEES_AFFIRMATIONS = {"mentions-legales"}
 # Phrase de cadrage validée mot pour mot par le client : sous le résultat des tests (site.js) et dans la FAQ
 # « Comment sont construits les auto-tests ? ». Elle est retirée du texte avant le contrôle des formules, sans
 # assouplir le contrôle pour le reste ; le build vérifie qu'elle est identique dans assets/site.js.
@@ -773,6 +785,9 @@ def check(pages, outputs):
             if slug.replace(".html", "") not in PAGES_DOCUMENTAIRES | PAGES_EXEMPTEES_FORMULES:
                 for m in re.finditer(FORMULES_INTERDITES, txt.replace(PHRASE_CADRAGE, " ")):
                     errors.append(f"{slug}: formule défensive interdite : « {m.group(0)} »")
+            if slug.replace(".html", "") not in PAGES_DOCUMENTAIRES | PAGES_EXEMPTEES_AFFIRMATIONS:
+                for m in re.finditer(AFFIRMATIONS_INTERDITES, txt, flags=re.I):
+                    errors.append(f"{slug}: affirmation non vérifiable sur le cabinet (ou argent) : « {m.group(0)} »")
             for f_ in typo_fautes(html_out):
                 errors.append(f"{slug}: espace ordinaire avant une ponctuation (typographie) : « {f_} »")
             est_passage = slug.replace(".html", "") in ({o for o, d in REDIRECTIONS.items() if d == CABINET_URL} | set(PASSAGES_AUTRES))

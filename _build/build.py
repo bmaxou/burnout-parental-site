@@ -14,9 +14,16 @@ Usage : python3 _build/build.py          (depuis la racine du dépôt)
 PREVIEW = True  : site en préparation (code d'accès, balise noindex, robots.txt fermé).
 PREVIEW = False : site public (pas de code d'accès, pages indexables, sitemap déclaré).
 """
-import json, os, re, sys, html, datetime
+import json, os, re, sys, html, datetime, hashlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import noms as nomsmod
+
+def asset_v(name):
+    """Empreinte du fichier : change à chaque modification, ce qui force les navigateurs à recharger."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(here, '..', 'assets', name), 'rb') as f:
+        return hashlib.md5(f.read()).hexdigest()[:8]
+
 
 PREVIEW = False
 SITE = "https://burnout-parental.fr/"
@@ -473,7 +480,7 @@ def head_html(meta, body, crumb_ld):
 <meta name="theme-color" content="#12201C">
 <link rel="preload" href="fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css?v={asset_v('site.css')}">
 {jsonld(meta, body, crumb_ld)}
 </head>
 <body class="{'locked' if PREVIEW else ''}">
@@ -546,7 +553,7 @@ def render(pages, meta):
   <section class="section" style="padding-top:0"><div class="wrap">{layout}{related_html(pages, meta)}{pager_html(pages, slug)}</div></section>
   {cta_html(meta)}
 </main>'''
-    out = head + "\n" + hdr + main + "\n" + footer_html(pages, meta) + "\n" + mobile_nav_html(pages, slug) + "\n" + a11y_panel() + '\n<script src="assets/site.js" defer></script>\n</body>\n</html>\n'
+    out = head + "\n" + hdr + main + "\n" + footer_html(pages, meta) + "\n" + mobile_nav_html(pages, slug) + "\n" + a11y_panel() + '\n<script src="assets/site.js?v=' + asset_v('site.js') + '" defer></script>\n</body>\n</html>\n'
     if slug not in CLAIR_AUTORISE:
         MASKER.used = {}
         out = MASKER.mask_html(out)

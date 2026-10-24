@@ -39,6 +39,8 @@ PAGES_DOCUMENTAIRES = {"tests", "reflexion-clinique", "reflexion-parents-ensembl
                        "reflexion-adolescent", "reflexion-fratrie", "reflexion-burnout-general", "reflexion-distinction-parentale",
                        "reflexion-accompagnement"}
 LIENS_AUTORISES = ("burnout-parental.fr", "doctolib.fr", "schema.org", "www.w3.org/2000/svg", "sitemaps.org")  # les deux derniers : identifiants techniques, pas des liens
+# Seule adresse externe autorisée en plus : la page du cabinet sur son site (adresse exacte).
+LIEN_CABINET_AUTORISE = "https://www.psy-psy.fr/cabinet"
 MAIL = "contact@burnout-parental.fr"
 TODAY = datetime.date.today().isoformat()
 
@@ -66,16 +68,17 @@ SECTIONS = [
     {"id": "ressources", "label": "Ressources", "hub": "ressources",
      "pages": ["prevention-au-quotidien", "signaux-alerte-negligence-violence",
                "glossaire", "bibliographie", "faq"]},
-    {"id": "cabinet", "label": "Le Cabinet", "hub": "le-cabinet",
-     "pages": ["lieux-de-consultation", "prendre-rendez-vous", "mentions-legales", "confidentialite"]},
     {"id": "reflexion", "label": "Réflexion clinique", "hub": "reflexion-clinique", "in_menu": False,
      "pages": ["reflexion-parents-ensemble", "reflexion-parents-separes", "reflexion-jeune-enfant",
                "reflexion-adolescent", "reflexion-fratrie", "reflexion-burnout-general",
                "reflexion-distinction-parentale", "reflexion-accompagnement"]},
 ]
-STANDALONE = ["index", "plan-du-site"]
-# Anciennes adresses conservées : une petite page de redirection est écrite pour chacune.
-REDIRECTIONS = {"equipe-cabinet": "le-cabinet"}
+STANDALONE = ["index", "plan-du-site", "mentions-legales"]
+# La rubrique « Le Cabinet » renvoie vers le site du cabinet.
+CABINET_URL = "https://www.psy-psy.fr/cabinet"
+# Anciennes adresses conservées : une petite page de redirection (noindex) vers le site du cabinet.
+REDIRECTIONS = {"equipe-cabinet": CABINET_URL, "le-cabinet": CABINET_URL, "lieux-de-consultation": CABINET_URL, "prendre-rendez-vous": CABINET_URL,
+                "confidentialite": "mentions-legales.html"}
 
 SVG = {
     "chev": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
@@ -158,6 +161,7 @@ def nav_html(pages, current):
         items.append(
             f'<li class="nav-item has-sub"><button class="nav-link{active}" type="button" aria-haspopup="true" aria-expanded="false">{e(s["label"])}{SVG["chev"]}</button>'
             f'<ul class="sub-menu">{sub}</ul></li>')
+    items.append(f'<li class="nav-item"><a class="nav-link" href="{CABINET_URL}" target="_blank" rel="noopener">Le Cabinet</a></li>')
     return '<nav class="main-nav" aria-label="Navigation principale"><ul class="nav-list">' + "".join(items) + "</ul></nav>"
 
 
@@ -175,6 +179,7 @@ def mobile_nav_html(pages, current):
             cur = ' aria-current="page"' if p == current else ""
             h += f'<li><a href="{url(p)}"{cur}>{e(pg.get("nav_label", pg["title"]))}</a></li>'
         h += '</ul></details>'
+    h += f'<a class="mnav-single" href="{CABINET_URL}" target="_blank" rel="noopener">Le Cabinet</a>'
     h += '<a class="mnav-single" href="faq.html">Questions fréquentes</a>'
     h += '<a class="mnav-single" href="reflexion-clinique.html">Réflexion clinique (espace professionnel)</a>'
     h += f'<div class="mnav-cta"><a class="btn btn-primary" href="{RDV}">{SVG["cal"]}Prendre rendez-vous</a><a class="btn btn-secondary" href="mailto:{MAIL}">Écrire au cabinet</a></div>'
@@ -322,32 +327,16 @@ def cta_html(meta):
 
 
 def footer_html(pages, meta):
-    cols = ""
-    for s in SECTIONS:
-        if s.get("in_menu") is False or s["id"] == "cabinet":
-            continue
-        lis = f'<li><a href="{url(s["hub"])}"><strong>{e(pages[s["hub"]].get("nav_label", ""))}</strong></a></li>'
-        lis += "".join(f'<li><a href="{url(p)}">{e(pages[p].get("nav_label", pages[p]["title"]))}</a></li>' for p in s["pages"])
-        cols += f'<div><h3>{e(s["label"])}</h3><ul>{lis}</ul></div>'
-    cols += (f'<div class="cta-col"><h3>Le Cabinet</h3><ul>'
-             f'<li><a href="le-cabinet.html">Qui vous reçoit</a></li><li><a href="lieux-de-consultation.html">Lieux de consultation</a></li>'
-             f'<li><a href="prendre-rendez-vous.html">Prendre rendez-vous</a></li><li><a href="mailto:{MAIL}">Contact&nbsp;: {MAIL}</a></li>'
-             f'<li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="confidentialite.html">Confidentialité</a></li></ul>'
-             f'<p style="font-size:.8rem;margin-top:10px;">© 2026 Cabinet Bouche &amp; Chmura. Site privé d\'information, qui ne remplace pas une consultation.</p></div>')
+    """Pied de page sobre, sur le modèle du site du cabinet : partage de la page, ©, liens discrets."""
     updated = meta.get("updated", TODAY)
     return f'''<footer class="site-footer">
   <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a class="logo" href="index.html"><span class="logo-mark">{SVG["leaf"]}</span><span class="logo-text"><span class="logo-name">Burnout parental</span><span class="logo-tagline">Épuisement parental</span></span></a>
-      </div>
-      <div><span>Site d'information rédigé par des cliniciens. Il ne remplace pas une consultation.</span></div>
+    <div class="footer-share" id="footerShare" role="group" aria-label="Partager cette page"><span class="lib">Partager</span></div>
+    <div class="footer-row">
+      <span>© 2026 Cabinet Bouche &amp; Chmura</span>
+      <nav class="footer-links" aria-label="Liens de bas de page"><a href="{CABINET_URL}" target="_blank" rel="noopener">Le Cabinet</a><a href="mentions-legales.html">Mentions légales</a><a href="plan-du-site.html">Plan du site</a><a href="mailto:{MAIL}">Contact&nbsp;: {MAIL}</a></nav>
     </div>
-    <div class="footer-map">{cols}</div>
-    <div class="footer-bottom">
-      <p class="sources">Page mise à jour le {e(fr_date(updated))}. Rédaction : Max Bouche, clinicien, psychothérapeute, psychanalyste. Les auto-tests de ce site sont des outils d'orientation, pas des outils de diagnostic ; aucune réponse n'est enregistrée ni transmise.</p>
-      <p class="footer-legal"><a href="plan-du-site.html">Plan du site</a><a href="bibliographie.html">Sources</a></p>
-    </div>
+    <p class="footer-note">Site d'information rédigé par des cliniciens ; il ne remplace pas une consultation. Les auto-tests sont des outils d'orientation, pas des outils de diagnostic ; aucune réponse n'est enregistrée ni transmise. Page mise à jour le {e(fr_date(updated))}. Rédaction : Max Bouche, clinicien, psychothérapeute, psychanalyste.</p>
   </div>
 </footer>'''
 
@@ -422,11 +411,6 @@ def faq_ld(body):
     return {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": qa}
 
 
-LIEUX = [
-    {"@type": "Place", "name": "Cabinet de Colombes", "address": {"@type": "PostalAddress", "streetAddress": "5 avenue Clert et Robert", "postalCode": "92700", "addressLocality": "Colombes", "addressCountry": "FR"}},
-    {"@type": "Place", "name": "Cabinet des Pavillons-sous-Bois", "address": {"@type": "PostalAddress", "streetAddress": "10 passage de la Main Ferme", "postalCode": "93320", "addressLocality": "Les Pavillons-sous-Bois", "addressCountry": "FR"}},
-    {"@type": "Place", "name": "Cabinet de Colombier-le-Vieux", "address": {"@type": "PostalAddress", "streetAddress": "24 Grande Rue", "postalCode": "07410", "addressLocality": "Colombier-le-Vieux", "addressCountry": "FR"}},
-]
 # Données structurées : aucun nom de personne (le nom du cabinet est formé de noms de personnes).
 ORG = {"@type": "MedicalBusiness", "@id": SITE + "#cabinet", "name": "Cabinet de psychothérapie, de psychanalyse et de psychologie clinique",
        "url": SITE, "email": MAIL, "areaServed": "France", "availableLanguage": "fr",
@@ -449,8 +433,7 @@ def jsonld(meta, body, crumb_ld):
         if meta.get("quiz"):
             page["mainEntity"] = {"@type": "Quiz", "name": strip_tags(meta.get("h1", meta["title"])), "educationalUse": "self-assessment"}
         out.append(page)
-        if meta["slug"] in ("le-cabinet", "lieux-de-consultation", "prendre-rendez-vous"):
-            out.append(dict({"@context": "https://schema.org"}, **ORG, location=LIEUX))
+
     f = faq_ld(MASKER.mask_html(body) if meta["slug"] not in CLAIR_AUTORISE else body)  # texte sans les noms
     if f:
         out.append(f)
@@ -531,7 +514,7 @@ def sitemap_html(pages):
         lis = f'<li><a href="{url(s["hub"])}"><strong>{e(hub.get("nav_label", hub["title"]))}</strong></a></li>'
         lis += "".join(f'<li><a href="{url(p)}">{e(pages[p].get("nav_label", pages[p]["title"]))}</a></li>' for p in s["pages"])
         h += f'<div class="card" data-reveal><h2 style="font-size:1.2rem;margin:0 0 10px">{e(s["label"])}</h2><ul class="check-list" style="gap:7px">{lis}</ul></div>'
-    h += '<div class="card" data-reveal><h2 style="font-size:1.2rem;margin:0 0 10px">Autres pages</h2><ul class="check-list" style="gap:7px"><li><a href="index.html">Accueil</a></li><li><a href="mentions-legales.html">Mentions légales et confidentialité</a></li><li><a href="sitemap.xml">Sitemap XML (pour les moteurs de recherche)</a></li></ul></div>'
+    h += f'<div class="card" data-reveal><h2 style="font-size:1.2rem;margin:0 0 10px">Autres pages</h2><ul class="check-list" style="gap:7px"><li><a href="index.html">Accueil</a></li><li><a href="{CABINET_URL}" target="_blank" rel="noopener">Le Cabinet (site du cabinet)</a></li><li><a href="mentions-legales.html">Mentions légales et politiques</a></li></ul></div>'
     return h + "</div>"
 
 
@@ -605,7 +588,7 @@ def check(pages, outputs):
                     errors.append(f"{slug}: adresse contenant un nom : {u}")
             # Aucun lien externe (hors cabinet / prise de rendez-vous) et aucun numéro d'urgence : décision du client.
             for u in set(re.findall(r'(?:href|src)="([^"]+)"', html_out)) | set(re.findall(r'https?://[^\s<>"]+', html_out)):
-                if u.startswith(("http://", "https://")) and not any(d in u for d in LIENS_AUTORISES):
+                if u.startswith(("http://", "https://")) and u != LIEN_CABINET_AUTORISE and not any(d in u for d in LIENS_AUTORISES):
                     errors.append(f"{slug}: lien externe interdit : {u}")
             txt = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html_out, flags=re.S)
             txt = re.sub(r"<[^>]+>", " ", txt)
@@ -651,11 +634,12 @@ def main():
     for fn, content in outputs.items():
         with open(os.path.join(ROOT, fn), "w", encoding="utf-8") as f:
             f.write(content)
-    for old, new in REDIRECTIONS.items():
+    for old, dest in REDIRECTIONS.items():
+        canon = dest if dest.startswith("http") else SITE + dest
         with open(os.path.join(ROOT, old + ".html"), "w", encoding="utf-8") as f:
             f.write(f'<!DOCTYPE html>\n<html lang="fr"><head><meta charset="UTF-8"><title>Redirection</title><meta name="robots" content="noindex">'
-                    f'<link rel="canonical" href="{abs_url(new)}"><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta http-equiv="refresh" content="0;url={new}.html"></head>'
-                    f'<body><p>Cette page a changé d\'adresse : <a href="{new}.html">{e(pages[new]["title"])}</a>.</p></body></html>\n')
+                    f'<link rel="canonical" href="{canon}"><link rel="icon" href="favicon.svg" type="image/svg+xml"><meta http-equiv="refresh" content="0;url={dest}"></head>'
+                    f'<body><p>Cette page a été déplacée : <a href="{dest}" rel="noopener">{dest}</a>.</p></body></html>\n')
     # sitemap
     order = ["index"] + [x for s in SECTIONS for x in [s["hub"]] + s["pages"]] + ["plan-du-site"]
     urls = []

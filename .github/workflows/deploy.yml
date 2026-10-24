@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Recuperation du code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Deploiement FTP vers OVH
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -25,3 +27,12 @@ jobs:
             **/.git*
             **/.git*/**
             _build/**
+            indexnow.py
+
+      - name: Prevenir Bing des pages nouvelles ou modifiees (IndexNow)
+        continue-on-error: true
+        env:
+          INDEXNOW_HOST: burnout-parental.fr
+          INDEXNOW_KEY: 42601ece825d2b26eb47bf31e964a945
+          BEFORE: ${{ github.event.before }}
+        run: python3 indexnow.py

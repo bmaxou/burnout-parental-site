@@ -254,7 +254,7 @@ def header_html(pages, current):
 <header class="site-header" id="siteHeader">
   <div class="wrap header-inner">
     <a class="logo" href="index.html" aria-label="Burnout parental, accueil">
-      <span class="logo-mark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><linearGradient id="bpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#78AC8D"/><stop offset=".55" stop-color="#2D6650"/><stop offset="1" stop-color="#0F3427"/></linearGradient></defs><rect width="48" height="48" rx="12" fill="url(#bpg)"/><circle class="logo-head" cx="25" cy="14" r="6.2" fill="#9CC9A8"/><g fill="#F7F0DE" stroke="#F7F0DE" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="24.500" width="8" height="15.500" rx="2.800" stroke="none"/><rect x="11" y="24.500" width="15.500" height="4.200" rx="2.100" stroke="none"/><path d="M13.500 35.200h10.800c2.300 0 4.400-.9 6-2.500l7.600-7.600" fill="none" stroke-width="5.600"/><path d="M13 30.700h12" fill="none" stroke-width="3.400"/></g></svg></span>
+      <span class="logo-mark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><defs><linearGradient id="bpg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="48" y2="48"><stop offset="0" stop-color="#78AC8D"/><stop offset=".55" stop-color="#2D6650"/><stop offset="1" stop-color="#0F3427"/></linearGradient><g id="bph"><rect x="7.4" y="15" width="4.8" height="19" rx="2.4"/><path d="M7.4 30v2.200c0 1.500.6 2.700 1.700 3.700l6.600 5.900V43.600h7V39.600c0-1-.4-1.900-1.200-2.600L12.200 29.200z"/></g></defs><rect width="48" height="48" rx="12" fill="url(#bpg)"/><circle class="logo-head" cx="24" cy="17" r="6.2" fill="#9CC9A8"/><g fill="#F7F0DE"><use href="#bph"/><use href="#bph" transform="translate(48 0) scale(-1 1)"/></g><g fill="none" stroke="url(#bpg)" stroke-width="1.3" stroke-linecap="round"><path d="M12.900 31.200l6.400 5.700"/><path d="M35.100 31.200l-6.400 5.700"/></g></svg></span>
       <span class="logo-text"><span class="logo-name">Burnout parental</span><span class="logo-tagline">Épuisement parental</span></span>
     </a>
     {nav_html(pages, current)}
@@ -511,7 +511,7 @@ def head_html(meta, body, crumb_ld):
 <meta name="description" content="{e(desc)}">
 {robots}
 <link rel="canonical" href="{canon}">
-<link rel="icon" href="favicon.svg?v=2" type="image/svg+xml"><link rel="icon" href="favicon-48.png?v=2" sizes="48x48" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
+<link rel="icon" href="favicon.svg?v=3" type="image/svg+xml"><link rel="icon" href="favicon-48.png?v=3" sizes="48x48" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=3">
 <link rel="sitemap" type="application/xml" href="sitemap.xml">
 <meta property="og:site_name" content="Burnout parental">
 <meta property="og:title" content="{e(title)}">
@@ -863,7 +863,7 @@ def main():
         canon = dest if dest.startswith("http") else SITE + dest
         with open(os.path.join(ROOT, old + ".html"), "w", encoding="utf-8") as f:
             f.write(typo_fr(f'<!DOCTYPE html>\n<html lang="fr"><head><meta charset="UTF-8"><title>Redirection</title><meta name="robots" content="noindex">'
-                            f'<link rel="canonical" href="{canon}"><link rel="icon" href="favicon.svg?v=2" type="image/svg+xml"><link rel="icon" href="favicon-48.png?v=2" sizes="48x48" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=2"><meta http-equiv="refresh" content="0;url={dest}"></head>'
+                            f'<link rel="canonical" href="{canon}"><link rel="icon" href="favicon.svg?v=3" type="image/svg+xml"><link rel="icon" href="favicon-48.png?v=3" sizes="48x48" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=3"><meta http-equiv="refresh" content="0;url={dest}"></head>'
                             f'<body><p>Cette page a été déplacée : <a href="{dest}" rel="noopener">{dest}</a>.</p></body></html>\n'))
     # sitemap
     order = ["index"] + [x for s in SECTIONS for x in [s["hub"]] + s["pages"]] + ["plan-du-site"]

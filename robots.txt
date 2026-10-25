@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /_build/
+Disallow: /mesure.php
 
 Sitemap: https://burnout-parental.fr/sitemap.xml

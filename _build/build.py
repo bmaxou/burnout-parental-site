@@ -880,7 +880,7 @@ def main():
         if PREVIEW:
             f.write("# Site en préparation : exploration interdite. Au lancement, mettre PREVIEW = False\n# dans _build/build.py et relancer le script : ce fichier sera réécrit automatiquement.\nUser-agent: *\nDisallow: /\n")
         else:
-            f.write(f"User-agent: *\nAllow: /\nDisallow: /_build/\n\nSitemap: {SITE}sitemap.xml\n")
+            f.write(f"User-agent: *\nAllow: /\nDisallow: /_build/\nDisallow: /mesure.php\n\nSitemap: {SITE}sitemap.xml\n")
     print(f"[build] {len(outputs)} pages générées, sitemap.xml et robots.txt écrits (PREVIEW={PREVIEW}). "
           f"{len(MASKER.index)} noms masqués ; en clair uniquement sur : {', '.join(sorted(CLAIR_AUTORISE)) or 'aucune page'}.")
 

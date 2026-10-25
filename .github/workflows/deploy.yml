@@ -14,6 +14,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Ajout du compteur de visites (sans cookie)
+        run: python3 ajouter_mesure.py
+
       - name: Deploiement FTP vers OVH
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -28,6 +31,7 @@ jobs:
             **/.git*/**
             _build/**
             indexnow.py
+            ajouter_mesure.py
 
       - name: Prevenir Bing des pages nouvelles ou modifiees (IndexNow)
         continue-on-error: true

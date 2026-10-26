@@ -1,0 +1,25 @@
+# burnout-parental.fr : une seule adresse par page (actif seulement pour burnout-parental.fr)
+RewriteEngine On
+RewriteBase /
+
+# 1. www -> sans www
+RewriteCond %{HTTP_HOST} ^www\.burnout-parental\.fr$ [NC]
+RewriteCond %{THE_REQUEST} ^[A-Z]+\s(\S*)
+RewriteRule ^ https://burnout-parental.fr%1 [R=301,L]
+
+# 2. http -> https
+RewriteCond %{HTTP_HOST} ^burnout-parental\.fr$ [NC]
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{THE_REQUEST} ^[A-Z]+\s(\S*)
+RewriteRule ^ https://burnout-parental.fr%1 [R=301,L]
+
+# 3. /index.html -> /
+RewriteCond %{HTTP_HOST} ^burnout-parental\.fr$ [NC]
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?]
+RewriteRule ^index\.html$ https://burnout-parental.fr/ [R=301,L]
+
+# 4. /page -> /page.html (adresse canonique du site ; seulement si le fichier page.html existe)
+RewriteCond %{HTTP_HOST} ^burnout-parental\.fr$ [NC]
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([A-Za-z0-9_-]+)$ https://burnout-parental.fr/$1.html [R=301,L]

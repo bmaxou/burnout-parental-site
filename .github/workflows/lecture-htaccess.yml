@@ -1,0 +1,17 @@
+name: Lecture du .htaccess du serveur (essai, lecture seule)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  essai:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Contenu du .htaccess de /burnout-parental/
+        env:
+          S: ${{ secrets.FTP_SERVER }}
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          echo "== .htaccess"; curl -s --max-time 40 --user "$U:$P" "ftp://$S/burnout-parental/.htaccess" | head -80 || true
+          echo "== fin"

@@ -4,15 +4,15 @@ RewriteBase /
 
 # 1. www -> sans www
 RewriteCond %{HTTP_HOST} ^www\.burnout-parental\.fr$ [NC]
-RewriteCond %{THE_REQUEST} ^[A-Z]+\s(\S*)
-RewriteRule ^ https://burnout-parental.fr%1 [R=301,L]
+RewriteCond %{THE_REQUEST} ^[A-Z]+\s([^\s?]*)
+RewriteRule ^ https://burnout-parental.fr%1 [R=301,L,NE]
 
 # 2. http -> https
 RewriteCond %{HTTP_HOST} ^burnout-parental\.fr$ [NC]
 RewriteCond %{HTTPS} !=on
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
-RewriteCond %{THE_REQUEST} ^[A-Z]+\s(\S*)
-RewriteRule ^ https://burnout-parental.fr%1 [R=301,L]
+RewriteCond %{THE_REQUEST} ^[A-Z]+\s([^\s?]*)
+RewriteRule ^ https://burnout-parental.fr%1 [R=301,L,NE]
 
 # 3. /index.html -> /
 RewriteCond %{HTTP_HOST} ^burnout-parental\.fr$ [NC]

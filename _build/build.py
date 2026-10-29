@@ -716,6 +716,10 @@ def render_prive(pages, meta):
     main = re.search(r"<main id=\"contenu\">(.*?)</main>", complet, re.S)
     payload = json.dumps({"css": re.sub(r"</?style>", "", style.group(0)) if style else "", "html": main.group(1)}, ensure_ascii=False)
     blob = chiffrer(payload, MDP_PRIVE)
+    # le contenu chiffré (plus d'un Mo) est un fichier à part, lu seulement quand le visiteur ouvre l'accès réservé
+    nom_coffre = "coffre-%s.txt" % meta["slug"]
+    with open(os.path.join(ROOT, nom_coffre), "w", encoding="utf-8") as fc:
+        fc.write(blob)
     pub = dict(meta)
     pub.update({
         "title": "En cours de modification",
@@ -727,7 +731,7 @@ def render_prive(pages, meta):
         "kind": "prive", "related": [], "quiz": None,
         "body": f'''<section class="section" style="padding-top:0"><div class="wrap-narrow">
   <p><a class="btn btn-primary" href="index.html">Retour à l'accueil</a> <a class="btn btn-secondary" href="auto-tests.html">Les auto-tests</a></p>
-  <div class="vault" id="vault" data-vault="{blob}">
+  <div class="vault" id="vault" data-vault-src="/{nom_coffre}">
     <button type="button" class="tool-btn vault-btn" id="vaultBtn" aria-expanded="false" aria-controls="vaultForm">Accès réservé</button>
     <form class="vault-form" id="vaultForm" hidden>
       <label for="vaultPwd">Mot de passe</label>

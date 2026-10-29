@@ -203,13 +203,19 @@
   var vault=$('vault');
   if(vault && window.crypto && crypto.subtle){
     var vBtn=$('vaultBtn'), vForm=$('vaultForm'), vPwd=$('vaultPwd'), vMsg=$('vaultMsg');
-    var raw=Uint8Array.from(atob(vault.getAttribute('data-vault')),function(c){return c.charCodeAt(0);});
-    var salt=raw.slice(0,16), iv=raw.slice(16,28), ct=raw.slice(28);
+    var brut=null;
+    function charger(){
+      if(!brut) brut=fetch(vault.getAttribute('data-vault-src'),{credentials:'same-origin'}).then(function(r){ if(!r.ok) throw new Error('coffre'); return r.text(); }).then(function(s){
+        var raw=Uint8Array.from(atob(s.trim()),function(c){return c.charCodeAt(0);});
+        return {salt:raw.slice(0,16), iv:raw.slice(16,28), ct:raw.slice(28)};
+      });
+      return brut;
+    }
     function ouvrir(mdp){
-      var enc=new TextEncoder();
-      return crypto.subtle.importKey('raw',enc.encode(mdp),'PBKDF2',false,['deriveKey']).then(function(k){
-        return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:200000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['decrypt']);
-      }).then(function(key){ return crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,ct); }).then(function(buf){
+      var enc=new TextEncoder(), c;
+      return charger().then(function(x){ c=x; return crypto.subtle.importKey('raw',enc.encode(mdp),'PBKDF2',false,['deriveKey']); }).then(function(k){
+        return crypto.subtle.deriveKey({name:'PBKDF2',salt:c.salt,iterations:200000,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['decrypt']);
+      }).then(function(key){ return crypto.subtle.decrypt({name:'AES-GCM',iv:c.iv},key,c.ct); }).then(function(buf){
         var d=JSON.parse(new TextDecoder().decode(buf));
         var st=document.createElement('style'); st.textContent=d.css; document.head.appendChild(st);
         var main=$('contenu'); main.innerHTML=d.html;
@@ -218,7 +224,7 @@
         window.scrollTo(0,0);
       });
     }
-    vBtn.addEventListener('click',function(){ var open=vForm.hidden; vForm.hidden=!open; vBtn.setAttribute('aria-expanded',open?'true':'false'); if(open) vPwd.focus(); });
+    vBtn.addEventListener('click',function(){ var open=vForm.hidden; vForm.hidden=!open; vBtn.setAttribute('aria-expanded',open?'true':'false'); if(open){ vPwd.focus(); charger().catch(function(){}); } });
     vForm.addEventListener('submit',function(e){
       e.preventDefault(); vMsg.textContent='';
       ouvrir(vPwd.value).catch(function(){ vMsg.textContent='Mot de passe incorrect'; vPwd.select(); });

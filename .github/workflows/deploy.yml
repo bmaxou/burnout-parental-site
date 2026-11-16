@@ -17,6 +17,12 @@ jobs:
       - name: Ajout du compteur de visites (sans cookie)
         run: python3 ajouter_mesure.py
 
+      - name: Verification de la recherche et du glossaire
+        run: |
+          node _build/test_recherche.cjs
+          node _build/test_recherche_historique.cjs
+          python3 _build/audit_recherche.py
+
       - name: Deploiement FTP vers OVH
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -30,6 +36,8 @@ jobs:
             **/.git*
             **/.git*/**
             _build/**
+            reseau/actualiser.py
+            reseau/site.json
             indexnow.py
             ajouter_mesure.py
 

@@ -17,6 +17,7 @@ PREVIEW = False : site public (pas de code d'accès, pages indexables, sitemap d
 import json, os, re, sys, html, datetime, hashlib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import noms as nomsmod
+import recherche
 
 def asset_v(name):
     """Empreinte du fichier : change à chaque modification, ce qui force les navigateurs à recharger."""
@@ -73,7 +74,7 @@ ALERTE_INTERDITE = r'"risk":\s*\d|qr-alert|mérite une aide rapide|ALERT_HTML|q\
 PAGES_DOCUMENTAIRES = {"tests", "reflexion-clinique", "reflexion-parents-ensemble", "reflexion-parents-separes", "reflexion-jeune-enfant",
                        "reflexion-adolescent", "reflexion-fratrie", "reflexion-burnout-general", "reflexion-distinction-parentale",
                        "reflexion-accompagnement"}
-LIENS_AUTORISES = ("burnout-parental.fr", "doctolib.fr", "schema.org", "www.w3.org/2000/svg", "sitemaps.org")  # les deux derniers : identifiants techniques, pas des liens
+LIENS_AUTORISES = ("burnout-parental.fr", "psy-psy.fr", "bilan-mdph.fr", "doctolib.fr", "schema.org", "www.w3.org/2000/svg", "sitemaps.org")  # Renvois entre les trois sites autorisés par le client.
 # Seule adresse externe autorisée en plus : la page du cabinet sur son site (adresse exacte).
 LIEN_CABINET_AUTORISE = "https://www.psy-psy.fr/cabinet"
 MAIL = "contact@burnout-parental.fr"
@@ -259,6 +260,9 @@ def header_html(pages, current):
     </a>
     {nav_html(pages, current)}
     <div class="header-actions">
+      <button class="icon-btn" id="btnSearch" aria-haspopup="dialog" aria-controls="bpSearchDialog" aria-expanded="false" title="Rechercher" aria-label="Rechercher sur le site">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></svg>
+      </button>
       <button class="icon-btn" id="btnA11y" aria-haspopup="dialog" aria-controls="a11yPanel" aria-expanded="false" title="Affichage et lecture" aria-label="Ouvrir les options d'affichage et de lecture">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/></svg>
       </button>
@@ -529,6 +533,8 @@ def head_html(meta, body, crumb_ld):
 <link rel="preload" href="fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css?v={asset_v('site.css')}">
+<link rel="stylesheet" href="assets/recherche.css?v={asset_v('recherche.css')}">
+<link rel="stylesheet" href="/reseau/reseau.css">
 {jsonld(meta, body, crumb_ld)}
 </head>
 <body class="{'locked' if PREVIEW else ''}">
@@ -577,6 +583,8 @@ def sitemap_html(pages):
 def render(pages, meta):
     slug = meta["slug"]
     body = expand(meta["body"])
+    if slug == "glossaire":
+        body = recherche.prepare_glossary(body)
     if "{{SITEMAP}}" in body:
         body = body.replace("{{SITEMAP}}", sitemap_html(pages))
     crumb, crumb_ld = crumbs(pages, meta)
@@ -602,13 +610,20 @@ def render(pages, meta):
   <section class="section" style="padding-top:0"><div class="wrap">{layout}{related_html(pages, meta)}{pager_html(pages, slug)}</div></section>
   {cta_html(meta)}
 </main>'''
-    out = head + "\n" + hdr + main + "\n" + footer_html(pages, meta) + "\n" + mobile_nav_html(pages, slug) + "\n" + a11y_panel() + '\n<script src="assets/site.js?v=' + asset_v('site.js') + '" defer></script>\n</body>\n</html>\n'
+    search_dialog = '''<dialog class="bp-search-dialog" id="bpSearchDialog" aria-labelledby="bpSearchTitle">
+  <div class="bp-search-head"><div class="bp-search-heading"><h2 id="bpSearchTitle">Rechercher</h2><button class="icon-btn" id="bpSearchClose" aria-label="Fermer la recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <label for="bpSearchInput">Un sujet, une question, un mot</label><input id="bpSearchInput" type="search" placeholder="Sommeil, fatigue, test, aide…" autocomplete="off" aria-controls="bpSearchResults"><p class="bp-search-status" id="bpSearchStatus" role="status" aria-live="polite">Écrivez au moins deux lettres.</p></div>
+  <div class="bp-search-results" id="bpSearchResults"></div>
+</dialog>'''
+    out = head + "\n" + hdr + main + "\n" + footer_html(pages, meta) + "\n" + mobile_nav_html(pages, slug) + "\n" + a11y_panel() + "\n" + search_dialog + '\n<script src="assets/site.js?v=' + asset_v('site.js') + '" defer></script>\n<script src="/reseau/reseau.js" defer></script>\n<script src="assets/recherche-moteur.js?v=' + asset_v('recherche-moteur.js') + '" defer></script>\n<script src="assets/recherche.js?v=' + asset_v('recherche.js') + '" defer></script>\n<script src="/assets/mesure.js" defer></script>\n</body>\n</html>\n'
     if slug not in CLAIR_AUTORISE:
         MASKER.used = {}
         out = MASKER.mask_html(out)
         if MASKER.used:
             css = nomsmod.BASE_CSS + "\n" + MASKER.css_for()
             out = out.replace("</head>", "<style>\n" + css + "\n</style>\n</head>", 1)
+    # Preserve the deployed site's exclusion of repeated navigation from search snippets.
+    out = re.sub(r'<(header|nav|footer)\b(?![^>]*\bdata-nosnippet)', r'<\1 data-nosnippet', out)
     return typo_fr(out)
 
 
@@ -675,7 +690,7 @@ def render_passage(pages, slug, dest, titre, lead, bouton, texte, description=No
   <p class="hero-actions" style="margin:0 0 18px"><a class="btn btn-primary btn-lg" id="passageLien" href="{dest}">{SVG["arrow"]}{bouton}</a><a class="btn btn-secondary btn-lg" href="index.html">Retour à l'accueil</a></p>
   <p>{texte}</p>
 </div></section>
-<script>(function(){{var K='{cle}';try{{if(sessionStorage.getItem(K)==='1')return;sessionStorage.setItem(K,'1');}}catch(e){{return;}}var a=document.getElementById('passageLien');if(!a)return;setTimeout(function(){{location.href=a.href;}},1000);}})();</script>''',
+<script>(function(){{var nav=performance.getEntriesByType('navigation')[0];if(nav&&nav.type==='back_forward')return;var K='{cle}';try{{if(sessionStorage.getItem(K)==='1')return;sessionStorage.setItem(K,'1');}}catch(e){{return;}}var a=document.getElementById('passageLien');if(!a)return;var timer=setTimeout(function(){{location.assign(a.href);}},2000);window.addEventListener('pagehide',function(){{clearTimeout(timer);}},{{once:true}});}})();</script>''',
     }
     return render(pages, meta)
 
@@ -708,18 +723,20 @@ def chiffrer(texte, mdp):
 
 def render_prive(pages, meta):
     """Page publique neutre + contenu complet chiffré dans la page (déchiffré par assets/site.js après mot de passe)."""
-    complet = render(pages, meta)  # rendu habituel (noms en images), jamais écrit sur le disque
-    left = MASKER.leftovers(complet)
-    if left:
-        sys.exit(f"[build] {meta['slug']} (contenu protégé) : nom(s) en clair : {', '.join(left)}")
-    style = re.search(r"<style>\n\.nm\{.*?</style>", complet, re.S)
-    main = re.search(r"<main id=\"contenu\">(.*?)</main>", complet, re.S)
-    payload = json.dumps({"css": re.sub(r"</?style>", "", style.group(0)) if style else "", "html": main.group(1)}, ensure_ascii=False)
-    blob = chiffrer(payload, MDP_PRIVE)
     # le contenu chiffré (plus d'un Mo) est un fichier à part, lu seulement quand le visiteur ouvre l'accès réservé
     nom_coffre = "coffre-%s.txt" % meta["slug"]
-    with open(os.path.join(ROOT, nom_coffre), "w", encoding="utf-8") as fc:
-        fc.write(blob)
+    # Updating public navigation must not rewrite a private vault or change its access password.
+    if not os.path.exists(os.path.join(ROOT, nom_coffre)) or os.environ.get('BP_REBUILD_PRIVATE') == '1':
+        complet = render(pages, meta)  # rendu habituel, jamais écrit en clair sur le disque
+        left = MASKER.leftovers(complet)
+        if left:
+            sys.exit(f"[build] {meta['slug']} (contenu protégé) : nom(s) en clair : {', '.join(left)}")
+        style = re.search(r"<style>\n\.nm\{.*?</style>", complet, re.S)
+        main = re.search(r"<main id=\"contenu\">(.*?)</main>", complet, re.S)
+        payload = json.dumps({"css": re.sub(r"</?style>", "", style.group(0)) if style else "", "html": main.group(1)}, ensure_ascii=False)
+        blob = chiffrer(payload, MDP_PRIVE)
+        with open(os.path.join(ROOT, nom_coffre), "w", encoding="utf-8") as fc:
+            fc.write(blob)
     pub = dict(meta)
     pub.update({
         "title": "En cours de modification",
@@ -758,7 +775,7 @@ def check(pages, outputs):
                 continue
             if href.endswith(".html") and href not in known:
                 errors.append(f"{slug}: lien cassé vers {href}")
-            elif not href.endswith(".html") and href != "sitemap.xml" and not os.path.exists(os.path.join(ROOT, href)):
+            elif not href.endswith(".html") and href != "sitemap.xml" and not href.startswith("/reseau/") and not os.path.exists(os.path.join(ROOT, href.lstrip('/'))):
                 errors.append(f"{slug}: fichier manquant {href}")
         for href in re.findall(r'href="#([^"]+)"', html_out):
             if href == "contenu" or href.startswith("rdv"):
@@ -857,7 +874,17 @@ def main():
     for fn in list(outputs):
         if fn not in passage_cabinet:
             outputs[fn] = outputs[fn].replace('href="' + CABINET_URL + '"', 'href="' + CABINET_PAGE + '"')
+        # The shared bridge starts from the exact page being read, not an intermediate page.
+        destinations = {old + '.html': dest for old, dest in REDIRECTIONS.items() if dest == CABINET_URL}
+        destinations.update({sl + '.html': data['url'] for sl, data in PASSAGES_AUTRES.items()})
+        for old, dest in destinations.items():
+            outputs[fn] = outputs[fn].replace('href="' + old + '"', 'href="' + old + '" data-reseau-url="' + dest + '"')
     check(pages, outputs)
+    catalogue = recherche.write_catalogue(ROOT, pages, outputs, PAGES_PRIVEES)
+    actualiser_reseau = os.path.join(ROOT, 'reseau', 'actualiser.py')
+    if os.path.isfile(actualiser_reseau) and os.path.isfile(os.path.join(ROOT, 'reseau', 'site.json')):
+        import runpy
+        runpy.run_path(actualiser_reseau)['actualiser'](ROOT)
     for fn, content in outputs.items():
         with open(os.path.join(ROOT, fn), "w", encoding="utf-8") as f:
             f.write(content)
@@ -885,7 +912,7 @@ def main():
             f.write("# Site en préparation : exploration interdite. Au lancement, mettre PREVIEW = False\n# dans _build/build.py et relancer le script : ce fichier sera réécrit automatiquement.\nUser-agent: *\nDisallow: /\n")
         else:
             f.write(f"User-agent: *\nAllow: /\nDisallow: /_build/\nDisallow: /mesure.php\n\nSitemap: {SITE}sitemap.xml\n")
-    print(f"[build] {len(outputs)} pages générées, sitemap.xml et robots.txt écrits (PREVIEW={PREVIEW}). "
+    print(f"[build] {len(outputs)} pages générées, {len(catalogue)} entrées de recherche publique, sitemap.xml et robots.txt écrits (PREVIEW={PREVIEW}). "
           f"{len(MASKER.index)} noms masqués ; en clair uniquement sur : {', '.join(sorted(CLAIR_AUTORISE)) or 'aucune page'}.")
 
 

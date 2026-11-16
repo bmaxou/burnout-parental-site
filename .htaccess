@@ -1,4 +1,9 @@
 # burnout-parental.fr : une seule adresse par page (actif seulement pour burnout-parental.fr)
+# Les catalogues de recherche sont du texte : limiter leur transfert sur mobile.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/json application/javascript text/javascript text/css text/html
+</IfModule>
+
 RewriteEngine On
 RewriteBase /
 

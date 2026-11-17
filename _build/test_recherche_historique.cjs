@@ -2,7 +2,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const code=fs.readFileSync(path.join(__dirname,'../assets/recherche.js'),'utf8');
 function fixture(initial={}){
-  function element(id){return {id,value:'',open:false,isConnected:true,hidden:false,dataset:{},listeners:{},children:[],classList:{toggle(){}},
+  function element(id){return {id,value:'',open:false,isConnected:true,hidden:false,scrollTop:0,dataset:{},listeners:{},children:[],classList:{toggle(){}},
     addEventListener(type,fn){(this.listeners[type]??=[]).push(fn);},
     emit(type,event={}){for(const fn of this.listeners[type]||[])fn(event);},
     focus(){},closest(){return null;},setAttribute(){},showModal(){this.open=true;},close(){this.open=false;},
@@ -19,9 +19,13 @@ function fixture(initial={}){
   vm.runInNewContext(code,context);return {nodes,items,doc,win,history};
 }
 const normal=fixture();normal.nodes.btnSearch.emit('click');assert(normal.nodes.bpSearchDialog.open);assert.equal(normal.history.pushCalls,1);
+normal.nodes.bpSearchDialog.scrollTop=420;normal.nodes.bpSearchInput.value='sommeil';normal.nodes.bpSearchInput.emit('input');
+assert.equal(normal.nodes.bpSearchDialog.scrollTop,0,'a new query reveals the first result in the scrolling dialog');
 normal.nodes.bpSearchClose.emit('click');assert(!normal.nodes.bpSearchDialog.open);assert.equal(normal.history.backCalls,1);
 normal.history.state={};normal.win.emit('popstate');assert(!normal.nodes.bpSearchDialog.open);
 const clone=fixture({bpSearch:true,bpSearchQuery:'',bpSearchEntry:'copied-from-another-tab'});clone.win.emit('pageshow');assert(clone.nodes.bpSearchDialog.open);
+clone.nodes.bpSearchDialog.scrollTop=210;clone.win.emit('pageshow');clone.doc.emit('cabinet:restore');
+assert.equal(clone.nodes.bpSearchDialog.scrollTop,210,'restoring Back or a network snapshot does not reset the dialog position');
 clone.nodes.bpSearchClose.emit('click');assert(!clone.nodes.bpSearchDialog.open);assert.equal(clone.history.backCalls,0);assert.equal(clone.history.state.bpSearch,false);
 clone.doc.emit('cabinet:restore');assert(!clone.nodes.bpSearchDialog.open,'a voluntarily closed copied dialog stays closed');
 const glossary=fixture();glossary.nodes.glossSearch.value='EMDR';glossary.nodes.glossSearch.emit('input');assert.equal(glossary.history.state.bpGlossQuery,'EMDR');

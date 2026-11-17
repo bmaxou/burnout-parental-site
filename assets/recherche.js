@@ -68,7 +68,7 @@
   document.getElementById('bpSearchClose').addEventListener('click',function(){hide(false);});
   dialog.addEventListener('cancel',function(e){e.preventDefault();hide(false);});
   dialog.addEventListener('click',function(e){if(e.target===dialog){var r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)hide(false);}});
-  input.addEventListener('input',function(){remember({bpSearchQuery:input.value});clearTimeout(timer);revision++;timer=setTimeout(search,120);});
+  input.addEventListener('input',function(){dialog.scrollTop=0;remember({bpSearchQuery:input.value});clearTimeout(timer);revision++;timer=setTimeout(search,120);});
   input.addEventListener('keydown',function(e){
     if(e.key==='ArrowDown'){e.preventDefault();mark(selected+1);}
     else if(e.key==='ArrowUp'){e.preventDefault();mark(selected-1);}

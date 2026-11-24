@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
 
       - name: Ajout du compteur de visites (sans cookie)
-        run: python3 ajouter_mesure.py
+        run: python3 ajouter_mesure.py && find . -name '*.html' -not -path './.git/*' -not -path './_build/*' -print0 | xargs -0 perl -0pi -e 's/<(header|footer|nav|aside)(?![^>]*data-nosnippet)(?=[\s>])/<$1 data-nosnippet/g'
 
       - name: Verification de la recherche et du glossaire
         run: |

@@ -356,8 +356,39 @@ def pager_html(pages, slug):
     return h + "</nav>"
 
 
+def section_nav_html(pages, slug):
+    """« Dans cette rubrique » : toutes les pages de la rubrique, la page lue mise en évidence (on ne se perd plus)."""
+    sec = section_of(slug)
+    if not sec:
+        return ""
+    order = [sec["hub"]] + sec["pages"]
+    if slug not in order:
+        return ""
+    i = order.index(slug)
+    lis = ""
+    for n, p in enumerate(order):
+        lab = pages[p].get("nav_label", pages[p]["title"]) if p != sec["hub"] else "Vue d'ensemble"
+        if p == slug:
+            lis += f'<li class="is-here"><span aria-current="page">{e(lab)}</span></li>'
+        else:
+            lis += f'<li><a href="{url(p)}">{e(lab)}</a></li>'
+    return (f'<nav class="rub-nav" aria-label="Pages de la rubrique {e(sec["label"])}"><p class="rub-nav-title">Rubrique {e(sec["label"])}'
+            f'<span>page {i + 1} sur {len(order)}</span></p><ol>{lis}</ol></nav>')
+
+
 def related_html(pages, meta):
-    rel = meta.get("related") or []
+    rel = list(meta.get("related") or [])
+    # Toujours au moins trois suggestions : on complète avec les pages voisines de la même rubrique.
+    sec = section_of(meta["slug"])
+    if sec and meta.get("kind") not in ("legal", "prive", "home") and len(rel) < 3:
+        order = [sec["hub"]] + sec["pages"]
+        if meta["slug"] in order:
+            i = order.index(meta["slug"])
+            for p in order[i + 1:] + order[:i]:
+                if len(rel) >= 3:
+                    break
+                if p not in rel and p != meta["slug"]:
+                    rel.append(p)
     if not rel:
         return ""
     cards = ""
@@ -585,6 +616,8 @@ def render(pages, meta):
     body = expand(meta["body"])
     if slug == "glossaire":
         body = recherche.prepare_glossary(body)
+    if slug == "faq":
+        body = recherche.prepare_faq(body)
     if "{{SITEMAP}}" in body:
         body = body.replace("{{SITEMAP}}", sitemap_html(pages))
     crumb, crumb_ld = crumbs(pages, meta)
@@ -597,7 +630,7 @@ def render(pages, meta):
         main = f'''<main id="contenu">
   {hero_html(pages, meta, crumb)}
   {body}
-  <section class="section"><div class="wrap">{related_html(pages, meta)}{pager_html(pages, slug)}</div></section>
+  <section class="section"><div class="wrap">{related_html(pages, meta)}{section_nav_html(pages, slug)}{pager_html(pages, slug)}</div></section>
   {cta_html(meta)}
 </main>'''
     else:
@@ -607,12 +640,12 @@ def render(pages, meta):
         layout = f'<div class="article-layout">{aside}<div class="article-body prose">{body}</div></div>' if toc else f'<div class="prose">{body}</div>'
         main = f'''<main id="contenu">
   {hero_html(pages, meta, crumb)}
-  <section class="section" style="padding-top:0"><div class="wrap">{layout}{related_html(pages, meta)}{pager_html(pages, slug)}</div></section>
+  <section class="section" style="padding-top:0"><div class="wrap">{layout}{related_html(pages, meta)}{section_nav_html(pages, slug)}{pager_html(pages, slug)}</div></section>
   {cta_html(meta)}
 </main>'''
     search_dialog = '''<dialog class="bp-search-dialog" id="bpSearchDialog" aria-labelledby="bpSearchTitle">
   <div class="bp-search-head"><div class="bp-search-heading"><h2 id="bpSearchTitle">Rechercher</h2><button class="icon-btn" id="bpSearchClose" aria-label="Fermer la recherche"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-  <label for="bpSearchInput">Un sujet, une question, un mot</label><input id="bpSearchInput" type="search" placeholder="Sommeil, fatigue, test, aide…" autocomplete="off" aria-controls="bpSearchResults"><p class="bp-search-status" id="bpSearchStatus" role="status" aria-live="polite">Écrivez au moins deux lettres.</p></div>
+  <label for="bpSearchInput">Posez votre question avec vos mots</label><input id="bpSearchInput" type="search" placeholder="Ex. : je crie sur mes enfants, sommeil, test…" autocomplete="off" spellcheck="false" enterkeyhint="search" aria-controls="bpSearchResults"><p class="bp-search-status" id="bpSearchStatus" role="status" aria-live="polite">Les réponses apparaissent dès les premières lettres, même avec une faute de frappe.</p></div>
   <div class="bp-search-results" id="bpSearchResults"></div>
 </dialog>'''
     out = head + "\n" + hdr + main + "\n" + footer_html(pages, meta) + "\n" + mobile_nav_html(pages, slug) + "\n" + a11y_panel() + "\n" + search_dialog + '\n<script src="assets/site.js?v=' + asset_v('site.js') + '" defer></script>\n<script src="/reseau/reseau.js" defer></script>\n<script src="assets/recherche-moteur.js?v=' + asset_v('recherche-moteur.js') + '" defer></script>\n<script src="assets/recherche.js?v=' + asset_v('recherche.js') + '" defer></script>\n<script src="/assets/mesure.js" defer></script>\n</body>\n</html>\n'

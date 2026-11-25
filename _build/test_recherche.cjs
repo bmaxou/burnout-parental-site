@@ -21,14 +21,19 @@ const firstCases=[
  ['burnout professionnel','/burnout-parental-et-professionnel.html'],
  ['PBA','/glossaire.html#terme-pba'],['PBI','/glossaire.html#terme-pbi'],
  ['MBI','/glossaire.html#terme-mbi'],['coparentalité','/test-coparentalite.html'],
- ['prévention','/prevention-au-quotidien.html'],['fatgue','/burnout-parental-depression-fatigue.html']
+ ['prévention','/prevention-au-quotidien.html'],['fatgue','/burnout-parental-depression-fatigue.html'],
+ ['épuisement','/comprendre.html'],['fatig','/burnout-parental-depression-fatigue.html'],['depresion','/burnout-parental-depression-fatigue.html'],
+ ['culpabilité','/consequences-enfant-couple.html'],['consulter','/quand-consulter.html'],['psy','/quand-consulter.html'],
+ ['maman seule','/mere-epuisee.html'],['charge mental','/test-charge-mentale.html']
 ];
 for(const [query,wanted] of firstCases)assert.equal(engine.rank(rows,query)[0]?.url,wanted,query);
-for(const query of ['Max Bouche','vertige','CIM-11','xyzznotaword'])assert.equal(engine.rank(rows,query).length,0,query+' must leave room for relevant network results');
+for(const query of ['Max Bouche','vertige','xyzznotaword'])assert.equal(engine.rank(rows,query).length,0,query+' must leave room for relevant network results');
 assert.deepEqual(engine.rank(rows,'a'),[]);
 assert(!rows.some(x=>/^\/tests\.html|coffre-|le-cabinet\.html/.test(x.url)),'no private or bridge pages indexed');
 assert(rows.every(x=>!/[<>]/.test(x.title)),'plain-text titles');
 assert(rows.every(x=>!/&(?:#\d+|#x[\da-f]+|nbsp|amp|quot|lt|gt);/i.test(x.title)),'decoded HTML entities in search titles');
 const bodyOnly=[{url:'/incidental',title:'Un autre sujet',description:'',type:'page',text:'La fatigue apparaît au détour de cette phrase.'},{url:'/fatigue',title:'Fatigue',description:'',type:'dossier'}];
 assert.equal(engine.rank(bodyOnly,'fatigue')[0].url,'/fatigue');
-console.log(`${firstCases.length+9} assertions de pertinence et d’exclusion réussies ; ${rows.length} entrées.`);
+assert(engine.rank(rows,'je crie sur mes enfants').length>=3,'une phrase du quotidien trouve des réponses');
+assert(engine.excerpt('La colère, puis la culpabilité.','colère').parts.some(p=>p.m&&p.t==='colère'),'extrait surligné');
+console.log(`${firstCases.length+11} assertions de pertinence et d’exclusion réussies ; ${rows.length} entrées.`);

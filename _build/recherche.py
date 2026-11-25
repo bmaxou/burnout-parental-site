@@ -64,13 +64,13 @@ def prepare_glossary(body):
 
 
 KEYWORDS = {
-    'comprendre': ['burn out', 'burnout', 'burn out parental', 'epuisement parental', 'guide', 'dossier burn out parental'],
+    'comprendre': ['burn out', 'burnout', 'burn out parental', 'epuisement parental', 'epuisement', 'epuise', 'epuisee', 'guide', 'dossier burn out parental'],
     'burnout-parental-definition': ['definition burn out', 'definition epuisement parental', 'qu est ce que le burnout'],
-    'signes-symptomes': ['symptomes', 'signes', 'irritabilite', 'colere', 'sommeil', 'je ne dors plus', 'insomnie', 'ruminations', 'je suis a bout', 'je craque'],
+    'signes-symptomes': ['symptomes', 'signes', 'irritabilite', 'colere', 'sommeil', 'je ne dors plus', 'insomnie', 'ruminations', 'je suis a bout', 'je craque', 'je n en peux plus', 'plus envie', 'je crie', 'crier sur mes enfants', 'vide', 'a bout'],
     'causes-facteurs-de-risque': ['causes', 'facteurs de risque', 'risques', 'pourquoi', 'ressources', 'balance'],
     'burnout-parental-depression-fatigue': ['depression', 'fatigue', 'difference', 'epuisement ou depression'],
     'burnout-parental-et-professionnel': ['burn out professionnel', 'epuisement professionnel', 'travail', 'double burn out'],
-    'consequences-enfant-couple': ['consequences', 'enfant', 'couple', 'distance emotionnelle', 'distanciation', 'conflits', 'disputes', 'culpabilite'],
+    'consequences-enfant-couple': ['consequences', 'enfant', 'couple', 'distance emotionnelle', 'distanciation', 'conflits', 'disputes', 'culpabilite', 'effets sur l enfant', 'mon enfant souffre'],
     'chiffres-cles': ['statistiques', 'chiffres', 'prevalence', 'frequence'],
     'auto-tests': ['test', 'tests', 'auto test', 'questionnaire', 'questionnaires'],
     'test-burnout-parental': ['test burn out', 'test burnout', 'test burnout parental', 'suis je en burn out', 'evaluer mon epuisement'],
@@ -89,9 +89,9 @@ KEYWORDS = {
     'teletravail-double-charge': ['teletravail', 'double charge', 'travail a domicile'],
     'aidants-epuisement': ['aidant', 'aidants', 'repit', 'parent aidant', 'aidant familial'],
     'accompagnement': ['accompagnement', 'aide', 'therapie', 'traitement', 'se faire aider'],
-    'quand-consulter': ['consulter', 'quand consulter', 'besoin aide'],
-    'deroule-accompagnement': ['seance', 'premier entretien', 'deroulement', 'comment se passe'],
-    'approches-therapeutiques': ['emdr', 'tcc', 'psychanalyse', 'psychotherapie', 'guidance parentale', 'therapies', 'methodes'],
+    'quand-consulter': ['consulter', 'quand consulter', 'besoin aide', 'besoin d aide', 'psy', 'voir un psy', 'faut il consulter', 'aide'],
+    'deroule-accompagnement': ['seance', 'premier entretien', 'deroulement', 'comment se passe', 'premier rendez vous', 'teleconsultation', 'combien de temps'],
+    'approches-therapeutiques': ['emdr', 'tcc', 'psychanalyse', 'psychotherapie', 'guidance parentale', 'therapies', 'methodes', 'ecoute analytique', 'therapie de couple', 'therapie familiale', 'traitement'],
     'proches-professionnels': ['proches', 'entourage', 'aider un parent', 'professionnels'],
     'prevention-au-quotidien': ['prevention', 'prevenir', 'recuperation', 'repos', 'relais'],
     'signaux-alerte-negligence-violence': ['violence', 'negligence', 'bebe secoue', 'secouement', 'signaux alerte'],
@@ -103,6 +103,17 @@ KEYWORDS = {
 }
 
 
+SECTIONS_EXCLUES = {'rel-title', 'toc-title'}
+
+
+def prepare_faq(body):
+    """Donne un identifiant stable à chaque question de la FAQ (lien direct depuis la recherche)."""
+    def rep(m):
+        q = plain(m.group(1))
+        return '<details id="q-' + norm(q)[:60].strip('-') + '"><summary>' + m.group(1)
+    return re.sub(r'<details><summary>(.*?)(?=<span class="pm">)', rep, body, flags=re.S)
+
+
 def write_catalogue(root, pages, outputs, private):
     rows = []
     for slug, meta in pages.items():
@@ -111,7 +122,23 @@ def write_catalogue(root, pages, outputs, private):
         rendered = outputs['index.html' if slug == 'index' else slug + '.html']
         main = re.search(r'<main\b[^>]*>(.*?)</main>', rendered, re.S)
         body = main.group(1) if main else ''
-        rows.append({'url': '/' if slug == 'index' else '/' + slug + '.html', 'title': plain(meta.get('h1', meta['title'])), 'description': meta['description'], 'keywords': KEYWORDS.get(slug, []), 'type': 'dossier' if meta.get('kind') in ('hub', 'home') else 'page', 'headings': ' '.join(plain(h) for h in re.findall(r'<h[23]\b[^>]*>(.*?)</h[23]>', body, re.S)), 'text': plain(body)[:18000]})
+        rows.append({'url': '/' if slug == 'index' else '/' + slug + '.html', 'title': plain(meta.get('h1', meta['title'])), 'description': meta['description'], 'keywords': KEYWORDS.get(slug, []), 'type': 'dossier' if meta.get('kind') in ('hub', 'home') else 'page', 'headings': ' '.join(plain(h) for h in re.findall(r'<h[23]\b[^>]*>(.*?)</h[23]>', body, re.S)), 'text': plain(body)[:6000]})
+        # Sections : chaque partie (h2) d'un article devient une entrée, pour mener le lecteur au bon passage.
+        if slug not in ('index',) and meta.get('kind') != 'hub':
+            parts = re.split(r'(<h2\b[^>]*>.*?</h2>)', body, flags=re.S)
+            for i in range(1, len(parts) - 1, 2):
+                hid = re.search(r'\bid="([^"]+)"', parts[i])
+                if not hid or hid.group(1) in SECTIONS_EXCLUES:
+                    continue
+                stitle = plain(parts[i])
+                stext = plain(parts[i + 1])
+                if len(stext) < 80:
+                    continue
+                rows.append({'url': ('/' + slug + '.html#' + hid.group(1)), 'title': stitle, 'page': plain(meta.get('h1', meta['title'])), 'type': 'section', 'text': stext[:5000]})
+        # Questions de la FAQ : chacune est une entrée directe.
+        if slug == 'faq':
+            for qid, question, answer in re.findall(r'<details id="(q-[^"]+|[^"]+)"[^>]*><summary>(.*?)<span class="pm"></span></summary><div class="answer">(.*?)</div></details>', body, re.S):
+                rows.append({'url': '/faq.html#' + qid, 'title': plain(question), 'page': 'Questions fréquentes', 'type': 'faq', 'description': plain(answer)[:260], 'text': plain(answer)[:3000]})
     # The appointment action already exists throughout the site; index it directly.
     rows.append({'url': '/#rdv', 'title': 'Prendre rendez-vous au cabinet', 'description': 'Choisir un rendez-vous au cabinet ou en téléconsultation.', 'keywords': ['rendez vous', 'rdv', 'prendre rdv', 'reservation', 'reserver', 'doctolib'], 'type': 'action'})
     gloss = outputs.get('glossaire.html', '')
@@ -122,6 +149,6 @@ def write_catalogue(root, pages, outputs, private):
             rows.append({'url': '/glossaire.html#' + anchor.group(1), 'title': plain(title), 'description': plain(definition), 'keywords': [html.unescape(terms.group(1))] if terms else [], 'type': 'glossaire'})
     assets = Path(root) / 'assets'
     (assets / 'index-recherche.json').write_text(json.dumps(rows, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
-    compact = [{k: row[k] for k in ('url', 'title', 'description', 'keywords', 'type')} for row in rows if row['type'] != 'action']
+    compact = [{k: row[k] for k in ('url', 'title', 'description', 'keywords', 'type')} for row in rows if row['type'] not in ('action', 'section', 'faq')]
     (assets / 'recherche-catalogue.json').write_text(json.dumps(compact, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     return rows

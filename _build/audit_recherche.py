@@ -42,7 +42,7 @@ for file in ROOT.glob('*.html'):
 rows = json.loads((ROOT / 'assets/index-recherche.json').read_text(encoding='utf-8'))
 compact = json.loads((ROOT / 'assets/recherche-catalogue.json').read_text(encoding='utf-8'))
 assert len({r['url'] for r in rows}) == len(rows)
-assert len(compact) == len(rows) - 1
+assert len(compact) == len([r for r in rows if r['type'] not in ('action', 'section', 'faq')])
 for row in rows:
     if row['type'] == 'action':
         continue

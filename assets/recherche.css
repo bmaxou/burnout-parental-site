@@ -26,3 +26,7 @@
 @media(min-width:640px){.bp-search-dialog{margin:8vh auto;max-height:84dvh}}
 @media(max-width:380px){.header-inner{gap:8px}.header-actions{gap:5px}.logo-mark{width:32px;height:32px}.logo-name{font-size:1rem}.logo-tagline{font-size:.62rem}.logo{gap:7px}}
 @media(prefers-reduced-motion:reduce){.bp-search-dialog *{scroll-behavior:auto!important}}
+.bp-search-result mark{background:color-mix(in srgb,var(--c-accent) 28%,transparent);color:inherit;border-radius:3px;padding:0 .12em}
+.bp-search-passage{display:block;margin-top:4px;font-size:.84rem;font-weight:600;color:var(--c-moss)}
+.bp-search-fix{justify-self:start;font:inherit;font-weight:650;padding:8px 14px;border-radius:999px;border:1px solid var(--c-accent);background:var(--c-surface-2);color:var(--c-ink);cursor:pointer}
+.bp-search-results .bp-search-help{font-size:.82rem;font-weight:650;text-transform:uppercase;letter-spacing:.06em}

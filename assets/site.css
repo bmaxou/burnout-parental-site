@@ -826,3 +826,14 @@ html.ds[data-motion="off"] .portal-hero::before,html.ds[data-motion="off"] .port
 @keyframes logoHead{0%,100%{fill:#9CC9A8}34%{fill:#F6FAF2}68%{fill:#3FB27B}}
 .logo-head{animation:logoHead 7s ease-in-out infinite;}
 @media (prefers-reduced-motion:reduce){.logo-head{animation:none;}}
+/* Dans cette rubrique : repère de lecture en fin d'article */
+.rub-nav{margin:clamp(32px,4vw,48px) 0 0;padding:20px 22px;border:1px solid var(--c-line);border-radius:16px;background:var(--c-surface)}
+.rub-nav-title{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:0 0 12px;font-weight:700;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--c-moss)}
+.rub-nav-title span{font-weight:600;letter-spacing:.02em;text-transform:none;color:var(--c-ink-faint)}
+.rub-nav ol{list-style:none;margin:0;padding:0;display:grid;gap:4px;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));counter-reset:rub}
+.rub-nav li{counter-increment:rub}
+.rub-nav li a,.rub-nav li span{display:flex;gap:10px;align-items:baseline;padding:8px 10px;border-radius:10px;text-decoration:none;color:var(--c-ink-soft);font-size:.92rem;line-height:1.35}
+.rub-nav li a::before,.rub-nav li span::before{content:counter(rub,decimal-leading-zero);font-size:.75rem;font-weight:700;color:var(--c-accent);min-width:1.6em}
+.rub-nav li a:hover,.rub-nav li a:focus-visible{background:var(--c-surface-2);color:var(--c-ink)}
+.rub-nav li.is-here span{background:var(--c-accent-soft);color:var(--c-ink);font-weight:650}
+@media print{.rub-nav{display:none}}

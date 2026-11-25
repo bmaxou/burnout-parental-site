@@ -4,12 +4,12 @@
  "description": "Auto-test en 20 questions sur les quatre dimensions du burn-out parental. Résultat immédiat, profil par dimension, rien n'est enregistré.",
  "h1": "Test : suis-je en burn-out parental&nbsp;?",
  "eyebrow": "Auto-test · Le test principal",
- "lead": "Vingt affirmations, cinq pour chacune des quatre dimensions décrites par la recherche. Répondez en pensant au dernier mois, spontanément. Le résultat affiche un score global et le profil de chaque dimension, avec un message adapté.",
+ "lead": "Vingt affirmations, cinq pour chacune des quatre dimensions du burn-out parental. Répondez en pensant au dernier mois, sans trop réfléchir : la première réponse est souvent la plus juste. Vous obtenez un score global, le profil de chaque dimension et une lecture de ce qui pèse le plus chez vous.",
  "nav_label": "Suis-je en burn-out parental ?",
  "kind": "article",
  "quiz": 5,
  "toc": false,
- "updated": "2026-10-22",
+ "updated": "2026-11-25",
  "related": [
   "test-risques-ressources",
   "quand-consulter",
@@ -21,7 +21,7 @@
 <div class="quiz" data-quiz id="q-bp" data-reveal>
   <div class="quiz-head">
     <h2>Le questionnaire</h2>
-    <p>Pour chaque phrase, indiquez à quelle fréquence elle a été vraie pour vous au cours du dernier mois.</p>
+    <p>Pour chaque phrase, indiquez à quelle fréquence elle a été vraie pour vous au cours du dernier mois. Si vous avez plusieurs enfants, pensez à l'ensemble de votre vie de parent.</p>
     {{DISCLAIMER}}
   </div>
   <script type="application/json">
@@ -56,16 +56,16 @@
     ],
     "result":{"type":"ring","sub":"score global","dimNoteMin":55,
       "dimNotes":{
-        "ep":"l'épuisement dans le rôle est au premier plan. Le premier levier est le répit réel, c'est-à-dire du temps sans responsabilité parentale, organisé plutôt qu'espéré.",
-        "co":"le sentiment de ne plus être le parent que vous étiez pèse lourd. C'est souvent la dimension la plus douloureuse, et celle qui répond le mieux au fait d'en parler.",
-        "pl":"le plaisir d'être avec vos enfants s'est perdu. Ce n'est pas un désamour : un réservoir vide ne produit plus de plaisir. Il se remplit à nouveau quand les charges baissent.",
-        "di":"une distance émotionnelle s'est installée. Elle vous protège à court terme ; c'est aussi ce que les enfants perçoivent le plus. Elle recule quand l'épuisement est pris en charge."
+        "ep":"l'épuisement dans le rôle est au premier plan. Une nuit de sommeil de plus ne suffit pas quand la fatigue vient du rôle lui-même. Le premier levier est un répit réel : des plages sans aucune responsabilité parentale, fixées à l'avance plutôt qu'espérées.",
+        "co":"l'écart avec le parent que vous étiez fait mal. C'est souvent la dimension la plus douloureuse, parce qu'elle touche l'image de soi et nourrit la honte. C'est aussi celle qui s'allège le plus vite quand on peut la déposer devant quelqu'un qui ne juge pas.",
+        "pl":"le plaisir d'être avec vos enfants s'est éteint. Ce n'est pas un désamour : un réservoir vide ne produit plus de plaisir. Il revient après le répit, rarement avant, et il est inutile de vous forcer à « profiter » en attendant.",
+        "di":"une distance émotionnelle s'est installée. Le psychisme se met en retrait pour tenir, c'est une protection et non un choix. Les enfants la perçoivent pourtant, d'où l'intérêt de ne pas la laisser durer : elle recule quand l'épuisement est pris en charge."
       },
       "levels":[
-        {"max":20,"label":"Niveau faible","title":"Vos réponses n'évoquent pas un burn-out parental","color":"var(--c-moss)","html":"<p>De la fatigue, peut-être, mais le plaisir, le lien et le sentiment d'être vous-même comme parent semblent préservés. Si une dimension ressort malgré tout, elle mérite un peu d'attention préventive.</p>"},
-        {"max":40,"label":"Signes légers","title":"Quelques signes, sans épuisement installé","color":"var(--c-moss)","html":"<p>Certaines phrases vous parlent, de temps en temps. C'est le moment de la prévention : regarder ce qui pèse, organiser du répit avant d'en avoir un besoin vital, et surveiller l'évolution sur quelques semaines.</p>"},
-        {"max":60,"label":"Signes modérés","title":"Vos réponses décrivent un épuisement parental probable","color":"var(--c-accent)","html":"<p>Plusieurs dimensions sont touchées de façon régulière. Ce n'est ni une faute ni une fatalité : c'est un déséquilibre entre ce que vous portez et ce dont vous disposez pour le porter. Prendre contact avec le cabinet est un réflexe utile, pas un aveu d'échec.</p>"},
-        {"max":100,"label":"Signes importants","title":"Vos réponses décrivent un épuisement parental important","color":"#C96A4A","html":"<p>Les quatre dimensions sont nettement présentes. Vous portez probablement beaucoup trop, depuis trop longtemps, et probablement seul·e. Consulter sans attendre est la décision la plus protectrice pour vous et pour vos enfants. Un premier rendez-vous permet de poser les choses, sans engagement.</p>"}
+        {"max":20,"label":"Niveau faible","title":"Vos réponses n'évoquent pas un burn-out parental","color":"var(--c-moss)","html":"<p>De la fatigue peut-être, mais le plaisir, le lien et le sentiment d'être vous-même comme parent tiennent. Si une dimension ressort malgré tout dans le profil, regardez-la de près : c'est souvent par elle que l'épuisement commence.</p>"},
+        {"max":40,"label":"Signes légers","title":"Quelques signes, sans épuisement installé","color":"var(--c-moss)","html":"<p>Certaines phrases vous parlent, de temps en temps. C'est le moment de la prévention : repérer ce qui pèse, organiser du répit avant d'en avoir un besoin vital, et refaire ce test dans quelques semaines pour voir dans quel sens les choses évoluent.</p>"},
+        {"max":60,"label":"Signes modérés","title":"Vos réponses décrivent un épuisement parental probable","color":"var(--c-accent)","html":"<p>Plusieurs dimensions sont touchées de façon régulière. Ce n'est ni une faute ni une fatalité : ce que vous portez dépasse depuis un moment ce dont vous disposez pour le porter. À ce stade, on reprend souvent de la marge assez vite quand on est accompagné, et prendre contact avec le cabinet n'a rien d'un aveu d'échec.</p>"},
+        {"max":100,"label":"Signes importants","title":"Vos réponses décrivent un épuisement parental important","color":"#C96A4A","html":"<p>Les quatre dimensions sont nettement présentes. Vous portez probablement beaucoup trop, depuis trop longtemps, et souvent seul·e. Consulter sans attendre est la décision la plus protectrice, pour vous comme pour vos enfants. Un premier rendez-vous sert à poser les choses et à décider ensemble de la suite, sans engagement.</p>"}
       ],
       "links":[{"href":"{{RDV}}","label":"Prendre rendez-vous","primary":true},{"href":"quand-consulter.html","label":"Quand consulter ?"},{"href":"test-risques-ressources.html","label":"Comprendre ma balance"}]}
   }
@@ -73,9 +73,26 @@
 </div>
 
 <h2>Comment lire votre résultat</h2>
-<p>Le score global situe l'intensité des signes ; le profil par dimension indique ce qui pèse le plus. Deux parents avec le même score peuvent avoir des profils très différents : l'un surtout épuisé, l'autre surtout distant. C'est le profil qui oriente le travail. Un score élevé sur une seule dimension mérite autant d'attention qu'un score moyen partout.</p>
+<p>Le score global situe l'intensité des signes. Le profil par dimension, lui, dit ce qui pèse le plus, et c'est lui qui oriente le travail. Deux parents au même score peuvent vivre des choses très différentes.</p>
+<p>Prenons deux situations fictives, composées à partir de ce que l'on entend souvent en consultation. Claire, mère de trois enfants, obtient un score moyen tiré surtout par l'épuisement : elle aime toujours ses moments avec eux, mais elle n'a plus de jus dès sept heures du matin. Pour elle, la priorité sera le répit et la redistribution des charges. Karim, père d'un garçon de six ans, a le même score, mais c'est la distance émotionnelle et le contraste qui dominent : « je fais tout ce qu'il faut, et je ne ressens plus rien ». Avec lui, le travail portera d'abord sur la honte et sur ce qui s'est éteint dans le lien. Même chiffre, deux chemins.</p>
+<p>Retenez aussi qu'un score élevé sur une seule dimension mérite autant d'attention qu'un score moyen partout. Pour comprendre en détail chacune des quatre dimensions, la page <a href="burnout-parental-definition.html">définition du burn-out parental</a> les décrit une à une.</p>
+
+<h2>Ce que chaque profil appelle</h2>
 <div class="fold-group">
-  <details class="fold"><summary>D'où viennent ces questions ?<span class="pm"></span></summary><div class="fold-body"><p>Elles ont été rédigées par le cabinet à partir des quatre dimensions décrites par Roskam, Brianda et Mikolajczak (2018), avec nos propres formulations : cinq questions par dimension, pour un score global et un profil qui montre ce qui pèse le plus.</p></div></details>
-  <details class="fold"><summary>Pourquoi la dernière question ?<span class="pm"></span></summary><div class="fold-body"><p>Les pensées de ne plus vouloir vivre ou de « ne plus être là » sont plus fréquentes chez les parents en burn-out qu'on ne le croit. Elles font peur et honte, et c'est précisément pour cela qu'il faut pouvoir les dire. Si vous avez répondu « parfois » ou plus, parlez-en au cabinet sans attendre.</p></div></details>
-  <details class="fold"><summary>Que faire ensuite ?<span class="pm"></span></summary><div class="fold-body"><p>Imprimer ou noter le résultat, puis le relire à tête reposée, éventuellement avec votre conjoint. S'il décrit une difficulté installée, la page <a href="quand-consulter.html">quand consulter</a> vous aide à décider. Le test <a href="test-risques-ressources.html">balance charges / ressources</a> complète celui-ci en montrant sur quoi agir.</p></div></details>
+  <details class="fold"><summary>Si l'épuisement domine<span class="pm"></span></summary><div class="fold-body"><p>C'est souvent la porte d'entrée. Le parent tient encore au lien, mais il fonctionne à crédit. Les week-ends ne réparent plus, les vacances non plus, parce que le rôle continue pendant le repos. Ce profil répond bien à des mesures concrètes et rapides : du relais prévu, une exigence abandonnée, des nuits protégées. Le test <a href="test-risques-ressources.html">balance charges / ressources</a> aide à repérer où agir en premier.</p></div></details>
+  <details class="fold"><summary>Si le contraste domine<span class="pm"></span></summary><div class="fold-body"><p>« Je ne me reconnais plus », « avant, j'étais patiente », « j'ai honte de ce que je deviens » : ces phrases reviennent sans cesse dans les premiers entretiens. Le contraste entre le parent d'avant et celui d'aujourd'hui touche à l'idéal et à la culpabilité, et c'est là qu'un travail d'écoute analytique trouve toute sa place : comprendre d'où vient l'image du « bon parent » qu'on s'impose, et pourquoi elle écrase. Le test <a href="test-perfectionnisme-parental.html">perfectionnisme parental</a> complète utilement ce profil.</p></div></details>
+  <details class="fold"><summary>Si la perte de plaisir domine<span class="pm"></span></summary><div class="fold-body"><p>Les parents qui consultent pour ce profil craignent souvent de ne plus aimer leur enfant. Ce n'est presque jamais le cas. Le plaisir est la première chose qui s'éteint quand les réserves sont vides, et l'une des dernières à revenir. Chercher à le provoquer à tout prix (« ce week-end, on va profiter ») produit souvent l'effet inverse. Mieux vaut d'abord alléger, puis réintroduire de petits moments sans objectif, courts, sans enjeu éducatif.</p></div></details>
+  <details class="fold"><summary>Si la distance émotionnelle domine<span class="pm"></span></summary><div class="fold-body"><p>C'est le profil qui inquiète le plus les parents, et celui que les enfants perçoivent le plus vite. La distance est une manière de tenir : on assure le nécessaire, on coupe le reste. Elle n'est ni de l'indifférence ni un trait de caractère, et elle n'est pas définitive. Elle demande toutefois de ne pas attendre, parce qu'un enfant qui sent son parent moins disponible ajuste son comportement en conséquence. La page <a href="consequences-enfant-couple.html">conséquences sur l'enfant et le couple</a> explique ce mécanisme.</p></div></details>
 </div>
+
+<h2>D'où viennent ces questions</h2>
+<p>Les vingt affirmations ont été rédigées par le cabinet à partir du modèle à quatre dimensions décrit en 2018 par l'équipe de l'Université de Louvain (Roskam, Brianda et Mikolajczak), avec nos propres formulations. L'instrument de référence de la recherche, le Parental Burnout Assessment, est présenté avec les autres échelles dans le <a href="tests.html">panorama des instruments de mesure</a>. Pour aller plus loin en lecture, l'ouvrage grand public des deux chercheuses, <em>Le burn-out parental : l'éviter et s'en sortir</em> (Odile Jacob, 2017), reste la meilleure introduction en français.</p>
+<div class="fold-group">
+  <details class="fold"><summary>Pourquoi la dernière question ?<span class="pm"></span></summary><div class="fold-body"><p>Les pensées de fuite, l'idée que les enfants seraient mieux sans soi ou l'envie de ne plus être là sont plus fréquentes chez les parents épuisés qu'on ne l'imagine. Une étude menée auprès de 1 551 parents (Mikolajczak, Brianda, Avalosse et Roskam, 2018, <em>Child Abuse &amp; Neglect</em>) a montré que le burn-out parental est lié de façon spécifique aux idées de fuite et aux idées suicidaires, davantage que le burn-out professionnel. Ces pensées font peur et honte, et c'est précisément pour cela qu'il faut pouvoir les dire. Si vous avez répondu « parfois » ou plus, parlez-en au cabinet sans attendre : ce sont des mots que nos cliniciens entendent et qu'ils savent accueillir.</p></div></details>
+  <details class="fold"><summary>Que faire de ce résultat ?<span class="pm"></span></summary><div class="fold-body"><p>Imprimez-le ou notez-le, puis relisez-le à tête reposée, si possible avec votre conjoint ou une personne de confiance. Vous pouvez l'apporter lors d'un premier rendez-vous : il donne un point de départ concret à l'entretien. S'il décrit une difficulté installée, la page <a href="quand-consulter.html">quand consulter</a> vous aide à décider, et la page <a href="deroule-accompagnement.html">déroulé d'un accompagnement</a> montre comment se passent les premières séances. Pour savoir sur quoi agir, faites ensuite le test <a href="test-risques-ressources.html">balance charges / ressources</a>.</p></div></details>
+</div>
+<details class="src-inline"><summary>Sources</summary>
+<ul><li>Roskam, I., Brianda, M.-E., &amp; Mikolajczak, M. (2018). A Step Forward in the Conceptualization and Measurement of Parental Burnout: The Parental Burnout Assessment (PBA). Frontiers in Psychology, 9:758.</li>
+<li>Mikolajczak, M., Brianda, M.-E., Avalosse, H., &amp; Roskam, I. (2018). Consequences of parental burnout: Its specific effect on child neglect and violence. Child Abuse &amp; Neglect, 80, 134-145.</li>
+<li>Mikolajczak, M., &amp; Roskam, I. (2017). Le burn-out parental : l'éviter et s'en sortir. Paris, Odile Jacob.</li></ul>
+</details>
